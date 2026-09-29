@@ -1,0 +1,13 @@
+{
+  "name": "appliedpsychometrics-website-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "check": "node check.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.11.3",
+    "playwright": "1.61.0"
+  }
+}

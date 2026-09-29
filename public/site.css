@@ -1,0 +1,1309 @@
+/* Applied Psychometrics — appliedpsychometrics.org
+   Built from the Claude Design canvas "Applied Psychometrics Webpage" (1440px desktop).
+   At 1200px and wider every value below matches the canvas; narrower widths are layered on in the
+   media queries at the end. Fonts are self-hosted (latin + latin-ext subsets, same files and
+   unicode ranges Google Fonts serves), so no request leaves this domain. */
+
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-mono-400-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-mono-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/ibm-plex-mono-500-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/ibm-plex-mono-500-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-sans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-sans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/ibm-plex-sans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/ibm-plex-sans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/ibm-plex-sans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/ibm-plex-sans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url(/fonts/instrument-serif-400-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url(/fonts/instrument-serif-400-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/instrument-serif-400-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/instrument-serif-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  color-scheme: light;
+  --ink: #14131a;
+  --text: #4a4a55;
+  --muted: #6e6e7a;
+  --line: #e8e7ed;
+  --wash: #f4f3f7;
+  --accent: #b4522a;
+  --violet: #6b4fa8;
+  --bar: linear-gradient(90deg, #e0785a 0%, #c77a9b 52%, #9b7ed8 100%);
+  --gutter: 40px;
+  /* Section side padding: keeps the content box at the canvas's 1120px and centres it. */
+  --pad-x: max(var(--gutter), calc((100% - 1120px) / 2));
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+
+.m {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.s {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+}
+
+/* Gradient text. The canvas used the `background: … text` shorthand, which Safari drops,
+   leaving the words transparent; the longhands with the -webkit- prefix work everywhere. */
+.grad {
+  background-image: linear-gradient(90deg, #e0785a 0%, #c77a9b 50%, #9b7ed8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---------- Motion (keyframes and timings as on the canvas) ---------- */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes march {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(2.1);
+  }
+}
+/* The canvas moved a 1px line by a fixed 640px; moving a box by its own height makes the same
+   80px-to-80px sweep at any hero height. */
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+@keyframes cellIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.34);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  84% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  96% {
+    opacity: 0;
+    transform: scale(0.34);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.34);
+  }
+}
+@keyframes sweepX {
+  0% {
+    transform: translateX(0px);
+    opacity: 0;
+  }
+  3% {
+    opacity: 0.55;
+  }
+  48% {
+    transform: translateX(574px);
+    opacity: 0.55;
+  }
+  58% {
+    transform: translateX(574px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(574px);
+    opacity: 0;
+  }
+}
+/* Same sweep across the narrower grid of the phone diagram (187px wide instead of 574px). */
+@keyframes sweepXm {
+  0% {
+    transform: translateX(0px);
+    opacity: 0;
+  }
+  3% {
+    opacity: 0.55;
+  }
+  48% {
+    transform: translateX(187px);
+    opacity: 0.55;
+  }
+  58% {
+    transform: translateX(187px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(187px);
+    opacity: 0;
+  }
+}
+@keyframes ingest {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+@keyframes nodeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes edgeIn {
+  0% {
+    stroke-dashoffset: 320;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes labelIn {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nd {
+  animation: nodeIn 0.85s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.eg {
+  animation: edgeIn 1.05s cubic-bezier(0.25, 0.8, 0.3, 1) both;
+}
+.lbl {
+  animation: labelIn 0.8s ease both;
+}
+.cell {
+  animation: cellIn 9s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.sweepx {
+  animation: sweepX 9s linear infinite;
+}
+.ingest {
+  animation: ingest 2.4s ease-in-out infinite;
+}
+.up {
+  animation: fadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.r {
+  animation: fadeUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.fi {
+  animation: fadeIn 1.6s ease both;
+}
+.d1 {
+  animation-delay: 0.08s;
+}
+.d2 {
+  animation-delay: 0.18s;
+}
+.d3 {
+  animation-delay: 0.3s;
+}
+.d4 {
+  animation-delay: 0.44s;
+}
+.flow {
+  animation: march 1.9s linear infinite;
+}
+.pulse {
+  animation: pulse 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.bar {
+  animation: grow 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: 0.7s;
+}
+
+/* One-shot animations wait until their block scrolls into view (the canvas started them all at
+   load, so the ones further down had finished before anyone saw them). `js` and `in` are set by
+   the inline script in the page head; without it everything plays at load, as on the canvas. */
+.js [data-reveal]:not(.in) :is(.up, .r, .fi, .bar, .nd, .eg, .lbl, .cell, .sweepx) {
+  animation-play-state: paused;
+}
+
+/* ---------- Hover (the canvas declared these, but its inline styles overrode most of them) ---------- */
+
+.chip {
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s ease, color 0.3s ease;
+}
+.panel {
+  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.btn {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, filter 0.25s ease;
+}
+.btn .ar {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.btn:focus-visible .ar {
+  transform: translateX(5px);
+}
+.wipe {
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.wipe:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .panel:hover {
+    border-color: #c9b7e4;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(20, 19, 26, 0.06);
+  }
+  .btn:hover .ar {
+    transform: translateX(5px);
+  }
+  .solid:hover {
+    filter: brightness(1.12);
+    box-shadow: 0 8px 26px rgba(155, 126, 216, 0.34);
+  }
+  .ghost:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .wipe:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* ---------- Shared pieces ---------- */
+
+.sec {
+  box-sizing: border-box;
+  padding: 88px var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rule-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rule-label > .m {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.rule-label > .rl {
+  flex-grow: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.btn {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  padding: 15px 26px;
+}
+.solid {
+  color: #ffffff;
+  background: linear-gradient(var(--ink), var(--ink)) padding-box, var(--bar) border-box;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(155, 126, 216, 0.22);
+}
+.solid:hover {
+  color: #ffffff;
+}
+.ghost {
+  color: var(--text);
+  border: 1px solid #d9d7e0;
+  border-radius: 2px;
+}
+
+.track {
+  height: 6px;
+  background: #edecf2;
+  overflow: hidden;
+}
+.track > .bar {
+  height: 6px;
+  background: var(--bar);
+}
+
+.quote {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ink);
+  border-left: 2px solid var(--violet);
+  padding-left: 18px;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  height: 76px;
+  box-sizing: border-box;
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+}
+.brand > span {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  min-height: 800px;
+  box-sizing: border-box;
+  padding: 72px var(--pad-x);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--wash);
+  background-image: radial-gradient(
+      820px 560px at calc(50% + 403.2px) 42%,
+      rgba(224, 120, 90, 0.1) 0%,
+      rgba(155, 126, 216, 0.1) 55%,
+      rgba(244, 243, 247, 0) 78%
+    ),
+    linear-gradient(#eae8f0 1px, transparent 1px), linear-gradient(90deg, #eae8f0 1px, transparent 1px);
+  background-size: auto, 40px 40px, 40px 40px;
+  /* Grid lines stay on the content edge at every width, as they are at 1440px. */
+  background-position: 0 0, 0 0, calc(50% - 540px) 0;
+}
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80px;
+  height: calc(100% - 160px);
+  pointer-events: none;
+  animation: scan 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.scan::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(160, 84, 74, 0) 0%, var(--accent) 45%, rgba(160, 84, 74, 0) 100%);
+}
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  height: 656px;
+}
+.hero-copy {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  margin: 0;
+}
+.hero h1 {
+  margin: 26px 0 0 0;
+  font-size: 104px;
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.lede {
+  margin: 26px 0 0 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 560px;
+  text-wrap: pretty;
+}
+.hero .btn-row {
+  margin-top: 38px;
+}
+.hero-graph {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-graph svg {
+  flex-shrink: 0;
+}
+
+/* ---------- Values strip ---------- */
+
+.values {
+  min-height: 108px;
+  box-sizing: border-box;
+  padding: 0 var(--pad-x);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--wash);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  margin: 0;
+  list-style: none;
+}
+.values > li {
+  padding: 0 28px;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: center;
+}
+.values > li + li {
+  border-left: 1px solid var(--line);
+}
+.values .m {
+  font-size: 10px;
+  color: var(--accent);
+}
+.values .v {
+  font-size: 14.5px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Vision ---------- */
+
+.vision {
+  min-height: 520px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff 0%, var(--wash) 100%);
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+.vision > .m {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+.vision h2 {
+  margin: 0;
+  font-size: 62px;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  max-width: 960px;
+}
+.vision p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 760px;
+}
+.vision .btn-row {
+  margin-top: 8px;
+}
+
+/* ---------- Strategic intent ---------- */
+
+.thesis {
+  min-height: 660px;
+  gap: 36px;
+}
+.thesis h2 {
+  margin: 0;
+  font-size: 52px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  max-width: 940px;
+}
+.thesis h2 em {
+  color: var(--accent);
+}
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 8px;
+}
+.pillars h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.pillars p {
+  margin: 16px 0 0 0;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--text);
+}
+.pillars .track {
+  margin-top: 18px;
+  border-radius: 1px;
+}
+.pillars .track > .bar {
+  width: 72%;
+}
+.scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.thesis .quote {
+  margin-top: 8px;
+  line-height: 1.6;
+  max-width: 860px;
+}
+
+/* ---------- The loop ---------- */
+
+.loop {
+  min-height: 700px;
+  border-top: 1px solid var(--line);
+  background: var(--wash);
+  gap: 34px;
+}
+.loop-lead {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1.34;
+  color: var(--ink);
+  max-width: 1060px;
+}
+.loop-h {
+  width: 100%;
+  height: auto;
+}
+.loop-v,
+.loop-cap {
+  display: none;
+}
+
+/* ---------- Instrument library ---------- */
+
+.library {
+  min-height: 648px;
+  /* The canvas fixes this section at 648px although its content is 541px tall, so the content
+     spills 35px into the top and bottom padding. Kept on wide screens to match it exactly. */
+}
+@media (min-width: 1200px) {
+  .library {
+    height: 648px;
+  }
+}
+.library {
+  border-top: 1px solid var(--line);
+  background: var(--wash);
+  gap: 28px;
+}
+.library h2 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.14;
+  color: var(--ink);
+  max-width: 820px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.card {
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.card .code {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.card h3 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--ink);
+  min-height: 2.2em;
+}
+.card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.card .meta {
+  display: flex;
+  gap: 10px;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.card .scale {
+  margin-top: 6px;
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+}
+.card--violet .code {
+  color: var(--violet);
+}
+.card--violet .bar {
+  background: linear-gradient(90deg, #c77a9b 0%, #9b7ed8 100%);
+}
+.chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chips-label {
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-right: 6px;
+}
+.chip {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  border: 1px solid #d9d7e0;
+  padding: 9px 14px;
+  border-radius: 2px;
+  background: #ffffff;
+}
+.chip--target {
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  background: transparent;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  max-width: 980px;
+}
+.two-col p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ---------- The psychograph ---------- */
+
+.graph {
+  min-height: 780px;
+  border-top: 1px solid var(--line);
+  background: radial-gradient(
+      880px 540px at calc(50% - 489.6px) 28%,
+      rgba(224, 120, 90, 0.16) 0%,
+      rgba(224, 120, 90, 0) 62%
+    ),
+    radial-gradient(760px 520px at calc(50% + 547.2px) 76%, rgba(155, 126, 216, 0.18) 0%, rgba(155, 126, 216, 0) 62%),
+    linear-gradient(160deg, #1a1822 0%, #14131a 60%, #131019 100%);
+  gap: 28px;
+}
+.graph .rule-label > .m {
+  color: #a9a5b5;
+}
+.graph .rule-label > .rl {
+  background: #35323f;
+}
+.graph h2 {
+  margin: 0;
+  font-size: 46px;
+  line-height: 1.1;
+  color: #ffffff;
+}
+.graph-h {
+  width: 100%;
+  height: auto;
+}
+.graph-v {
+  display: none;
+}
+.graph-v .sweepx {
+  animation-name: sweepXm;
+}
+.graph-note {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: #c9c6d4;
+  max-width: 620px;
+  height: 96px;
+}
+
+/* ---------- Hubs ---------- */
+
+.hubs {
+  min-height: 700px;
+  gap: 32px;
+}
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+.hub {
+  border: 1px solid var(--line);
+  background: var(--wash);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.hub-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hub-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hub-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #f0d7ce;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hub--violet .hub-icon {
+  border-color: #ddd2f0;
+}
+.hub h3 {
+  margin: 0;
+  font-size: 32px;
+  color: var(--ink);
+}
+.hub-head > .m {
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.hub-rule {
+  height: 1px;
+  background: var(--line);
+}
+.hub ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.hub li {
+  display: flex;
+  gap: 12px;
+  font-size: 14.5px;
+  color: var(--text);
+}
+.hub .dash {
+  font-size: 11px;
+  color: var(--accent);
+}
+.hub--violet .dash {
+  color: var(--violet);
+}
+.hubs .quote {
+  border-left-color: var(--accent);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  min-height: 196px;
+  box-sizing: border-box;
+  padding: 44px var(--pad-x);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.foot-id {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.foot-id .brand {
+  align-self: flex-start;
+}
+.foot-id .brand > span {
+  font-size: 11.5px;
+  font-weight: 400;
+}
+.foot-id > .m,
+.foot-note {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.foot-id a {
+  color: inherit;
+}
+.foot-id a:hover {
+  color: var(--ink);
+}
+.foot-id address {
+  font-style: normal;
+}
+.foot-right {
+  display: flex;
+  gap: 56px;
+}
+.foot-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 243px;
+}
+.foot-links a {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+.foot-links a:hover {
+  color: var(--text);
+}
+.foot-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+}
+
+/* ---------- Legal pages and 404 ---------- */
+
+.doc {
+  box-sizing: border-box;
+  padding: 88px var(--pad-x) 104px;
+  min-height: calc(100vh - 76px - 196px);
+}
+.doc > * {
+  max-width: 720px;
+}
+.doc > .m {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.doc h1 {
+  margin: 20px 0 40px;
+  font-size: 56px;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.doc h2 {
+  margin: 40px 0 12px;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.doc p,
+.doc li {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.doc p {
+  margin: 0 0 14px;
+}
+.doc ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.doc a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.doc .btn-row {
+  margin-top: 36px;
+}
+.doc .btn {
+  text-decoration: none;
+}
+
+/* ---------- Reduced motion and print: show every final state, keep nothing moving ---------- */
+
+@media (prefers-reduced-motion: reduce), print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Edges are drawn by animating their dash offset from 320 to 0; without the animation they
+     would stay hidden. */
+  .eg {
+    stroke-dashoffset: 0;
+  }
+  .scan,
+  .sweepx {
+    display: none;
+  }
+}
+
+/* ---------- Narrower than the canvas ---------- */
+
+@media (max-width: 1199px) {
+  .hero h1 {
+    font-size: clamp(72px, 8.6vw, 104px);
+  }
+  .hero-graph {
+    width: min(420px, 36vw);
+  }
+  .hero-graph svg {
+    width: 100%;
+    height: auto;
+    flex-shrink: 1;
+  }
+  .hero-inner {
+    gap: 56px;
+  }
+  .graph-note {
+    height: auto;
+  }
+}
+
+@media (max-width: 1139px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Titles wrap unevenly here, so line each card's rows up with its neighbour's instead of
+     reserving two title lines as the four-column layout does. */
+  .card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    row-gap: 13px;
+  }
+  .card h3 {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    min-height: 0;
+    padding-top: 64px;
+    padding-bottom: 72px;
+    background-image: radial-gradient(
+        640px 560px at 50% 78%,
+        rgba(224, 120, 90, 0.1) 0%,
+        rgba(155, 126, 216, 0.1) 55%,
+        rgba(244, 243, 247, 0) 78%
+      ),
+      linear-gradient(#eae8f0 1px, transparent 1px), linear-gradient(90deg, #eae8f0 1px, transparent 1px);
+  }
+  .hero-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 48px;
+    height: auto;
+  }
+  .hero-copy {
+    width: auto;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 11.5vw, 88px);
+  }
+  .hero-graph {
+    width: min(420px, 100%);
+    align-self: center;
+  }
+
+  .values {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .values > li {
+    justify-content: flex-start;
+    padding: 18px 0;
+  }
+  .values > li + li {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .sec {
+    min-height: 0;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .vision h2 {
+    font-size: clamp(40px, 6.4vw, 62px);
+  }
+  .thesis h2 {
+    font-size: clamp(34px, 5.4vw, 52px);
+  }
+  .loop-lead {
+    font-size: clamp(22px, 3.3vw, 31px);
+  }
+  .library h2 {
+    font-size: clamp(30px, 4.4vw, 40px);
+  }
+  .graph h2 {
+    font-size: clamp(34px, 5vw, 46px);
+  }
+
+  .loop-h,
+  .graph-h {
+    display: none;
+  }
+  .loop-v {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+  .loop-cap {
+    display: block;
+    margin: -14px 0 0;
+    font-size: 9.5px;
+    letter-spacing: 0.17em;
+    line-height: 1.8;
+    color: var(--violet);
+    max-width: 400px;
+  }
+  .graph-v {
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+  }
+  .graph {
+    background: radial-gradient(640px 520px at 10% 20%, rgba(224, 120, 90, 0.16) 0%, rgba(224, 120, 90, 0) 62%),
+      radial-gradient(600px 520px at 90% 85%, rgba(155, 126, 216, 0.18) 0%, rgba(155, 126, 216, 0) 62%),
+      linear-gradient(160deg, #1a1822 0%, #14131a 60%, #131019 100%);
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 32px;
+    min-height: 0;
+    padding-bottom: 56px;
+  }
+  .foot-right {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .foot-notes {
+    text-align: left;
+  }
+  .foot-links {
+    gap: 2px;
+  }
+  .foot-links a {
+    padding: 6px 0;
+    background-origin: content-box;
+    background-clip: content-box;
+  }
+}
+
+@media (max-width: 899px) {
+  .pillars,
+  .hub-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 20px;
+  }
+  .site-header {
+    height: 64px;
+  }
+  .sec {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .lede {
+    font-size: 17px;
+  }
+  .thesis {
+    gap: 28px;
+  }
+  .loop {
+    gap: 28px;
+  }
+  .two-col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .hub {
+    padding: 26px 22px;
+  }
+  .hub h3 {
+    font-size: 28px;
+  }
+  .doc {
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+  .doc h1 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 599px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .card .scale {
+    font-size: 8.5px;
+  }
+  .hero-graph text {
+    font-size: 10.5px;
+  }
+  .hero .btn-row,
+  .vision .btn-row,
+  .doc .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .hero .btn-row,
+  .vision .btn-row {
+    align-self: stretch;
+  }
+}

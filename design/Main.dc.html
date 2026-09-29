@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FFFFFF; color: #14131A; font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #B4522A; text-decoration: none; }
+    a:hover { color: #14131A; }
+    .m { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .s { font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; font-weight: 400; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
+    @keyframes fadeIn { from { opacity: 0; } }
+    @keyframes drawIn { to { stroke-dashoffset: 0; } }
+    @keyframes march { to { stroke-dashoffset: -40; } }
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.85; transform: scale(1); } 50% { opacity: 0.25; transform: scale(2.1); } }
+    @keyframes scan { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.5; } 90% { opacity: 0.5; } 100% { transform: translateY(640px); opacity: 0; } }
+    @keyframes grow { from { width: 0; } }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+    @keyframes cellIn { 0% { opacity: 0; transform: scale(0.34); } 5% { opacity: 1; transform: scale(1); } 84% { opacity: 1; transform: scale(1); } 96% { opacity: 0; transform: scale(0.34); } 100% { opacity: 0; transform: scale(0.34); } }
+    @keyframes sweepX { 0% { transform: translateX(0px); opacity: 0; } 3% { opacity: 0.55; } 48% { transform: translateX(574px); opacity: 0.55; } 58% { transform: translateX(574px); opacity: 0; } 100% { transform: translateX(574px); opacity: 0; } }
+    @keyframes ingest { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+    @keyframes nodeIn { 0% { opacity: 0; transform: scale(0.1); } 55% { opacity: 1; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes edgeIn { 0% { stroke-dashoffset: 320; opacity: 0; } 12% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+    @keyframes labelIn { 0% { opacity: 0; transform: translateY(3px); } 100% { opacity: 1; transform: translateY(0); } }
+    .nd { animation: nodeIn 0.85s cubic-bezier(0.2, 0.9, 0.3, 1) both; transform-box: fill-box; transform-origin: center; }
+    .eg { animation: edgeIn 1.05s cubic-bezier(0.25, 0.8, 0.3, 1) both; }
+    .lbl { animation: labelIn 0.8s ease both; }
+    .cell { animation: cellIn 9s linear infinite; transform-box: fill-box; transform-origin: center; }
+    .sweepx { animation: sweepX 9s linear infinite; }
+    .ingest { animation: ingest 2.4s ease-in-out infinite; }
+    .up { animation: fadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .r { animation: fadeUp 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .fi { animation: fadeIn 1.6s ease both; }
+    .d1 { animation-delay: 0.08s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.3s; }
+    .d4 { animation-delay: 0.44s; }
+    .d5 { animation-delay: 0.6s; }
+    .d6 { animation-delay: 0.76s; }
+    .draw { animation: drawIn 2.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .flow { animation: march 1.9s linear infinite; }
+    .caret { animation: blink 1.15s steps(1, end) infinite; }
+    .sweep { animation: spin 18s linear infinite; transform-origin: 230px 230px; }
+    .pulse { animation: pulse 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .scan { animation: scan 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+    .bar { animation: grow 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: 0.7s; }
+    .row { transition: background-color 0.28s ease, box-shadow 0.28s ease; }
+    .row:hover { background-color: #F4F3F7; box-shadow: inset 3px 0 0 #B4522A; }
+    .chip { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s ease, color 0.3s ease; }
+    .chip:hover { transform: translateY(-3px); border-color: #B4522A; color: #B4522A; }
+    .panel { transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .panel:hover { border-color: #C9B7E4; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(20, 19, 26, 0.06); }
+    .btn { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+    .btn .ar { display: inline-block; transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .btn:hover .ar { transform: translateX(5px); }
+    .solid:hover { filter: brightness(1.12); box-shadow: 0 8px 26px rgba(155, 126, 216, 0.34); }
+    .ghost:hover { border-color: #14131A; color: #14131A; }
+    .wipe { background-image: linear-gradient(#14131A, #14131A); background-repeat: no-repeat; background-position: 0 100%; background-size: 0 1px; transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .wipe:hover { background-size: 100% 1px; }
+    .tick { transition: transform 0.3s ease, background-color 0.3s ease; }
+    .watch:hover .tick { transform: scaleX(1.6); background-color: #6B4FA8; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</helmet>
+
+<div style="width: 1440px; height: 8000px; box-sizing: border-box; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden;">
+
+  <!-- NAV -->
+  <header style="height: 76px; box-sizing: border-box; padding: 0 160px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E8E7ED; background: #FFFFFF;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <circle cx="9" cy="9" r="8" fill="none" stroke="#14131A" stroke-width="1"></circle>
+        <circle cx="9" cy="9" r="3.4" fill="none" stroke="{{accent}}" stroke-width="1"></circle>
+        <circle cx="9" cy="9" r="1.3" fill="{{accent}}" class="pulse"></circle>
+      </svg>
+      <span class="m" style="font-size: 12px; letter-spacing: 0.16em; font-weight: 500;">APPLIED PSYCHOMETRICS</span>
+    </div>
+    
+  </header>
+
+  <!-- HERO -->
+  <section style="height: 800px; box-sizing: border-box; padding: 72px 160px; position: relative; overflow: hidden; background-color: #F4F3F7; background-image: radial-gradient(820px 560px at 78% 42%, rgba(224, 120, 90, 0.10) 0%, rgba(155, 126, 216, 0.10) 55%, rgba(244, 243, 247, 0) 78%), linear-gradient(#EAE8F0 1px, transparent 1px), linear-gradient(90deg, #EAE8F0 1px, transparent 1px); background-size: auto, 40px 40px, 40px 40px;">
+    <div class="scan" style="position: absolute; left: 0; top: 80px; width: 1440px; height: 1px; background: linear-gradient(90deg, rgba(160,84,74,0) 0%, #B4522A 45%, rgba(160,84,74,0) 100%);"></div>
+    <div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 80px; height: 656px;">
+
+      <div style="width: 640px; display: flex; flex-direction: column; align-items: flex-start; gap: 0;">
+        <div class="up d1 m" style="font-size: 11px; letter-spacing: 0.22em; color: #6E6E7A; display: flex; align-items: center; gap: 10px;"><span><b>Serving humans to thrive, by</b></span>
+        </div>
+        <h1 class="up d2 s" style="margin: 26px 0 0 0; font-size: 104px; line-height: 0.94; letter-spacing: -0.02em; color: #14131A;">Mapping the<br><span style="background: linear-gradient(90deg, rgb(224, 120, 90) 0%, rgb(199, 122, 155) 50%, rgb(155, 126, 216) 100%) text; color: transparent">human psyche.</span></h1>
+        
+        <p class="up d3" style="margin: 26px 0 0 0; font-size: 18px; line-height: 1.6; color: #4A4A55; max-width: 560px; text-wrap: pretty;"><b>We make self-understanding mainstream</b> by taking a person from “something is off” to a named problem, an intervention most likely to work, and proof that it did.</p>
+        <div class="up d4" style="display: flex; align-items: center; gap: 14px; margin-top: 38px;">
+          <a class="m btn solid" href="#thesis" style="font-size: 12px; letter-spacing: 0.12em; color: #FFFFFF; background: linear-gradient(#14131A, #14131A) padding-box, linear-gradient(90deg, #E0785A 0%, #C77A9B 52%, #9B7ED8 100%) border-box; border: 1.5px solid transparent; padding: 15px 26px; border-radius: 10px; box-shadow: 0 6px 22px rgba(155, 126, 216, 0.22);">READ THE THESIS <span class="ar">→</span></a>
+          <a class="m btn ghost" href="https://loveiq.org" style="font-size: 12px; letter-spacing: 0.12em; color: #4A4A55; border: 1px solid #D9D7E0; padding: 15px 26px; border-radius: 2px;">SEE THE CONSUMER BRAND <span class="ar">→</span></a>
+        </div>
+      </div>
+
+      <div class="fi d2" style="width: 420px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+        <svg width="420" height="420" viewBox="0 0 460 460" role="img" aria-label="An illustrative psychograph drawn as a network: psychometric traits appear as nodes and links form between them, the graph growing outward from a dense core of measured dimensions to the periphery">
+
+          <g stroke-width="1.1" stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320" fill="none" stroke="rgba(224, 120, 90, 0.55)">
+            <line class="eg" x1="230" y1="222" x2="176" y2="186" style="animation-delay: 1s;"></line>
+            <line class="eg" x1="230" y1="222" x2="188" y2="268" style="animation-delay: 0.9s;"></line>
+            <line class="eg" x1="176" y1="186" x2="286" y2="198" style="animation-delay: 1.4s;"></line>
+            <line class="eg" x1="188" y1="268" x2="176" y2="186" style="animation-delay: 1.4s;"></line>
+            <line class="eg" x1="176" y1="186" x2="140" y2="140" style="animation-delay: 2.85s;"></line>
+            <line class="eg" x1="176" y1="186" x2="212" y2="132" style="animation-delay: 1.65s;"></line>
+            <line class="eg" x1="176" y1="186" x2="112" y2="224" style="animation-delay: 2.7s;"></line>
+            <line class="eg" x1="188" y1="268" x2="140" y2="300" style="animation-delay: 2.55s;"></line>
+            <line class="eg" x1="188" y1="268" x2="112" y2="224" style="animation-delay: 2.7s;"></line>
+            <line class="eg" x1="188" y1="268" x2="214" y2="330" style="animation-delay: 2.4s;"></line>
+            <line class="eg" x1="140" y1="140" x2="212" y2="132" style="animation-delay: 3.25s;"></line>
+            <line class="eg" x1="140" y1="300" x2="112" y2="224" style="animation-delay: 3.1s;"></line>
+            <line class="eg" x1="140" y1="140" x2="78" y2="104" style="animation-delay: 4.95s;"></line>
+            <line class="eg" x1="140" y1="140" x2="64" y2="164" style="animation-delay: 4.8s;"></line>
+            <line class="eg" x1="212" y1="132" x2="166" y2="72" style="animation-delay: 5.1s;"></line>
+            <line class="eg" x1="212" y1="132" x2="256" y2="60" style="animation-delay: 3.45s;"></line>
+            <line class="eg" x1="140" y1="300" x2="98" y2="362" style="animation-delay: 4.5s;"></line>
+            <line class="eg" x1="140" y1="300" x2="196" y2="396" style="animation-delay: 4.35s;"></line>
+            <line class="eg" x1="112" y1="224" x2="60" y2="282" style="animation-delay: 4.65s;"></line>
+            <line class="eg" x1="112" y1="224" x2="64" y2="164" style="animation-delay: 4.8s;"></line>
+          </g>
+
+          <g stroke-width="1.1" stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320" fill="none" stroke="rgba(155, 126, 216, 0.55)">
+            <line class="eg" x1="230" y1="222" x2="286" y2="198" style="animation-delay: 0.7s;"></line>
+            <line class="eg" x1="286" y1="198" x2="248" y2="276" style="animation-delay: 1.2s;"></line>
+            <line class="eg" x1="230" y1="222" x2="256" y2="158" style="animation-delay: 0.6s;"></line>
+            <line class="eg" x1="230" y1="222" x2="330" y2="262" style="animation-delay: 2.1s;"></line>
+            <line class="eg" x1="286" y1="198" x2="300" y2="132" style="animation-delay: 1.8s;"></line>
+            <line class="eg" x1="286" y1="198" x2="338" y2="196" style="animation-delay: 1.95s;"></line>
+            <line class="eg" x1="286" y1="198" x2="256" y2="158" style="animation-delay: 1.1s;"></line>
+            <line class="eg" x1="286" y1="198" x2="212" y2="132" style="animation-delay: 1.65s;"></line>
+            <line class="eg" x1="212" y1="132" x2="256" y2="158" style="animation-delay: 1.65s;"></line>
+            <line class="eg" x1="338" y1="196" x2="330" y2="262" style="animation-delay: 2.5s;"></line>
+            <line class="eg" x1="300" y1="132" x2="256" y2="60" style="animation-delay: 3.45s;"></line>
+            <line class="eg" x1="300" y1="132" x2="352" y2="88" style="animation-delay: 3.6s;"></line>
+            <line class="eg" x1="338" y1="196" x2="352" y2="88" style="animation-delay: 3.6s;"></line>
+            <line class="eg" x1="338" y1="196" x2="404" y2="166" style="animation-delay: 3.75s;"></line>
+            <line class="eg" x1="330" y1="262" x2="408" y2="248" style="animation-delay: 3.9s;"></line>
+            <line class="eg" x1="330" y1="262" x2="366" y2="330" style="animation-delay: 4.05s;"></line>
+            <line class="eg" x1="256" y1="158" x2="256" y2="60" style="animation-delay: 3.45s;"></line>
+          </g>
+
+          <g stroke-width="1.1" stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320" fill="none" stroke="rgba(199, 122, 155, 0.5)">
+            <line class="eg" x1="230" y1="222" x2="248" y2="276" style="animation-delay: 0.8s;"></line>
+            <line class="eg" x1="248" y1="276" x2="188" y2="268" style="animation-delay: 1.3s;"></line>
+            <line class="eg" x1="248" y1="276" x2="330" y2="262" style="animation-delay: 2.1s;"></line>
+            <line class="eg" x1="248" y1="276" x2="286" y2="318" style="animation-delay: 2.25s;"></line>
+            <line class="eg" x1="248" y1="276" x2="214" y2="330" style="animation-delay: 2.4s;"></line>
+            <line class="eg" x1="230" y1="222" x2="214" y2="330" style="animation-delay: 2.4s;"></line>
+            <line class="eg" x1="286" y1="318" x2="214" y2="330" style="animation-delay: 2.8s;"></line>
+            <line class="eg" x1="286" y1="318" x2="366" y2="330" style="animation-delay: 4.05s;"></line>
+            <line class="eg" x1="286" y1="318" x2="300" y2="386" style="animation-delay: 4.2s;"></line>
+            <line class="eg" x1="214" y1="330" x2="300" y2="386" style="animation-delay: 4.2s;"></line>
+            <line class="eg" x1="214" y1="330" x2="196" y2="396" style="animation-delay: 4.35s;"></line>
+          </g>
+
+          <g fill="#E0785A" opacity="0.16">
+            <circle class="pulse" cx="230" cy="222" r="9" style="animation-delay: 0s;"></circle>
+            <circle class="pulse" cx="176" cy="186" r="7" style="animation-delay: 1.4s;"></circle>
+          </g>
+          <g fill="#9B7ED8" opacity="0.16">
+            <circle class="pulse" cx="286" cy="198" r="7" style="animation-delay: 2.6s;"></circle>
+          </g>
+
+          <g fill="#E0785A">
+            <circle class="nd" cx="230" cy="222" r="9" style="animation-delay: 0.15s;"></circle>
+            <circle class="nd" cx="176" cy="186" r="7" style="animation-delay: 1.35s;"></circle>
+            <circle class="nd" cx="188" cy="268" r="6.5" style="animation-delay: 1.25s;"></circle>
+            <circle class="nd" cx="212" cy="132" r="5" style="animation-delay: 2s;"></circle>
+            <circle class="nd" cx="140" cy="300" r="5" style="animation-delay: 2.9s;"></circle>
+            <circle class="nd" cx="112" cy="224" r="5" style="animation-delay: 3.05s;"></circle>
+            <circle class="nd" cx="140" cy="140" r="5" style="animation-delay: 3.2s;"></circle>
+            <circle class="nd" cx="98" cy="362" r="3.4" style="animation-delay: 4.85s;"></circle>
+            <circle class="nd" cx="60" cy="282" r="3.4" style="animation-delay: 5s;"></circle>
+            <circle class="nd" cx="64" cy="164" r="3.4" style="animation-delay: 5.15s;"></circle>
+            <circle class="nd" cx="78" cy="104" r="3.4" style="animation-delay: 5.3s;"></circle>
+            <circle class="nd" cx="166" cy="72" r="3.4" style="animation-delay: 5.45s;"></circle>
+          </g>
+
+          <g fill="#9B7ED8">
+            <circle class="nd" cx="256" cy="158" r="4.5" style="animation-delay: 0.95s;"></circle>
+            <circle class="nd" cx="286" cy="198" r="7" style="animation-delay: 1.05s;"></circle>
+            <circle class="nd" cx="300" cy="132" r="5" style="animation-delay: 2.15s;"></circle>
+            <circle class="nd" cx="338" cy="196" r="5" style="animation-delay: 2.3s;"></circle>
+            <circle class="nd" cx="330" cy="262" r="5" style="animation-delay: 2.45s;"></circle>
+            <circle class="nd" cx="256" cy="60" r="3.4" style="animation-delay: 3.8s;"></circle>
+            <circle class="nd" cx="352" cy="88" r="3.4" style="animation-delay: 3.95s;"></circle>
+            <circle class="nd" cx="404" cy="166" r="3.4" style="animation-delay: 4.1s;"></circle>
+            <circle class="nd" cx="408" cy="248" r="3.4" style="animation-delay: 4.25s;"></circle>
+          </g>
+
+          <g fill="#C77A9B">
+            <circle class="nd" cx="248" cy="276" r="7" style="animation-delay: 1.15s;"></circle>
+            <circle class="nd" cx="286" cy="318" r="5" style="animation-delay: 2.6s;"></circle>
+            <circle class="nd" cx="214" cy="330" r="5" style="animation-delay: 2.75s;"></circle>
+            <circle class="nd" cx="366" cy="330" r="3.4" style="animation-delay: 4.4s;"></circle>
+            <circle class="nd" cx="300" cy="386" r="3.4" style="animation-delay: 4.55s;"></circle>
+            <circle class="nd" cx="196" cy="396" r="3.4" style="animation-delay: 4.7s;"></circle>
+          </g>
+
+          <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="0.9" fill="#6E6E7A">
+            <text class="lbl" x="256" y="44" text-anchor="middle" style="animation-delay: 4.05s;">AFFECT</text>
+            <text class="lbl" x="364" y="84" text-anchor="start" style="animation-delay: 4.2s;">ANXIETY</text>
+            <text class="lbl" x="414" y="164" text-anchor="start" style="animation-delay: 4.35s;">DESIRE</text>
+            <text class="lbl" x="418" y="252" text-anchor="start" style="animation-delay: 4.5s;">TRUST</text>
+            <text class="lbl" x="376" y="336" text-anchor="start" style="animation-delay: 4.65s;">INTIMACY</text>
+            <text class="lbl" x="300" y="404" text-anchor="middle" style="animation-delay: 4.8s;">CONFLICT</text>
+            <text class="lbl" x="196" y="414" text-anchor="middle" style="animation-delay: 4.95s;">MEANING</text>
+            <text class="lbl" x="88" y="368" text-anchor="end" style="animation-delay: 5.1s;">SLEEP</text>
+            <text class="lbl" x="52" y="286" text-anchor="end" style="animation-delay: 5.25s;">ESTEEM</text>
+            <text class="lbl" x="56" y="168" text-anchor="end" style="animation-delay: 5.4s;">STRESS</text>
+            <text class="lbl" x="70" y="100" text-anchor="end" style="animation-delay: 5.55s;">AROUSAL</text>
+            <text class="lbl" x="166" y="56" text-anchor="middle" style="animation-delay: 5.7s;">EMPATHY</text>
+          </g>
+          <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="0.9" fill="#4A4A55">
+            <text class="lbl" x="230" y="245" text-anchor="middle" style="animation-delay: 0.4s;">ATTACHMENT</text>
+            <text class="lbl" x="286" y="181" text-anchor="middle" style="animation-delay: 1.3s;">REGULATION</text>
+            <text class="lbl" x="188" y="291" text-anchor="middle" style="animation-delay: 1.5s;">MOOD</text>
+          </g>
+        </svg>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES STRIP -->
+  <section style="height: 108px; box-sizing: border-box; padding: 0 160px; border-top: 1px solid #E8E7ED; border-bottom: 1px solid #E8E7ED; background: #F4F3F7; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; align-items: center;">
+    <div class="r d1" style="padding: 0 28px; display: flex; gap: 12px; align-items: baseline; justify-content: center;"><span class="m" style="font-size: 10px; color: #B4522A">01</span>
+      <span style="font-size: 14.5px; color: #14131A; font-weight: 500">Mental screening &amp; diagnosis</span>
+    </div>
+    <div class="r d2" style="padding: 0 28px; border-left: 1px solid #E8E7ED; display: flex; gap: 12px; align-items: baseline; justify-content: center;"><span class="m" style="font-size: 10px; color: #B4522A">02</span>
+      <span style="font-size: 14.5px; color: #14131A; font-weight: 500">Structured reports &amp; analysis</span>
+    </div>
+    <div class="r d3" style="padding: 0 28px; border-left: 1px solid #E8E7ED; display: flex; gap: 12px; align-items: baseline; justify-content: center;"><span class="m" style="font-size: 10px; color: #B4522A">03</span>
+      <span style="font-size: 14.5px; color: #14131A; font-weight: 500">Mapping interventions &amp; help</span>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section style="height: 520px; box-sizing: border-box; padding: 88px 160px; border-top: 1px solid #E8E7ED; background: linear-gradient(180deg, #FFFFFF 0%, #F4F3F7 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px; text-align: center;">
+    <span class="m" style="font-size: 11px; letter-spacing: 0.22em; color: {{accent}};">VISION</span>
+    <h2 class="s" style="margin: 0; font-size: 62px; line-height: 1.06; letter-spacing: -0.015em; color: #14131A; max-width: 960px;">The default psychograph of <span style="background: linear-gradient(90deg, #E0785A 0%, #C77A9B 50%, #9B7ED8 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">human psychology.</span></h2>
+    <div style="margin: 0; font-size: 17px; line-height: 1.6; color: #4A4A55; max-width: 760px;"><span style="background-color: initial"></span><div><div>    </div></div><span style="background-color: initial; height: 37px"><span style="background-color: initial">We enable people to develop a longitudinal map of their psyche, revealing the dispositions that shape behavior and perception and how to change them for the better</span>.</span><div><div></div></div></div>
+    <div style="display: flex; align-items: center; gap: 14px; margin-top: 8px;">
+      <a class="m btn ghost" href="https://loveiq.org" style="font-size: 12px; letter-spacing: 0.12em; color: #4A4A55; border: 1px solid #D9D7E0; padding: 15px 26px; border-radius: 2px;">TRY A FREE ASSESSMENT <span class="ar">→</span></a>
+    </div>
+  </section><section id="thesis" style="height: 660px; box-sizing: border-box; padding: 88px 160px; display: flex; flex-direction: column; justify-content: center; gap: 36px;">
+    <div style="display: flex; align-items: center; gap: 16px;"><span class="m" style="font-size: 11px; letter-spacing: 0.18em; color: #6E6E7A">STRATEGIC INTENT</span>
+      <span style="flex-grow: 1; height: 1px; background: #E8E7ED"></span>
+    </div>
+    <h2 class="s" style="margin: 0; font-size: 52px; line-height: 1.12; letter-spacing: -0.015em; color: #14131A; max-width: 940px;">Assessments bring data &amp; attention. <em style="color: rgb(180, 82, 42)">We use both to help humans improve their life's.</em></h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 8px;">
+      <div>
+        <div class="m" style="font-size: 10.5px; letter-spacing: 0.14em; color: #6E6E7A; padding-bottom: 12px; border-bottom: 1px solid #E8E7ED;">HIGH-INTENT SEARCH</div>
+        <p style="margin: 16px 0 0 0; font-size: 15px; line-height: 1.62; color: #4A4A55;"><i>“Why is my libido low?”, “Do I have signs of depression?”</i>. Users with clear challenges convert into a guided product experience.&nbsp;</p>
+      </div>
+      <div>
+        <div class="m" style="font-size: 10.5px; letter-spacing: 0.14em; color: #6E6E7A; padding-bottom: 12px; border-bottom: 1px solid #E8E7ED;">THE ATTENTION WINDOW</div>
+        <p style="margin: 16px 0 0 0; font-size: 15px; line-height: 1.62; color: #4A4A55;">A test is 4–15 minutes of voluntary self-disclosure. The single highest-intent attention window in consumer mental health.</p>
+        <div style="margin-top: 18px; height: 6px; background: #EDECF2; border-radius: 1px; overflow: hidden;">
+          <div class="bar" style="width: 72%; height: 6px; background: linear-gradient(90deg, #E0785A 0%, #C77A9B 52%, #9B7ED8 100%);"></div>
+        </div>
+        <div class="m" style="display: flex; justify-content: space-between; margin-top: 7px; font-size: 9.5px; letter-spacing: 0.12em; color: #6E6E7A;"><span>4 MIN</span><span>12 MIN</span></div>
+      </div>
+      <div>
+        <div class="m" style="font-size: 10.5px; letter-spacing: 0.14em; color: #6E6E7A; padding-bottom: 12px; border-bottom: 1px solid #E8E7ED;">OWNED END TO END</div>
+        <p style="margin: 16px 0 0 0; font-size: 15px; line-height: 1.62; color: #4A4A55;">Educate during the test. Name the problem at the result. Quantify the gap against the norm. Then convert: paid report, subscription, intervention, re-test.</p>
+      </div>
+    </div>
+    <p style="margin: 8px 0 0 0; font-size: 16px; line-height: 1.6; color: #14131A; border-left: 2px solid #6B4FA8; padding-left: 18px; max-width: 860px;">Every completed test does two jobs: it fills a dimension of the psychograph, and it earns the right to the next offer.</p>
+  </section>
+
+  <!-- THE LOOP -->
+  <section id="loop" style="height: 700px; box-sizing: border-box; padding: 88px 160px; border-top: 1px solid #E8E7ED; background: #F4F3F7; display: flex; flex-direction: column; justify-content: center; gap: 34px;">
+    <div style="display: flex; align-items: center; gap: 16px;"><span class="m" style="font-size: 11px; letter-spacing: 0.18em; color: #6E6E7A">THE LOOP</span>
+      <span style="flex-grow: 1; height: 1px; background: #E8E7ED"></span>
+    </div>
+    <p class="s" style="margin: 0; font-size: 31px; line-height: 1.34; color: #14131A; max-width: 1060px;"><b>Validated tests win the search</b>, tests wins attention, attention sells a report, a report sells a subscription, a subscription sells interventions, the re-test proves it worked. And every cycle makes the next one better.</p>
+    <svg width="1120" height="250" viewBox="0 0 1120 250" role="img" aria-label="The measurement loop: search, free test, named problem, paid report, subscription, intervention, re-test, returning to search">
+      <g stroke="{{accent}}" stroke-width="1.4" stroke-dasharray="4 6" class="flow" fill="none">
+        <line x1="102" y1="60" x2="218" y2="60"></line>
+        <line x1="262" y1="60" x2="378" y2="60"></line>
+        <line x1="422" y1="60" x2="538" y2="60"></line>
+        <line x1="582" y1="60" x2="698" y2="60"></line>
+        <line x1="742" y1="60" x2="858" y2="60"></line>
+        <line x1="902" y1="60" x2="1018" y2="60"></line>
+      </g>
+      <path class="flow" d="M1063 60 L1078 60 Q1098 60 1098 80 L1098 176 Q1098 196 1078 196 L42 196 Q22 196 22 176 L22 80 Q22 60 42 60 L56 60" fill="none" stroke="#6B4FA8" stroke-width="1.2" stroke-dasharray="4 6"></path>
+      <path d="M59 60 L52 56.2 M59 60 L52 63.8" stroke="#6B4FA8" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
+      <g>
+        <circle cx="80" cy="60" r="21" fill="#FFFFFF" stroke="{{accent}}" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="80" cy="60" r="4" fill="{{accent}}" style="animation-delay: 0s;"></circle>
+        <circle cx="240" cy="60" r="21" fill="#FFFFFF" stroke="{{accent}}" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="240" cy="60" r="4" fill="{{accent}}" style="animation-delay: 0.35s;"></circle>
+        <circle cx="400" cy="60" r="21" fill="#FFFFFF" stroke="{{accent}}" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="400" cy="60" r="4" fill="{{accent}}" style="animation-delay: 0.7s;"></circle>
+        <circle cx="560" cy="60" r="21" fill="#14131A" stroke="#14131A" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="560" cy="60" r="4" fill="#FFFFFF" style="animation-delay: 1.05s;"></circle>
+        <circle cx="720" cy="60" r="21" fill="#14131A" stroke="#14131A" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="720" cy="60" r="4" fill="#FFFFFF" style="animation-delay: 1.4s;"></circle>
+        <circle cx="880" cy="60" r="21" fill="#FFFFFF" stroke="{{accent}}" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="880" cy="60" r="4" fill="{{accent}}" style="animation-delay: 1.75s;"></circle>
+        <circle cx="1040" cy="60" r="21" fill="#FFFFFF" stroke="#6B4FA8" stroke-width="1.4"></circle>
+        <circle class="pulse" cx="1040" cy="60" r="4" fill="#6B4FA8" style="animation-delay: 2.1s;"></circle>
+      </g>
+      <g font-family="'IBM Plex Mono', monospace" font-size="10" letter-spacing="0.8" fill="#14131A" text-anchor="middle">
+        <text x="80" y="104">SEARCH</text>
+        <text x="240" y="104">FREE TEST</text>
+        <text x="400" y="104">NAMED</text>
+        <text x="560" y="104">REPORT</text>
+        <text x="720" y="104">SUBSCRIPTION</text>
+        <text x="880" y="104">INTERVENTION</text>
+        <text x="1040" y="104">RE-TEST</text>
+      </g>
+      <g font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.8" fill="#6E6E7A" text-anchor="middle">
+        <text x="80" y="120">QUESTION INTENT</text>
+        <text x="240" y="120">4–12 MIN</text>
+        <text x="400" y="120">PROBLEM</text>
+        <text x="560" y="120">€20–60</text>
+        <text x="720" y="120">€9–49 / MO</text>
+        <text x="880" y="120">MARKETPLACE</text>
+        <text x="1040" y="120">WEEK 6 &amp; 12</text>
+      </g>
+      <text x="560" y="222" font-family="'IBM Plex Mono', monospace" font-size="9.5" letter-spacing="1.6" fill="#6B4FA8" text-anchor="middle">EVERY CLOSED LOOP DEEPENS THE GRAPH — AND SHARPENS THE NEXT RECOMMENDATION</text>
+    </svg>
+  </section>
+
+  <!-- DRIVERS -->
+  
+
+  <!-- HUMANGRAPH -->
+  <section style="height: 648px; box-sizing: border-box; padding: 88px 160px; border-top: 1px solid #E8E7ED; background: #F4F3F7; display: flex; flex-direction: column; justify-content: center; gap: 28px">
+    <div style="display: flex; align-items: center; gap: 16px;"><span class="m" style="font-size: 11px; letter-spacing: 0.18em"><span style="letter-spacing: 0.18em"><font color="#B4522A">I</font></span><span style="color: #6E6E7A; letter-spacing: 0.18em">NSTRUMENT LIBRARY</span></span>
+      <span style="flex-grow: 1; height: 1px; background: #E8E7ED"></span>
+    </div>
+    <h3 class="s" style="margin: 0; font-size: 40px; line-height: 1.14; color: #14131A; max-width: 820px;"><b>Proven instruments,</b> applied faithfully.</h3>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+
+      <article class="panel" style="box-sizing: border-box; border: 1px solid #E8E7ED; background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="m" style="font-size: 12px; letter-spacing: 0.08em; color: {{accent}};">PHQ-9</span>        </div>
+        <h4 class="s" style="margin: 0; font-size: 24px; line-height: 1.1; color: #14131A;">Do I have signs of depression?</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A4A55;">Nine-item screen for depressive symptoms over the past two weeks.</p>
+        <div class="m" style="display: flex; gap: 10px; font-size: 9.5px; letter-spacing: 0.1em; color: #6E6E7A;"><span>29 ITEMS</span><span>·</span><span>≈ 13 MIN</span></div>
+        <div>
+          <div style="height: 6px; background: #EDECF2; overflow: hidden;"><div class="bar" style="width: 46%; height: 6px; background: linear-gradient(90deg, #E0785A 0%, #C77A9B 52%, #9B7ED8 100%);"></div></div>
+          <div class="m" style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 7.5px; letter-spacing: 0.06em; color: #6E6E7A;"><span>MINIMAL</span><span>MILD</span><span>MODERATE</span><span>SEVERE</span></div>
+        </div>
+      </article>
+
+      <article class="panel" style="box-sizing: border-box; border: 1px solid #E8E7ED; background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="m" style="font-size: 12px; letter-spacing: 0.08em; color: {{accent}};">GAD-7</span>        </div>
+        <h4 class="s" style="margin: 0; font-size: 24px; line-height: 1.1; color: #14131A;">Is this anxiety, or just stress?</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A4A55;">Seven-item screen for generalised anxiety symptoms.</p>
+        <div class="m" style="display: flex; gap: 10px; font-size: 9.5px; letter-spacing: 0.1em; color: #6E6E7A;"><span>17 ITEMS</span><span>·</span><span>≈ 9 MIN</span></div>
+        <div>
+          <div style="height: 6px; background: #EDECF2; overflow: hidden;"><div class="bar" style="width: 63%; height: 6px; background: linear-gradient(90deg, #E0785A 0%, #C77A9B 52%, #9B7ED8 100%);"></div></div>
+          <div class="m" style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 7.5px; letter-spacing: 0.06em; color: #6E6E7A;"><span>MINIMAL</span><span>MILD</span><span>MODERATE</span><span>SEVERE</span></div>
+        </div>
+      </article>
+
+      <article class="panel" style="box-sizing: border-box; border: 1px solid #E8E7ED; background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="m" style="font-size: 12px; letter-spacing: 0.08em; color: {{accent}};">UCLA-3</span>        </div>
+        <h4 class="s" style="margin: 0; font-size: 24px; line-height: 1.1; color: #14131A;">Am I lonelier than most people?</h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A4A55;">Three-item loneliness scale, scored against the population norm.</p>
+        <div class="m" style="display: flex; gap: 10px; font-size: 9.5px; letter-spacing: 0.1em; color: #6E6E7A;"><span>14 ITEMS</span><span>·</span><span>≈ 4 MIN</span></div>
+        <div>
+          <div style="height: 6px; background: #EDECF2; overflow: hidden;"><div class="bar" style="width: 31%; height: 6px; background: linear-gradient(90deg, #E0785A 0%, #C77A9B 52%, #9B7ED8 100%);"></div></div>
+          <div class="m" style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 7.5px; letter-spacing: 0.06em; color: #6E6E7A;"><span>LOW</span><span>TYPICAL</span><span>ELEVATED</span><span>HIGH</span></div>
+        </div>
+      </article>
+
+      <article class="panel" style="box-sizing: border-box; border: 1px solid #E8E7ED; background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="m" style="font-size: 12px; letter-spacing: 0.08em; color: #6B4FA8;">SDI-2</span>        </div>
+        <h4 class="s" style="margin: 0; font-size: 24px; line-height: 1.1; color: #14131A;">Why is my libido low?<br><br></h4>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4A4A55;">Sexual desire inventory, separating solitary and dyadic desire.</p>
+        <div class="m" style="display: flex; gap: 10px; font-size: 9.5px; letter-spacing: 0.1em; color: #6E6E7A;"><span>25 ITEMS</span><span>·</span><span>≈ 11 MIN</span></div>
+        <div>
+          <div style="height: 6px; background: #EDECF2; overflow: hidden;"><div class="bar" style="width: 54%; height: 6px; background: linear-gradient(90deg, #C77A9B 0%, #9B7ED8 100%);"></div></div>
+          <div class="m" style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 7.5px; letter-spacing: 0.06em; color: #6E6E7A;"><span>LOW</span><span>BELOW</span><span>TYPICAL</span><span>HIGH</span></div>
+        </div>
+      </article>
+    </div>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px;"><span class="m" style="font-size: 9.5px; letter-spacing: 0.14em; color: rgb(110, 110, 122); margin-right: 6px">Coming soon:</span>
+      <span class="chip m" style="font-size: 12px; letter-spacing: 0.06em; color: rgb(20, 19, 26); border: 1px solid rgb(217, 215, 224); padding: 9px 14px; border-radius: 2px; background: rgb(255, 255, 255)">MLQ</span>
+      <span class="chip m" style="font-size: 12px; letter-spacing: 0.06em; color: rgb(20, 19, 26); border: 1px solid rgb(217, 215, 224); padding: 9px 14px; border-radius: 2px; background: rgb(255, 255, 255)">DERS-SF</span>
+      <span class="chip m" style="font-size: 12px; letter-spacing: 0.06em; color: rgb(20, 19, 26); border: 1px solid rgb(217, 215, 224); padding: 9px 14px; border-radius: 2px; background: rgb(255, 255, 255)">ECR-R</span>
+      <span class="chip m" style="font-size: 12px; letter-spacing: 0.1em; color: rgb(180, 82, 42); border: 1px dashed rgb(180, 82, 42); padding: 9px 14px; border-radius: 2px; background: transparent">30+ WITHIN 12 MONTHS</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; max-width: 980px;">
+      <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A4A55;">Every instrument is licensed or public-domain and applied faithfully to consumer needs. Screening, never medical diagnosis: each result names the problem, places it against the norm and routes to a next step.</p>
+      <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A4A55;">Researchers and practitioners review every of our instrument, every claim, every report every signal of the psychograph. This assure practical and medical value to our users.&nbsp;</p>
+    </div>
+  </section><section id="humangraph" style="height: 780px; box-sizing: border-box; padding: 88px 160px; border-top: 1px solid #E8E7ED; background: radial-gradient(880px 540px at 16% 28%, rgba(224, 120, 90, 0.16) 0%, rgba(224, 120, 90, 0) 62%), radial-gradient(760px 520px at 88% 76%, rgba(155, 126, 216, 0.18) 0%, rgba(155, 126, 216, 0) 62%), linear-gradient(160deg, #1A1822 0%, #14131A 60%, #131019 100%); display: flex; flex-direction: column; justify-content: center; gap: 28px;">
+    <div style="display: flex; align-items: center; gap: 16px;"><span class="m" style="font-size: 11px; letter-spacing: 0.18em; color: #A9A5B5">THE MOAT</span>
+      <span style="flex-grow: 1; height: 1px; background: #35323F"></span>
+    </div>
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 64px;">
+      <h3 class="s" style="margin: 0; font-size: 46px; line-height: 1.1; color: #FFFFFF;">The Psychograph.</h3>
+      
+    </div>
+    <svg width="1120" height="330" viewBox="0 0 1120 330" role="img" aria-label="Five data sources — validated assessments, automated re-tests, practitioner sessions, journaling and in-app behaviour, and intervention outcomes — feeding one longitudinal record: a grid of psychometric and behavioural measurements that densifies week by week, each dimension placed against its norm">
+
+      <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">
+        <text x="240" y="16" text-anchor="end">SOURCES</text>
+        <text x="1052" y="16" text-anchor="middle">VS NORM</text>
+      </g>
+      <rect x="320" y="8" width="9" height="9" fill="#E0785A" fill-opacity="0.75"></rect>
+      <rect x="556" y="8" width="9" height="9" fill="#9B7ED8" fill-opacity="0.9"></rect>
+      <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#A9A5B5">
+        <text x="336" y="16">PSYCHOMETRIC INSTRUMENT</text>
+        <text x="572" y="16">BEHAVIOURAL &amp; SESSION SIGNAL</text>
+      </g>
+
+      <g font-family="'IBM Plex Mono', monospace" text-anchor="end">
+        <text x="240" y="43" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">VALIDATED ASSESSMENTS</text>
+        <text x="240" y="55" font-size="8" letter-spacing="0.7" fill="#8B8798">PHQ-9 · GAD-7 · UCLA-3 · MLQ</text>
+        <text x="240" y="87" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">AUTOMATED RE-TESTS</text>
+        <text x="240" y="99" font-size="8" letter-spacing="0.7" fill="#8B8798">WEEK 6 · WEEK 12 · ONWARD</text>
+        <text x="240" y="131" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">PRACTITIONER SESSIONS</text>
+        <text x="240" y="143" font-size="8" letter-spacing="0.7" fill="#8B8798">CONSENTED TRANSCRIPTION</text>
+        <text x="240" y="175" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">JOURNALING &amp; GOALS</text>
+        <text x="240" y="187" font-size="8" letter-spacing="0.7" fill="#8B8798">IN-APP BEHAVIOUR</text>
+        <text x="240" y="219" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">INTERVENTION OUTCOMES</text>
+        <text x="240" y="231" font-size="8" letter-spacing="0.7" fill="#8B8798">MARKETPLACE &amp; AFFILIATE</text>
+      </g>
+      <g fill="#E0785A">
+        <circle cx="250" cy="39" r="3"></circle>
+        <circle cx="250" cy="83" r="3"></circle>
+        <circle cx="250" cy="127" r="3"></circle>
+        <circle cx="250" cy="171" r="3" fill="#9B7ED8"></circle>
+        <circle cx="250" cy="215" r="3" fill="#9B7ED8"></circle>
+      </g>
+
+      <g class="flow" fill="none" stroke-width="1.1" stroke-dasharray="3 5">
+        <path d="M258 39 C278 39 282 60 296 60" stroke="#E0785A" opacity="0.8"></path>
+        <path d="M258 83 C278 83 282 100 296 100" stroke="#E0785A" opacity="0.8"></path>
+        <path d="M258 127 C278 127 282 135 296 135" stroke="#E0785A" opacity="0.8"></path>
+        <path d="M258 171 C278 171 282 170 296 170" stroke="#9B7ED8" opacity="0.8"></path>
+        <path d="M258 215 C278 215 282 190 296 190" stroke="#9B7ED8" opacity="0.8"></path>
+      </g>
+      <line x1="296" y1="40" x2="296" y2="230" stroke="#3C3947" stroke-width="1"></line>
+      <circle class="ingest" cx="296" cy="135" r="4" fill="#E0785A"></circle>
+      <g class="flow" stroke="#3C3947" stroke-width="1" stroke-dasharray="3 5">
+        <line x1="300" y1="45" x2="318" y2="45"></line>
+        <line x1="300" y1="81" x2="318" y2="81"></line>
+        <line x1="300" y1="117" x2="318" y2="117"></line>
+        <line x1="300" y1="153" x2="318" y2="153"></line>
+        <line x1="300" y1="189" x2="318" y2="189"></line>
+        <line x1="300" y1="225" x2="318" y2="225"></line>
+      </g>
+
+      <g fill="#1E1C26">
+        <rect x="320" y="30" width="574" height="30"></rect>
+        <rect x="320" y="66" width="574" height="30"></rect>
+        <rect x="320" y="102" width="574" height="30"></rect>
+        <rect x="320" y="138" width="574" height="30"></rect>
+        <rect x="320" y="174" width="574" height="30"></rect>
+        <rect x="320" y="210" width="574" height="30"></rect>
+      </g>
+      <g stroke="#292734" stroke-width="1">
+        <line x1="375" y1="30" x2="375" y2="240"></line>
+        <line x1="433" y1="30" x2="433" y2="240"></line>
+        <line x1="491" y1="30" x2="491" y2="240"></line>
+        <line x1="549" y1="30" x2="549" y2="240"></line>
+        <line x1="607" y1="30" x2="607" y2="240"></line>
+        <line x1="665" y1="30" x2="665" y2="240"></line>
+        <line x1="723" y1="30" x2="723" y2="240"></line>
+        <line x1="781" y1="30" x2="781" y2="240"></line>
+        <line x1="839" y1="30" x2="839" y2="240"></line>
+      </g>
+
+      <g fill="#E0785A">
+        <rect class="cell" x="320" y="30" width="52" height="30" fill-opacity="0.55" style="animation-delay: 0s;"></rect>
+        <rect class="cell" x="320" y="66" width="52" height="30" fill-opacity="0.30" style="animation-delay: 0.05s;"></rect>
+        <rect class="cell" x="378" y="30" width="52" height="30" fill-opacity="0.70" style="animation-delay: 0.45s;"></rect>
+        <rect class="cell" x="378" y="66" width="52" height="30" fill-opacity="0.42" style="animation-delay: 0.5s;"></rect>
+        <rect class="cell" x="378" y="102" width="52" height="30" fill-opacity="0.22" style="animation-delay: 0.55s;"></rect>
+        <rect class="cell" x="436" y="30" width="52" height="30" fill-opacity="0.48" style="animation-delay: 0.9s;"></rect>
+        <rect class="cell" x="436" y="66" width="52" height="30" fill-opacity="0.62" style="animation-delay: 0.95s;"></rect>
+        <rect class="cell" x="436" y="102" width="52" height="30" fill-opacity="0.34" style="animation-delay: 1s;"></rect>
+        <rect class="cell" x="494" y="30" width="52" height="30" fill-opacity="0.66" style="animation-delay: 1.35s;"></rect>
+        <rect class="cell" x="494" y="66" width="52" height="30" fill-opacity="0.38" style="animation-delay: 1.4s;"></rect>
+        <rect class="cell" x="494" y="102" width="52" height="30" fill-opacity="0.52" style="animation-delay: 1.45s;"></rect>
+        <rect class="cell" x="494" y="138" width="52" height="30" fill-opacity="0.26" style="animation-delay: 1.5s;"></rect>
+        <rect class="cell" x="552" y="30" width="52" height="30" fill-opacity="0.40" style="animation-delay: 1.8s;"></rect>
+        <rect class="cell" x="552" y="66" width="52" height="30" fill-opacity="0.72" style="animation-delay: 1.85s;"></rect>
+        <rect class="cell" x="552" y="102" width="52" height="30" fill-opacity="0.30" style="animation-delay: 1.9s;"></rect>
+        <rect class="cell" x="552" y="138" width="52" height="30" fill-opacity="0.58" style="animation-delay: 1.95s;"></rect>
+        <rect class="cell" x="610" y="30" width="52" height="30" fill-opacity="0.62" style="animation-delay: 2.25s;"></rect>
+        <rect class="cell" x="610" y="66" width="52" height="30" fill-opacity="0.34" style="animation-delay: 2.3s;"></rect>
+        <rect class="cell" x="610" y="102" width="52" height="30" fill-opacity="0.68" style="animation-delay: 2.35s;"></rect>
+        <rect class="cell" x="610" y="138" width="52" height="30" fill-opacity="0.44" style="animation-delay: 2.4s;"></rect>
+        <rect class="cell" x="668" y="30" width="52" height="30" fill-opacity="0.50" style="animation-delay: 2.7s;"></rect>
+        <rect class="cell" x="668" y="66" width="52" height="30" fill-opacity="0.60" style="animation-delay: 2.75s;"></rect>
+        <rect class="cell" x="668" y="138" width="52" height="30" fill-opacity="0.72" style="animation-delay: 2.85s;"></rect>
+        <rect class="cell" x="668" y="174" width="52" height="30" fill-opacity="0.40" style="animation-delay: 2.9s;"></rect>
+        <rect class="cell" x="726" y="30" width="52" height="30" fill-opacity="0.74" style="animation-delay: 3.15s;"></rect>
+        <rect class="cell" x="726" y="66" width="52" height="30" fill-opacity="0.44" style="animation-delay: 3.2s;"></rect>
+        <rect class="cell" x="726" y="102" width="52" height="30" fill-opacity="0.58" style="animation-delay: 3.25s;"></rect>
+        <rect class="cell" x="726" y="138" width="52" height="30" fill-opacity="0.32" style="animation-delay: 3.3s;"></rect>
+        <rect class="cell" x="726" y="174" width="52" height="30" fill-opacity="0.66" style="animation-delay: 3.35s;"></rect>
+        <rect class="cell" x="784" y="30" width="52" height="30" fill-opacity="0.56" style="animation-delay: 3.6s;"></rect>
+        <rect class="cell" x="784" y="66" width="52" height="30" fill-opacity="0.68" style="animation-delay: 3.65s;"></rect>
+        <rect class="cell" x="784" y="102" width="52" height="30" fill-opacity="0.40" style="animation-delay: 3.7s;"></rect>
+        <rect class="cell" x="784" y="174" width="52" height="30" fill-opacity="0.50" style="animation-delay: 3.8s;"></rect>
+        <rect class="cell" x="784" y="210" width="52" height="30" fill-opacity="0.34" style="animation-delay: 3.85s;"></rect>
+        <rect class="cell" x="842" y="30" width="52" height="30" fill-opacity="0.82" style="animation-delay: 4.05s;"></rect>
+        <rect class="cell" x="842" y="66" width="52" height="30" fill-opacity="0.54" style="animation-delay: 4.1s;"></rect>
+        <rect class="cell" x="842" y="102" width="52" height="30" fill-opacity="0.66" style="animation-delay: 4.15s;"></rect>
+        <rect class="cell" x="842" y="138" width="52" height="30" fill-opacity="0.46" style="animation-delay: 4.2s;"></rect>
+        <rect class="cell" x="842" y="174" width="52" height="30" fill-opacity="0.74" style="animation-delay: 4.25s;"></rect>
+      </g>
+      <g fill="#9B7ED8">
+        <rect class="cell" x="610" y="174" width="52" height="30" fill-opacity="0.55" style="animation-delay: 2.45s;"></rect>
+        <rect class="cell" x="668" y="102" width="52" height="30" fill-opacity="0.45" style="animation-delay: 2.8s;"></rect>
+        <rect class="cell" x="726" y="210" width="52" height="30" fill-opacity="0.50" style="animation-delay: 3.4s;"></rect>
+        <rect class="cell" x="784" y="138" width="52" height="30" fill-opacity="0.60" style="animation-delay: 3.75s;"></rect>
+        <rect class="cell" x="842" y="210" width="52" height="30" fill-opacity="0.58" style="animation-delay: 4.3s;"></rect>
+      </g>
+      <line class="sweepx" x1="320" y1="24" x2="320" y2="246" stroke="#E0785A" stroke-width="1"></line>
+
+      <g font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5">
+        <text x="906" y="49">AFFECT</text>
+        <text x="906" y="85">ANXIETY</text>
+        <text x="906" y="121">ATTACHMENT</text>
+        <text x="906" y="157">DESIRE</text>
+        <text x="906" y="193">MEANING</text>
+        <text x="906" y="229">REGULATION</text>
+      </g>
+      <g stroke="#35323F" stroke-width="1">
+        <line x1="1004" y1="45" x2="1100" y2="45"></line>
+        <line x1="1004" y1="81" x2="1100" y2="81"></line>
+        <line x1="1004" y1="117" x2="1100" y2="117"></line>
+        <line x1="1004" y1="153" x2="1100" y2="153"></line>
+        <line x1="1004" y1="189" x2="1100" y2="189"></line>
+        <line x1="1004" y1="225" x2="1100" y2="225"></line>
+      </g>
+      <g stroke="#4B4858" stroke-width="1">
+        <line x1="1052" y1="40" x2="1052" y2="50"></line>
+        <line x1="1052" y1="76" x2="1052" y2="86"></line>
+        <line x1="1052" y1="112" x2="1052" y2="122"></line>
+        <line x1="1052" y1="148" x2="1052" y2="158"></line>
+        <line x1="1052" y1="184" x2="1052" y2="194"></line>
+        <line x1="1052" y1="220" x2="1052" y2="230"></line>
+      </g>
+      <g fill="#E0785A">
+        <circle cx="1030" cy="45" r="3"></circle>
+        <circle cx="1068" cy="81" r="3"></circle>
+        <circle cx="1044" cy="117" r="3"></circle>
+        <circle cx="1082" cy="153" r="3"></circle>
+        <circle cx="1022" cy="189" r="3"></circle>
+        <circle cx="1060" cy="225" r="3" fill="#9B7ED8"></circle>
+        <circle class="pulse" cx="1082" cy="153" r="3" style="animation-delay: 0.8s;"></circle>
+      </g>
+
+      <line x1="320" y1="252" x2="894" y2="252" stroke="#35323F" stroke-width="1"></line>
+      <g stroke="#35323F" stroke-width="1">
+        <line x1="346" y1="252" x2="346" y2="256"></line>
+        <line x1="404" y1="252" x2="404" y2="256"></line>
+        <line x1="462" y1="252" x2="462" y2="256"></line>
+        <line x1="520" y1="252" x2="520" y2="256"></line>
+        <line x1="578" y1="252" x2="578" y2="256"></line>
+        <line x1="636" y1="252" x2="636" y2="256"></line>
+        <line x1="694" y1="252" x2="694" y2="256"></line>
+        <line x1="752" y1="252" x2="752" y2="256"></line>
+        <line x1="810" y1="252" x2="810" y2="256"></line>
+        <line x1="868" y1="252" x2="868" y2="256"></line>
+      </g>
+      <g font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="0.6" fill="#8B8798" text-anchor="middle">
+        <text x="346" y="266">0</text>
+        <text x="404" y="266">2</text>
+        <text x="462" y="266">4</text>
+        <text x="520" y="266">6</text>
+        <text x="578" y="266">8</text>
+        <text x="636" y="266">12</text>
+        <text x="694" y="266">16</text>
+        <text x="752" y="266">20</text>
+        <text x="810" y="266">26</text>
+        <text x="868" y="266">52</text>
+      </g>
+      <text x="320" y="284" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">WEEKS SINCE FIRST ASSESSMENT</text>
+
+      <line class="flow" x1="320" y1="302" x2="876" y2="302" stroke="#E0785A" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.8"></line>
+      <path d="M884 302 l-9 -4 M884 302 l-9 4" stroke="#E0785A" stroke-width="1.2" fill="none" opacity="0.8"></path>      <text x="1100" y="322" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="end">SCHEMATIC</text>
+    </svg><p style="margin: 0; font-size: 15.5px; line-height: 1.62; color: #C9C6D4; max-width: 620px; width: 810px; height: 96px">A growing, normalised data lake of the human psyche: diagnosis, intervention and outcome, held longitudinally. Automated re-tests at six and twelve weeks turn a report sale into a relationship — and every closed loop sharpens the norms, the recommendations and the published evidence.</p>
+    
+  </section>
+
+  <!-- ENABLERS / HUBS -->
+  <section style="height: 700px; box-sizing: border-box; padding: 88px 160px; display: flex; flex-direction: column; justify-content: center; gap: 32px;">
+    <div style="display: flex; align-items: center; gap: 16px;"><span class="m" style="font-size: 11px; letter-spacing: 0.18em; color: #6E6E7A">ENABLERS — THE TWO HUBS</span>
+      <span style="flex-grow: 1; height: 1px; background: #E8E7ED"></span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;">
+      <div class="panel" style="border: 1px solid #E8E7ED; background: #F4F3F7; padding: 36px; display: flex; flex-direction: column; gap: 18px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; border: 1px solid #F0D7CE; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E0785A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.2"></circle>
+                <path d="M12 4.6 L17.9 9.6 L15.6 17.2 L8.4 16.6 L6.4 9.4 Z" stroke-width="1.3"></path>
+                <circle cx="12" cy="12" r="1.5" fill="#E0785A" stroke="none"></circle>
+              </svg>
+            </span>
+            <h4 class="s" style="margin: 0; font-size: 32px; color: #14131A;">Patient Hub</h4>
+          </div>
+          <span class="m" style="font-size: 9.5px; letter-spacing: 0.14em; color: #6E6E7A;">B2C</span>
+        </div>
+        <div style="height: 1px; background: #E8E7ED;"></div>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px;">
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: {{accent}}; font-size: 11px;">—</span>Psychograph: a living, longitudinal map of the self</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: {{accent}}; font-size: 11px;">—</span>Challenges and goals, plus journaling</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: {{accent}}; font-size: 11px;">—</span>Consented session recording</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: {{accent}}; font-size: 11px;">—</span>Intervention library and per-practitioner data sharing</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: {{accent}}; font-size: 11px;">—</span>Open-session AI chat, grounded in the user's own data</li>
+        </ul>
+      </div>
+      <div class="panel" style="border: 1px solid #E8E7ED; background: #F4F3F7; padding: 36px; display: flex; flex-direction: column; gap: 18px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DDD2F0; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B7ED8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4.6" y="3.8" width="14.8" height="16.6" rx="2.4"></rect>
+                <path d="M9.4 3.8V2.9a.9.9 0 0 1 .9-.9h3.4a.9.9 0 0 1 .9.9v.9"></path>
+                <path d="M7.4 12.4h2.1l1.5-3.2 1.9 6 1.3-2.8h2.4" stroke-width="1.3"></path>
+                <path d="M8 16.8h5.4" stroke-width="1.3"></path>
+              </svg>
+            </span>
+            <h4 class="s" style="margin: 0; font-size: 32px; color: #14131A;">Therapy Hub</h4>
+          </div>
+          <span class="m" style="font-size: 9.5px; letter-spacing: 0.14em; color: #6E6E7A;">B2B</span>
+        </div>
+        <div style="height: 1px; background: #E8E7ED;"></div>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px;">
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: #6B4FA8; font-size: 11px;">—</span>Consented AI transcription with sentiment and risk signals</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: #6B4FA8; font-size: 11px;">—</span>Longitudinal, cross-instrument analytics</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: #6B4FA8; font-size: 11px;">—</span>AI-drafted notes that require clinician sign-off</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: #6B4FA8; font-size: 11px;">—</span>Evidence-linked treatment planning</li>
+          <li style="display: flex; gap: 12px; font-size: 14.5px; color: #4A4A55;"><span class="m" style="color: #6B4FA8; font-size: 11px;">—</span>Practitioner-initiated assessments and re-tests</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin: 0; font-size: 16px; color: #14131A; border-left: 2px solid {{accent}}; padding-left: 18px;">Every practitioner whose working life we make easier becomes a multiplier for our vision and impact.</p>
+  </section>
+
+  <!-- INSTRUMENTS -->
+  
+
+  <!-- EXECUTION -->
+  
+
+  <!-- KPIs -->
+  
+
+  <!-- WATCH-OUTS -->
+  
+
+  <!-- VISION / CTA -->
+  
+
+  <!-- FOOTER -->
+  <footer style="height: 196px; box-sizing: border-box; padding: 44px 160px; border-top: 1px solid #E8E7ED; display: flex; align-items: flex-start; justify-content: space-between;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true">
+          <circle cx="9" cy="9" r="8" fill="none" stroke="#14131A" stroke-width="1"></circle>
+          <circle cx="9" cy="9" r="3.4" fill="none" stroke="{{accent}}" stroke-width="1"></circle>
+        </svg>
+        <span class="m" style="font-size: 11.5px; letter-spacing: 0.16em;">APPLIED PSYCHOMETRICS</span>
+      </div>
+      <span class="m" style="font-size: 10.5px; letter-spacing: 0.1em; color: #6E6E7A;">Consumer Brand: loveIQ.org</span>
+      <span class="m" style="font-size: 10.5px; letter-spacing: 0.1em; color: #6E6E7A;">Applied Psychometrics UG&nbsp;<br>Hasenheide 62, 10967 Berlin, Germany</span>
+    </div>
+    <div style="display: flex; gap: 56px;">
+      
+      <div style="display: flex; flex-direction: column; gap: 10px; width: 243px">
+        <a class="m wipe" href="[IMPRINT URL]" style="font-size: 11px; letter-spacing: 0.1em; color: #4A4A55;">IMPRINT</a>
+        <a class="m wipe" href="[PRIVACY URL]" style="font-size: 11px; letter-spacing: 0.1em; color: #4A4A55;">PRIVACY</a>
+        <a class="m wipe" href="mailto:[CONTACT EMAIL]" style="font-size: 11px; letter-spacing: 0.1em; color: #4A4A55;">CONTACT</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; text-align: right;"><span class="m" style="font-size: 10.5px; letter-spacing: 0.1em; color: rgb(110, 110, 122)"><span style="letter-spacing: 0.1em">SCREENING, NOT CLINICAL DIAGNOSIS</span></span>
+        <span class="m" style="font-size: 10.5px; letter-spacing: 0.1em; color: rgb(110, 110, 122)">NOT A SUBSTITUTE FOR CLINICAL JUDGEMENT</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#B4522A","options":["#B4522A","#C2603B","#14131A","#6B4FA8"]},"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B4522A' };
+  }
+}
+</script>
+</body>
+</html>
