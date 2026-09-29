@@ -29,6 +29,8 @@ and run the check below.
   card tint, chip colour). The footer underline covers the word, not the whole column.
 - Animations lower on the page start when they scroll into view instead of at page load.
 - With "reduce motion" on, the network lines now show (on the canvas they stayed invisible).
+- The hero and the instrument library no longer have fixed heights, so larger text (browser
+  settings, accessibility tools) makes them grow instead of being clipped or overlapping.
 - Fonts are served from this domain instead of Google Fonts, so no visitor data goes to Google.
 - Links to loveiq.org carry `utm_source=appliedpsychometrics.org` so LoveIQ's funnel counts
   these visitors as coming from here rather than as "Direct".

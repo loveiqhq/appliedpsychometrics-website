@@ -506,7 +506,8 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 80px;
-  height: 656px;
+  /* The canvas's fixed 656px; a minimum so larger text grows the hero instead of being clipped. */
+  min-height: 656px;
 }
 .hero-copy {
   width: 640px;
@@ -704,12 +705,14 @@ a:hover {
 
 .library {
   min-height: 648px;
-  /* The canvas fixes this section at 648px although its content is 541px tall, so the content
-     spills 35px into the top and bottom padding. Kept on wide screens to match it exactly. */
 }
+/* The canvas fixes this section at 648px although its content is 542px tall, so the content spills
+   35px into the top and bottom padding. The smaller padding reproduces that exactly, and the section
+   can still grow instead of overlapping the next one if the text ever gets taller. */
 @media (min-width: 1200px) {
   .library {
-    height: 648px;
+    padding-top: 52.3px;
+    padding-bottom: 52.3px;
   }
 }
 .library {
@@ -1137,7 +1140,7 @@ a:hover {
     flex-direction: column;
     align-items: stretch;
     gap: 48px;
-    height: auto;
+    min-height: 0;
   }
   .hero-copy {
     width: auto;
