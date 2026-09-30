@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://appliedpsychometrics.org/">
 <meta property="og:title" content="Applied Psychometrics · Mapping the human psyche">
 <meta property="og:description" content="We make self-understanding mainstream by taking a person from “something is off” to a named problem, an intervention most likely to work, and proof that it did.">
-<script>(function(d){if(!('IntersectionObserver' in window))return;d.documentElement.classList.add('js');d.addEventListener('DOMContentLoaded',function(){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});d.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el)})})})(document);</script>
+<script>(function(d){if(!('IntersectionObserver' in window))return;d.documentElement.classList.add('js');d.addEventListener('DOMContentLoaded',function(){var obs={};d.querySelectorAll('[data-reveal]').forEach(function(el){var t=parseFloat(el.getAttribute('data-reveal'))||0;(obs[t]=obs[t]||new IntersectionObserver(function(es,io){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:t,rootMargin:'0px 0px -8% 0px'})).observe(el)})})})(document);</script>
 </head>
 <body>
 <header class="site-header">
@@ -376,358 +376,496 @@
 <section class="sec graph" id="humangraph" aria-labelledby="graph-title">
   <div class="rule-label"><span class="m">THE MOAT</span><span class="rl"></span></div>
   <h2 class="s" id="graph-title">The Psychograph.</h2>
-  <svg class="graph-h" data-reveal width="1120" height="330" viewBox="0 0 1120 330" role="img" aria-label="Five data sources — validated assessments, automated re-tests, practitioner sessions, journaling and in-app behaviour, and intervention outcomes — feeding one longitudinal record: a grid of psychometric and behavioural measurements that densifies week by week, each dimension placed against its norm">
-
-        <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">
-          <text x="240" y="16" text-anchor="end">SOURCES</text>
-          <text x="1052" y="16" text-anchor="middle">VS NORM</text>
-        </g>
-        <rect x="320" y="8" width="9" height="9" fill="#E0785A" fill-opacity="0.75"></rect>
-        <rect x="556" y="8" width="9" height="9" fill="#9B7ED8" fill-opacity="0.9"></rect>
-        <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#A9A5B5">
-          <text x="336" y="16">PSYCHOMETRIC INSTRUMENT</text>
-          <text x="572" y="16">BEHAVIOURAL &amp; SESSION SIGNAL</text>
-        </g>
-
-        <g font-family="'IBM Plex Mono', monospace" text-anchor="end">
-          <text x="240" y="43" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">VALIDATED ASSESSMENTS</text>
-          <text x="240" y="55" font-size="8" letter-spacing="0.7" fill="#8B8798">PHQ-9 · GAD-7 · UCLA-3 · MLQ</text>
-          <text x="240" y="87" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">AUTOMATED RE-TESTS</text>
-          <text x="240" y="99" font-size="8" letter-spacing="0.7" fill="#8B8798">WEEK 6 · WEEK 12 · ONWARD</text>
-          <text x="240" y="131" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">PRACTITIONER SESSIONS</text>
-          <text x="240" y="143" font-size="8" letter-spacing="0.7" fill="#8B8798">CONSENTED TRANSCRIPTION</text>
-          <text x="240" y="175" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">JOURNALING &amp; GOALS</text>
-          <text x="240" y="187" font-size="8" letter-spacing="0.7" fill="#8B8798">IN-APP BEHAVIOUR</text>
-          <text x="240" y="219" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2">INTERVENTION OUTCOMES</text>
-          <text x="240" y="231" font-size="8" letter-spacing="0.7" fill="#8B8798">MARKETPLACE &amp; AFFILIATE</text>
-        </g>
-        <g fill="#E0785A">
-          <circle cx="250" cy="39" r="3"></circle>
-          <circle cx="250" cy="83" r="3"></circle>
-          <circle cx="250" cy="127" r="3"></circle>
-          <circle cx="250" cy="171" r="3" fill="#9B7ED8"></circle>
-          <circle cx="250" cy="215" r="3" fill="#9B7ED8"></circle>
-        </g>
-
-        <g class="flow" fill="none" stroke-width="1.1" stroke-dasharray="3 5">
-          <path d="M258 39 C278 39 282 60 296 60" stroke="#E0785A" opacity="0.8"></path>
-          <path d="M258 83 C278 83 282 100 296 100" stroke="#E0785A" opacity="0.8"></path>
-          <path d="M258 127 C278 127 282 135 296 135" stroke="#E0785A" opacity="0.8"></path>
-          <path d="M258 171 C278 171 282 170 296 170" stroke="#9B7ED8" opacity="0.8"></path>
-          <path d="M258 215 C278 215 282 190 296 190" stroke="#9B7ED8" opacity="0.8"></path>
-        </g>
-        <line x1="296" y1="40" x2="296" y2="230" stroke="#3C3947" stroke-width="1"></line>
-        <circle class="ingest" cx="296" cy="135" r="4" fill="#E0785A"></circle>
-        <g class="flow" stroke="#3C3947" stroke-width="1" stroke-dasharray="3 5">
-          <line x1="300" y1="45" x2="318" y2="45"></line>
-          <line x1="300" y1="81" x2="318" y2="81"></line>
-          <line x1="300" y1="117" x2="318" y2="117"></line>
-          <line x1="300" y1="153" x2="318" y2="153"></line>
-          <line x1="300" y1="189" x2="318" y2="189"></line>
-          <line x1="300" y1="225" x2="318" y2="225"></line>
-        </g>
-
-        <g fill="#1E1C26">
-          <rect x="320" y="30" width="574" height="30"></rect>
-          <rect x="320" y="66" width="574" height="30"></rect>
-          <rect x="320" y="102" width="574" height="30"></rect>
-          <rect x="320" y="138" width="574" height="30"></rect>
-          <rect x="320" y="174" width="574" height="30"></rect>
-          <rect x="320" y="210" width="574" height="30"></rect>
-        </g>
-        <g stroke="#292734" stroke-width="1">
-          <line x1="375" y1="30" x2="375" y2="240"></line>
-          <line x1="433" y1="30" x2="433" y2="240"></line>
-          <line x1="491" y1="30" x2="491" y2="240"></line>
-          <line x1="549" y1="30" x2="549" y2="240"></line>
-          <line x1="607" y1="30" x2="607" y2="240"></line>
-          <line x1="665" y1="30" x2="665" y2="240"></line>
-          <line x1="723" y1="30" x2="723" y2="240"></line>
-          <line x1="781" y1="30" x2="781" y2="240"></line>
-          <line x1="839" y1="30" x2="839" y2="240"></line>
-        </g>
-
-        <g fill="#E0785A">
-          <rect class="cell" x="320" y="30" width="52" height="30" fill-opacity="0.55" style="animation-delay: 0s;"></rect>
-          <rect class="cell" x="320" y="66" width="52" height="30" fill-opacity="0.30" style="animation-delay: 0.05s;"></rect>
-          <rect class="cell" x="378" y="30" width="52" height="30" fill-opacity="0.70" style="animation-delay: 0.45s;"></rect>
-          <rect class="cell" x="378" y="66" width="52" height="30" fill-opacity="0.42" style="animation-delay: 0.5s;"></rect>
-          <rect class="cell" x="378" y="102" width="52" height="30" fill-opacity="0.22" style="animation-delay: 0.55s;"></rect>
-          <rect class="cell" x="436" y="30" width="52" height="30" fill-opacity="0.48" style="animation-delay: 0.9s;"></rect>
-          <rect class="cell" x="436" y="66" width="52" height="30" fill-opacity="0.62" style="animation-delay: 0.95s;"></rect>
-          <rect class="cell" x="436" y="102" width="52" height="30" fill-opacity="0.34" style="animation-delay: 1s;"></rect>
-          <rect class="cell" x="494" y="30" width="52" height="30" fill-opacity="0.66" style="animation-delay: 1.35s;"></rect>
-          <rect class="cell" x="494" y="66" width="52" height="30" fill-opacity="0.38" style="animation-delay: 1.4s;"></rect>
-          <rect class="cell" x="494" y="102" width="52" height="30" fill-opacity="0.52" style="animation-delay: 1.45s;"></rect>
-          <rect class="cell" x="494" y="138" width="52" height="30" fill-opacity="0.26" style="animation-delay: 1.5s;"></rect>
-          <rect class="cell" x="552" y="30" width="52" height="30" fill-opacity="0.40" style="animation-delay: 1.8s;"></rect>
-          <rect class="cell" x="552" y="66" width="52" height="30" fill-opacity="0.72" style="animation-delay: 1.85s;"></rect>
-          <rect class="cell" x="552" y="102" width="52" height="30" fill-opacity="0.30" style="animation-delay: 1.9s;"></rect>
-          <rect class="cell" x="552" y="138" width="52" height="30" fill-opacity="0.58" style="animation-delay: 1.95s;"></rect>
-          <rect class="cell" x="610" y="30" width="52" height="30" fill-opacity="0.62" style="animation-delay: 2.25s;"></rect>
-          <rect class="cell" x="610" y="66" width="52" height="30" fill-opacity="0.34" style="animation-delay: 2.3s;"></rect>
-          <rect class="cell" x="610" y="102" width="52" height="30" fill-opacity="0.68" style="animation-delay: 2.35s;"></rect>
-          <rect class="cell" x="610" y="138" width="52" height="30" fill-opacity="0.44" style="animation-delay: 2.4s;"></rect>
-          <rect class="cell" x="668" y="30" width="52" height="30" fill-opacity="0.50" style="animation-delay: 2.7s;"></rect>
-          <rect class="cell" x="668" y="66" width="52" height="30" fill-opacity="0.60" style="animation-delay: 2.75s;"></rect>
-          <rect class="cell" x="668" y="138" width="52" height="30" fill-opacity="0.72" style="animation-delay: 2.85s;"></rect>
-          <rect class="cell" x="668" y="174" width="52" height="30" fill-opacity="0.40" style="animation-delay: 2.9s;"></rect>
-          <rect class="cell" x="726" y="30" width="52" height="30" fill-opacity="0.74" style="animation-delay: 3.15s;"></rect>
-          <rect class="cell" x="726" y="66" width="52" height="30" fill-opacity="0.44" style="animation-delay: 3.2s;"></rect>
-          <rect class="cell" x="726" y="102" width="52" height="30" fill-opacity="0.58" style="animation-delay: 3.25s;"></rect>
-          <rect class="cell" x="726" y="138" width="52" height="30" fill-opacity="0.32" style="animation-delay: 3.3s;"></rect>
-          <rect class="cell" x="726" y="174" width="52" height="30" fill-opacity="0.66" style="animation-delay: 3.35s;"></rect>
-          <rect class="cell" x="784" y="30" width="52" height="30" fill-opacity="0.56" style="animation-delay: 3.6s;"></rect>
-          <rect class="cell" x="784" y="66" width="52" height="30" fill-opacity="0.68" style="animation-delay: 3.65s;"></rect>
-          <rect class="cell" x="784" y="102" width="52" height="30" fill-opacity="0.40" style="animation-delay: 3.7s;"></rect>
-          <rect class="cell" x="784" y="174" width="52" height="30" fill-opacity="0.50" style="animation-delay: 3.8s;"></rect>
-          <rect class="cell" x="784" y="210" width="52" height="30" fill-opacity="0.34" style="animation-delay: 3.85s;"></rect>
-          <rect class="cell" x="842" y="30" width="52" height="30" fill-opacity="0.82" style="animation-delay: 4.05s;"></rect>
-          <rect class="cell" x="842" y="66" width="52" height="30" fill-opacity="0.54" style="animation-delay: 4.1s;"></rect>
-          <rect class="cell" x="842" y="102" width="52" height="30" fill-opacity="0.66" style="animation-delay: 4.15s;"></rect>
-          <rect class="cell" x="842" y="138" width="52" height="30" fill-opacity="0.46" style="animation-delay: 4.2s;"></rect>
-          <rect class="cell" x="842" y="174" width="52" height="30" fill-opacity="0.74" style="animation-delay: 4.25s;"></rect>
-        </g>
-        <g fill="#9B7ED8">
-          <rect class="cell" x="610" y="174" width="52" height="30" fill-opacity="0.55" style="animation-delay: 2.45s;"></rect>
-          <rect class="cell" x="668" y="102" width="52" height="30" fill-opacity="0.45" style="animation-delay: 2.8s;"></rect>
-          <rect class="cell" x="726" y="210" width="52" height="30" fill-opacity="0.50" style="animation-delay: 3.4s;"></rect>
-          <rect class="cell" x="784" y="138" width="52" height="30" fill-opacity="0.60" style="animation-delay: 3.75s;"></rect>
-          <rect class="cell" x="842" y="210" width="52" height="30" fill-opacity="0.58" style="animation-delay: 4.3s;"></rect>
-        </g>
-        <line class="sweepx" x1="320" y1="24" x2="320" y2="246" stroke="#E0785A" stroke-width="1"></line>
-
-        <g font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5">
-          <text x="906" y="49">AFFECT</text>
-          <text x="906" y="85">ANXIETY</text>
-          <text x="906" y="121">ATTACHMENT</text>
-          <text x="906" y="157">DESIRE</text>
-          <text x="906" y="193">MEANING</text>
-          <text x="906" y="229">REGULATION</text>
-        </g>
-        <g stroke="#35323F" stroke-width="1">
-          <line x1="1004" y1="45" x2="1100" y2="45"></line>
-          <line x1="1004" y1="81" x2="1100" y2="81"></line>
-          <line x1="1004" y1="117" x2="1100" y2="117"></line>
-          <line x1="1004" y1="153" x2="1100" y2="153"></line>
-          <line x1="1004" y1="189" x2="1100" y2="189"></line>
-          <line x1="1004" y1="225" x2="1100" y2="225"></line>
-        </g>
-        <g stroke="#4B4858" stroke-width="1">
-          <line x1="1052" y1="40" x2="1052" y2="50"></line>
-          <line x1="1052" y1="76" x2="1052" y2="86"></line>
-          <line x1="1052" y1="112" x2="1052" y2="122"></line>
-          <line x1="1052" y1="148" x2="1052" y2="158"></line>
-          <line x1="1052" y1="184" x2="1052" y2="194"></line>
-          <line x1="1052" y1="220" x2="1052" y2="230"></line>
-        </g>
-        <g fill="#E0785A">
-          <circle cx="1030" cy="45" r="3"></circle>
-          <circle cx="1068" cy="81" r="3"></circle>
-          <circle cx="1044" cy="117" r="3"></circle>
-          <circle cx="1082" cy="153" r="3"></circle>
-          <circle cx="1022" cy="189" r="3"></circle>
-          <circle cx="1060" cy="225" r="3" fill="#9B7ED8"></circle>
-          <circle class="pulse" cx="1082" cy="153" r="3" style="animation-delay: 0.8s;"></circle>
-        </g>
-
-        <line x1="320" y1="252" x2="894" y2="252" stroke="#35323F" stroke-width="1"></line>
-        <g stroke="#35323F" stroke-width="1">
-          <line x1="346" y1="252" x2="346" y2="256"></line>
-          <line x1="404" y1="252" x2="404" y2="256"></line>
-          <line x1="462" y1="252" x2="462" y2="256"></line>
-          <line x1="520" y1="252" x2="520" y2="256"></line>
-          <line x1="578" y1="252" x2="578" y2="256"></line>
-          <line x1="636" y1="252" x2="636" y2="256"></line>
-          <line x1="694" y1="252" x2="694" y2="256"></line>
-          <line x1="752" y1="252" x2="752" y2="256"></line>
-          <line x1="810" y1="252" x2="810" y2="256"></line>
-          <line x1="868" y1="252" x2="868" y2="256"></line>
-        </g>
-        <g font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="0.6" fill="#8B8798" text-anchor="middle">
-          <text x="346" y="266">0</text>
-          <text x="404" y="266">2</text>
-          <text x="462" y="266">4</text>
-          <text x="520" y="266">6</text>
-          <text x="578" y="266">8</text>
-          <text x="636" y="266">12</text>
-          <text x="694" y="266">16</text>
-          <text x="752" y="266">20</text>
-          <text x="810" y="266">26</text>
-          <text x="868" y="266">52</text>
-        </g>
-        <text x="320" y="284" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">WEEKS SINCE FIRST ASSESSMENT</text>
-
-        <line class="flow" x1="320" y1="302" x2="876" y2="302" stroke="#E0785A" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.8"></line>
-        <path d="M884 302 l-9 -4 M884 302 l-9 4" stroke="#E0785A" stroke-width="1.2" fill="none" opacity="0.8"></path>      <text x="1100" y="322" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="end">SCHEMATIC</text>
-      </svg>
-  <svg class="graph-v" data-reveal width="340" height="472" viewBox="0 0 340 472" role="img" aria-label="Five data sources — validated assessments, automated re-tests, practitioner sessions, journaling and in-app behaviour, and intervention outcomes — feeding one longitudinal record: a grid of psychometric and behavioural measurements that densifies week by week, each dimension placed against its norm">
-    <rect x="0" y="4" width="9" height="9" fill="#E0785A" fill-opacity="0.75"></rect>
-    <rect x="0" y="22" width="9" height="9" fill="#9B7ED8" fill-opacity="0.9"></rect>
-    <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#A9A5B5">
-      <text x="16" y="12">PSYCHOMETRIC INSTRUMENT</text>
-      <text x="16" y="30">BEHAVIOURAL &amp; SESSION SIGNAL</text>
+  <!-- psychograph: generated by tools/psychograph.py, edit that file rather than this markup -->
+  <svg class="graph-h pg" data-reveal="0.35" width="1120" height="330" viewBox="0 0 1120 330" role="img" aria-label="Five data sources — validated assessments, automated re-tests, practitioner sessions, journaling and in-app behaviour, and intervention outcomes — feeding one longitudinal record: a grid of psychometric and behavioural measurements that densifies week by week, each dimension placed against its norm">
+  <defs>
+    <linearGradient id="pgd-band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE9E1" stop-opacity="0"></stop>
+      <stop offset="0.72" stop-color="#FFE9E1" stop-opacity="0.07"></stop>
+      <stop offset="0.96" stop-color="#FFE9E1" stop-opacity="0.26"></stop>
+      <stop offset="1" stop-color="#FFE9E1" stop-opacity="0"></stop>
+    </linearGradient>
+    <clipPath id="pgd-grid"><rect x="320" y="24" width="574" height="222"></rect></clipPath>
+    <mask id="pgd-c0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw" d="M250 39 L258 39 C278 39 282 60 296 60" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6" style="animation-delay: 0.45s"></path></mask>
+    <mask id="pgd-c1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw" d="M250 83 L258 83 C278 83 282 100 296 100" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6" style="animation-delay: 0.51s"></path></mask>
+    <mask id="pgd-c2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw" d="M250 127 L258 127 C278 127 282 135 296 135" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6" style="animation-delay: 0.57s"></path></mask>
+    <mask id="pgd-c3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw" d="M250 171 L258 171 C278 171 282 170 296 170" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6" style="animation-delay: 0.63s"></path></mask>
+    <mask id="pgd-c4" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw" d="M250 215 L258 215 C278 215 282 190 296 190" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6" style="animation-delay: 0.69s"></path></mask>
+    <mask id="pgd-t0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 45 L318 45" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.05s"></path></mask>
+    <mask id="pgd-t1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 81 L318 81" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.10s"></path></mask>
+    <mask id="pgd-t2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 117 L318 117" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.15s"></path></mask>
+    <mask id="pgd-t3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 153 L318 153" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.20s"></path></mask>
+    <mask id="pgd-t4" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 189 L318 189" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.25s"></path></mask>
+    <mask id="pgd-t5" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M300 225 L318 225" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.30s"></path></mask>
+    <mask id="pgd-arrow" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--slow" d="M320 302 L876 302" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 3.32s"></path></mask>
+  </defs>
+  <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">
+    <text class="pg-fade" x="240" y="16" text-anchor="end" style="animation-delay: 0.00s">SOURCES</text>
+    <text class="pg-fade" x="1052" y="16" text-anchor="middle" style="animation-delay: 0.10s">VS NORM</text>
+  </g>
+  <rect class="pg-fade" x="320" y="8" width="9" height="9" fill="#E0785A" fill-opacity="0.75" style="animation-delay: 0.04s"></rect>
+  <rect class="pg-fade" x="556" y="8" width="9" height="9" fill="#9B7ED8" fill-opacity="0.9" style="animation-delay: 0.08s"></rect>
+  <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#A9A5B5">
+    <text class="pg-fade" x="336" y="16" style="animation-delay: 0.04s">PSYCHOMETRIC INSTRUMENT</text>
+    <text class="pg-fade" x="572" y="16" style="animation-delay: 0.08s">BEHAVIOURAL &amp; SESSION SIGNAL</text>
+  </g>
+  <g class="pg-srcs" font-family="'IBM Plex Mono', monospace" text-anchor="end">
+    <g class="pg-src">
+      <text class="pg-slide" x="240" y="43" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2" style="animation-delay: 0.08s">VALIDATED ASSESSMENTS</text>
+      <text class="pg-slide" x="240" y="55" font-size="8" letter-spacing="0.7" fill="#8B8798" style="animation-delay: 0.12s">PHQ-9 · GAD-7 · UCLA-3 · MLQ</text>
+      <circle class="pg-pop" cx="250" cy="39" r="3" fill="#E0785A" style="animation-delay: 0.30s"></circle>
+      <path d="M258 39 C278 39 282 60 296 60" stroke="#E0785A" opacity="0.8" fill="none" stroke-width="1.1" stroke-dasharray="3 5" mask="url(#pgd-c0)"></path>
     </g>
-    <text x="0" y="60" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">SOURCES</text>
-    <text x="312" y="242" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="middle">VS NORM</text>
-    <line class="flow" x1="4" y1="80.5" x2="4" y2="382" stroke="#E0785A" stroke-width="1.1" stroke-dasharray="3 5" opacity="0.8"></line>
-    <g font-family="'IBM Plex Mono', monospace" letter-spacing="0.7">
-      <text x="16" y="84" font-size="9.5" fill="#ECEAF2">VALIDATED ASSESSMENTS</text>
-      <text x="16" y="96" font-size="8" fill="#8B8798">PHQ-9 · GAD-7 · UCLA-3 · MLQ</text>
-      <text x="16" y="116" font-size="9.5" fill="#ECEAF2">AUTOMATED RE-TESTS</text>
-      <text x="16" y="128" font-size="8" fill="#8B8798">WEEK 6 · WEEK 12 · ONWARD</text>
-      <text x="16" y="148" font-size="9.5" fill="#ECEAF2">PRACTITIONER SESSIONS</text>
-      <text x="16" y="160" font-size="8" fill="#8B8798">CONSENTED TRANSCRIPTION</text>
-      <text x="16" y="180" font-size="9.5" fill="#ECEAF2">JOURNALING &amp; GOALS</text>
-      <text x="16" y="192" font-size="8" fill="#8B8798">IN-APP BEHAVIOUR</text>
-      <text x="16" y="212" font-size="9.5" fill="#ECEAF2">INTERVENTION OUTCOMES</text>
-      <text x="16" y="224" font-size="8" fill="#8B8798">MARKETPLACE &amp; AFFILIATE</text>
+    <g class="pg-src">
+      <text class="pg-slide" x="240" y="87" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2" style="animation-delay: 0.16s">AUTOMATED RE-TESTS</text>
+      <text class="pg-slide" x="240" y="99" font-size="8" letter-spacing="0.7" fill="#8B8798" style="animation-delay: 0.20s">WEEK 6 · WEEK 12 · ONWARD</text>
+      <circle class="pg-pop" cx="250" cy="83" r="3" fill="#E0785A" style="animation-delay: 0.38s"></circle>
+      <path d="M258 83 C278 83 282 100 296 100" stroke="#E0785A" opacity="0.8" fill="none" stroke-width="1.1" stroke-dasharray="3 5" mask="url(#pgd-c1)"></path>
     </g>
-    <circle cx="4" cy="80.5" r="3" fill="#E0785A"></circle>
-    <circle cx="4" cy="112.5" r="3" fill="#E0785A"></circle>
-    <circle cx="4" cy="144.5" r="3" fill="#E0785A"></circle>
-    <circle cx="4" cy="176.5" r="3" fill="#9B7ED8"></circle>
-    <circle cx="4" cy="208.5" r="3" fill="#9B7ED8"></circle>
-    <circle class="ingest" cx="4" cy="236" r="4" fill="#E0785A"></circle>
-    <g class="flow" stroke="#3C3947" stroke-width="1" stroke-dasharray="3 5">
-      <line x1="8" y1="262" x2="18" y2="262"></line>
-      <line x1="8" y1="286" x2="18" y2="286"></line>
-      <line x1="8" y1="310" x2="18" y2="310"></line>
-      <line x1="8" y1="334" x2="18" y2="334"></line>
-      <line x1="8" y1="358" x2="18" y2="358"></line>
-      <line x1="8" y1="382" x2="18" y2="382"></line>
+    <g class="pg-src">
+      <text class="pg-slide" x="240" y="131" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2" style="animation-delay: 0.24s">PRACTITIONER SESSIONS</text>
+      <text class="pg-slide" x="240" y="143" font-size="8" letter-spacing="0.7" fill="#8B8798" style="animation-delay: 0.28s">CONSENTED TRANSCRIPTION</text>
+      <circle class="pg-pop" cx="250" cy="127" r="3" fill="#E0785A" style="animation-delay: 0.46s"></circle>
+      <path d="M258 127 C278 127 282 135 296 135" stroke="#E0785A" opacity="0.8" fill="none" stroke-width="1.1" stroke-dasharray="3 5" mask="url(#pgd-c2)"></path>
     </g>
-    <g fill="#1E1C26">
-      <rect x="20" y="252" width="187" height="20"></rect>
-      <rect x="20" y="276" width="187" height="20"></rect>
-      <rect x="20" y="300" width="187" height="20"></rect>
-      <rect x="20" y="324" width="187" height="20"></rect>
-      <rect x="20" y="348" width="187" height="20"></rect>
-      <rect x="20" y="372" width="187" height="20"></rect>
+    <g class="pg-src">
+      <text class="pg-slide" x="240" y="175" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2" style="animation-delay: 0.32s">JOURNALING &amp; GOALS</text>
+      <text class="pg-slide" x="240" y="187" font-size="8" letter-spacing="0.7" fill="#8B8798" style="animation-delay: 0.36s">IN-APP BEHAVIOUR</text>
+      <circle class="pg-pop" cx="250" cy="171" r="3" fill="#9B7ED8" style="animation-delay: 0.54s"></circle>
+      <path d="M258 171 C278 171 282 170 296 170" stroke="#9B7ED8" opacity="0.8" fill="none" stroke-width="1.1" stroke-dasharray="3 5" mask="url(#pgd-c3)"></path>
     </g>
-    <g stroke="#292734" stroke-width="1">
-      <line x1="37.5" y1="252" x2="37.5" y2="392"></line>
-      <line x1="56.5" y1="252" x2="56.5" y2="392"></line>
-      <line x1="75.5" y1="252" x2="75.5" y2="392"></line>
-      <line x1="94.5" y1="252" x2="94.5" y2="392"></line>
-      <line x1="113.5" y1="252" x2="113.5" y2="392"></line>
-      <line x1="132.5" y1="252" x2="132.5" y2="392"></line>
-      <line x1="151.5" y1="252" x2="151.5" y2="392"></line>
-      <line x1="170.5" y1="252" x2="170.5" y2="392"></line>
-      <line x1="189.5" y1="252" x2="189.5" y2="392"></line>
+    <g class="pg-src">
+      <text class="pg-slide" x="240" y="219" font-size="9.5" letter-spacing="0.7" fill="#ECEAF2" style="animation-delay: 0.40s">INTERVENTION OUTCOMES</text>
+      <text class="pg-slide" x="240" y="231" font-size="8" letter-spacing="0.7" fill="#8B8798" style="animation-delay: 0.44s">MARKETPLACE &amp; AFFILIATE</text>
+      <circle class="pg-pop" cx="250" cy="215" r="3" fill="#9B7ED8" style="animation-delay: 0.62s"></circle>
+      <path d="M258 215 C278 215 282 190 296 190" stroke="#9B7ED8" opacity="0.8" fill="none" stroke-width="1.1" stroke-dasharray="3 5" mask="url(#pgd-c4)"></path>
     </g>
-    <g fill="#E0785A">
-      <rect class="cell" x="20" y="252" width="16" height="20" fill-opacity="0.55" style="animation-delay: 0s;"></rect>
-      <rect class="cell" x="20" y="276" width="16" height="20" fill-opacity="0.30" style="animation-delay: 0.05s;"></rect>
-      <rect class="cell" x="39" y="252" width="16" height="20" fill-opacity="0.70" style="animation-delay: 0.45s;"></rect>
-      <rect class="cell" x="39" y="276" width="16" height="20" fill-opacity="0.42" style="animation-delay: 0.5s;"></rect>
-      <rect class="cell" x="39" y="300" width="16" height="20" fill-opacity="0.22" style="animation-delay: 0.55s;"></rect>
-      <rect class="cell" x="58" y="252" width="16" height="20" fill-opacity="0.48" style="animation-delay: 0.9s;"></rect>
-      <rect class="cell" x="58" y="276" width="16" height="20" fill-opacity="0.62" style="animation-delay: 0.95s;"></rect>
-      <rect class="cell" x="58" y="300" width="16" height="20" fill-opacity="0.34" style="animation-delay: 1s;"></rect>
-      <rect class="cell" x="77" y="252" width="16" height="20" fill-opacity="0.66" style="animation-delay: 1.35s;"></rect>
-      <rect class="cell" x="77" y="276" width="16" height="20" fill-opacity="0.38" style="animation-delay: 1.4s;"></rect>
-      <rect class="cell" x="77" y="300" width="16" height="20" fill-opacity="0.52" style="animation-delay: 1.45s;"></rect>
-      <rect class="cell" x="77" y="324" width="16" height="20" fill-opacity="0.26" style="animation-delay: 1.5s;"></rect>
-      <rect class="cell" x="96" y="252" width="16" height="20" fill-opacity="0.40" style="animation-delay: 1.8s;"></rect>
-      <rect class="cell" x="96" y="276" width="16" height="20" fill-opacity="0.72" style="animation-delay: 1.85s;"></rect>
-      <rect class="cell" x="96" y="300" width="16" height="20" fill-opacity="0.30" style="animation-delay: 1.9s;"></rect>
-      <rect class="cell" x="96" y="324" width="16" height="20" fill-opacity="0.58" style="animation-delay: 1.95s;"></rect>
-      <rect class="cell" x="115" y="252" width="16" height="20" fill-opacity="0.62" style="animation-delay: 2.25s;"></rect>
-      <rect class="cell" x="115" y="276" width="16" height="20" fill-opacity="0.34" style="animation-delay: 2.3s;"></rect>
-      <rect class="cell" x="115" y="300" width="16" height="20" fill-opacity="0.68" style="animation-delay: 2.35s;"></rect>
-      <rect class="cell" x="115" y="324" width="16" height="20" fill-opacity="0.44" style="animation-delay: 2.4s;"></rect>
-      <rect class="cell" x="134" y="252" width="16" height="20" fill-opacity="0.50" style="animation-delay: 2.7s;"></rect>
-      <rect class="cell" x="134" y="276" width="16" height="20" fill-opacity="0.60" style="animation-delay: 2.75s;"></rect>
-      <rect class="cell" x="134" y="324" width="16" height="20" fill-opacity="0.72" style="animation-delay: 2.85s;"></rect>
-      <rect class="cell" x="134" y="348" width="16" height="20" fill-opacity="0.40" style="animation-delay: 2.9s;"></rect>
-      <rect class="cell" x="153" y="252" width="16" height="20" fill-opacity="0.74" style="animation-delay: 3.15s;"></rect>
-      <rect class="cell" x="153" y="276" width="16" height="20" fill-opacity="0.44" style="animation-delay: 3.2s;"></rect>
-      <rect class="cell" x="153" y="300" width="16" height="20" fill-opacity="0.58" style="animation-delay: 3.25s;"></rect>
-      <rect class="cell" x="153" y="324" width="16" height="20" fill-opacity="0.32" style="animation-delay: 3.3s;"></rect>
-      <rect class="cell" x="153" y="348" width="16" height="20" fill-opacity="0.66" style="animation-delay: 3.35s;"></rect>
-      <rect class="cell" x="172" y="252" width="16" height="20" fill-opacity="0.56" style="animation-delay: 3.6s;"></rect>
-      <rect class="cell" x="172" y="276" width="16" height="20" fill-opacity="0.68" style="animation-delay: 3.65s;"></rect>
-      <rect class="cell" x="172" y="300" width="16" height="20" fill-opacity="0.40" style="animation-delay: 3.7s;"></rect>
-      <rect class="cell" x="172" y="348" width="16" height="20" fill-opacity="0.50" style="animation-delay: 3.8s;"></rect>
-      <rect class="cell" x="172" y="372" width="16" height="20" fill-opacity="0.34" style="animation-delay: 3.85s;"></rect>
-      <rect class="cell" x="191" y="252" width="16" height="20" fill-opacity="0.82" style="animation-delay: 4.05s;"></rect>
-      <rect class="cell" x="191" y="276" width="16" height="20" fill-opacity="0.54" style="animation-delay: 4.1s;"></rect>
-      <rect class="cell" x="191" y="300" width="16" height="20" fill-opacity="0.66" style="animation-delay: 4.15s;"></rect>
-      <rect class="cell" x="191" y="324" width="16" height="20" fill-opacity="0.46" style="animation-delay: 4.2s;"></rect>
-      <rect class="cell" x="191" y="348" width="16" height="20" fill-opacity="0.74" style="animation-delay: 4.25s;"></rect>
+  </g>
+  <line class="pg-growy" x1="296" y1="40" x2="296" y2="230" stroke="#3C3947" stroke-width="1" style="animation-delay: 0.85s"></line>
+  <circle class="pg-ripple" cx="296" cy="135" r="4" fill="none" stroke="#E0785A" stroke-width="1" style="animation-delay: 4.02s"></circle>
+  <circle class="pg-pop" cx="296" cy="135" r="4" fill="#E0785A" style="animation-delay: 1.00s"></circle>
+  <g stroke="#3C3947" stroke-width="1" stroke-dasharray="3 5">
+    <line x1="300" y1="45" x2="318" y2="45" mask="url(#pgd-t0)"></line>
+    <line x1="300" y1="81" x2="318" y2="81" mask="url(#pgd-t1)"></line>
+    <line x1="300" y1="117" x2="318" y2="117" mask="url(#pgd-t2)"></line>
+    <line x1="300" y1="153" x2="318" y2="153" mask="url(#pgd-t3)"></line>
+    <line x1="300" y1="189" x2="318" y2="189" mask="url(#pgd-t4)"></line>
+    <line x1="300" y1="225" x2="318" y2="225" mask="url(#pgd-t5)"></line>
+  </g>
+  <g class="pg-rows">
+    <g class="pg-row">
+      <rect x="320" y="27" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="30" width="574" height="30" fill="#1E1C26" style="animation-delay: 0.95s"></rect>
+      <rect class="pg-cell" x="320" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.55" style="animation-delay: 1.44s"></rect>
+      <rect class="pg-cell" x="378" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.70" style="animation-delay: 1.64s"></rect>
+      <rect class="pg-cell" x="436" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.48" style="animation-delay: 1.84s"></rect>
+      <rect class="pg-cell" x="494" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 2.04s"></rect>
+      <rect class="pg-cell" x="552" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 2.24s"></rect>
+      <rect class="pg-cell" x="610" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.62" style="animation-delay: 2.44s"></rect>
+      <rect class="pg-cell" x="668" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.50" style="animation-delay: 2.64s"></rect>
+      <rect class="pg-cell" x="726" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.74" style="animation-delay: 2.84s"></rect>
+      <rect class="pg-cell" x="784" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.56" style="animation-delay: 3.04s"></rect>
+      <rect class="pg-cell" x="842" y="30" width="52" height="30" fill="#E0785A" fill-opacity="0.82" style="animation-delay: 3.24s"></rect>
+      <rect class="pg-arrive" x="842" y="30" width="52" height="30" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 4.62s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="49" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.10s">AFFECT</text>
+      <line class="pg-normline" x1="1004" y1="45" x2="1100" y2="45" stroke="#35323F" stroke-width="1" style="animation-delay: 3.07s"></line>
+      <line class="pg-fade" x1="1052" y1="40" x2="1052" y2="50" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.07s"></line>
+      <circle class="pg-norm" cx="1052" cy="45" r="3" fill="#E0785A" style="transform: translateX(-22px); animation-delay: 3.37s"></circle>
     </g>
-    <g fill="#9B7ED8">
-      <rect class="cell" x="115" y="348" width="16" height="20" fill-opacity="0.55" style="animation-delay: 2.45s;"></rect>
-      <rect class="cell" x="134" y="300" width="16" height="20" fill-opacity="0.45" style="animation-delay: 2.8s;"></rect>
-      <rect class="cell" x="153" y="372" width="16" height="20" fill-opacity="0.50" style="animation-delay: 3.4s;"></rect>
-      <rect class="cell" x="172" y="324" width="16" height="20" fill-opacity="0.60" style="animation-delay: 3.75s;"></rect>
-      <rect class="cell" x="191" y="372" width="16" height="20" fill-opacity="0.58" style="animation-delay: 4.3s;"></rect>
+    <g class="pg-row">
+      <rect x="320" y="63" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="66" width="574" height="30" fill="#1E1C26" style="animation-delay: 1.00s"></rect>
+      <rect class="pg-cell" x="320" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.30" style="animation-delay: 1.47s"></rect>
+      <rect class="pg-cell" x="378" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.42" style="animation-delay: 1.67s"></rect>
+      <rect class="pg-cell" x="436" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.62" style="animation-delay: 1.87s"></rect>
+      <rect class="pg-cell" x="494" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.38" style="animation-delay: 2.07s"></rect>
+      <rect class="pg-cell" x="552" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.72" style="animation-delay: 2.27s"></rect>
+      <rect class="pg-cell" x="610" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 2.47s"></rect>
+      <rect class="pg-cell" x="668" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.60" style="animation-delay: 2.67s"></rect>
+      <rect class="pg-cell" x="726" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.44" style="animation-delay: 2.87s"></rect>
+      <rect class="pg-cell" x="784" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.68" style="animation-delay: 3.07s"></rect>
+      <rect class="pg-cell" x="842" y="66" width="52" height="30" fill="#E0785A" fill-opacity="0.54" style="animation-delay: 3.27s"></rect>
+      <rect class="pg-arrive" x="842" y="66" width="52" height="30" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 6.22s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="85" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.15s">ANXIETY</text>
+      <line class="pg-normline" x1="1004" y1="81" x2="1100" y2="81" stroke="#35323F" stroke-width="1" style="animation-delay: 3.12s"></line>
+      <line class="pg-fade" x1="1052" y1="76" x2="1052" y2="86" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.12s"></line>
+      <circle class="pg-norm" cx="1052" cy="81" r="3" fill="#E0785A" style="transform: translateX(16px); animation-delay: 3.44s"></circle>
     </g>
-    <line class="sweepx" x1="20" y1="246" x2="20" y2="398" stroke="#E0785A" stroke-width="1"></line>
-    <g font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5">
-      <text x="214" y="265">AFFECT</text>
-      <text x="214" y="289">ANXIETY</text>
-      <text x="214" y="313">ATTACHMENT</text>
-      <text x="214" y="337">DESIRE</text>
-      <text x="214" y="361">MEANING</text>
-      <text x="214" y="385">REGULATION</text>
+    <g class="pg-row">
+      <rect x="320" y="99" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="102" width="574" height="30" fill="#1E1C26" style="animation-delay: 1.05s"></rect>
+      <rect class="pg-cell" x="378" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.22" style="animation-delay: 1.71s"></rect>
+      <rect class="pg-cell" x="436" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 1.91s"></rect>
+      <rect class="pg-cell" x="494" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.52" style="animation-delay: 2.11s"></rect>
+      <rect class="pg-cell" x="552" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.30" style="animation-delay: 2.31s"></rect>
+      <rect class="pg-cell" x="610" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.68" style="animation-delay: 2.51s"></rect>
+      <rect class="pg-cell" x="726" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.58" style="animation-delay: 2.91s"></rect>
+      <rect class="pg-cell" x="784" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 3.11s"></rect>
+      <rect class="pg-cell" x="842" y="102" width="52" height="30" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 3.31s"></rect>
+      <rect class="pg-cell" x="668" y="102" width="52" height="30" fill="#9B7ED8" fill-opacity="0.45" style="animation-delay: 2.71s"></rect>
+      <rect class="pg-arrive" x="842" y="102" width="52" height="30" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 7.82s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="121" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.20s">ATTACHMENT</text>
+      <line class="pg-normline" x1="1004" y1="117" x2="1100" y2="117" stroke="#35323F" stroke-width="1" style="animation-delay: 3.17s"></line>
+      <line class="pg-fade" x1="1052" y1="112" x2="1052" y2="122" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.17s"></line>
+      <circle class="pg-norm" cx="1052" cy="117" r="3" fill="#E0785A" style="transform: translateX(-8px); animation-delay: 3.51s"></circle>
     </g>
-    <g stroke="#35323F" stroke-width="1">
-      <line x1="284" y1="262" x2="340" y2="262"></line>
-      <line x1="284" y1="286" x2="340" y2="286"></line>
-      <line x1="284" y1="310" x2="340" y2="310"></line>
-      <line x1="284" y1="334" x2="340" y2="334"></line>
-      <line x1="284" y1="358" x2="340" y2="358"></line>
-      <line x1="284" y1="382" x2="340" y2="382"></line>
+    <g class="pg-row">
+      <rect x="320" y="135" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="138" width="574" height="30" fill="#1E1C26" style="animation-delay: 1.10s"></rect>
+      <rect class="pg-cell" x="494" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.26" style="animation-delay: 2.14s"></rect>
+      <rect class="pg-cell" x="552" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.58" style="animation-delay: 2.34s"></rect>
+      <rect class="pg-cell" x="610" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.44" style="animation-delay: 2.54s"></rect>
+      <rect class="pg-cell" x="668" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.72" style="animation-delay: 2.74s"></rect>
+      <rect class="pg-cell" x="726" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.32" style="animation-delay: 2.94s"></rect>
+      <rect class="pg-cell" x="842" y="138" width="52" height="30" fill="#E0785A" fill-opacity="0.46" style="animation-delay: 3.34s"></rect>
+      <rect class="pg-cell" x="784" y="138" width="52" height="30" fill="#9B7ED8" fill-opacity="0.60" style="animation-delay: 3.14s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="157" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.25s">DESIRE</text>
+      <line class="pg-normline" x1="1004" y1="153" x2="1100" y2="153" stroke="#35323F" stroke-width="1" style="animation-delay: 3.22s"></line>
+      <line class="pg-fade" x1="1052" y1="148" x2="1052" y2="158" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.22s"></line>
+      <circle class="pg-norm" cx="1052" cy="153" r="3" fill="#E0785A" style="transform: translateX(30px); animation-delay: 3.58s"></circle>
+      <circle class="pg-norm" cx="1052" cy="153" r="3" fill="#E0785A" style="transform: translateX(30px); animation-delay: 3.58s"></circle>
+      <circle class="pg-ripple pg-ripple--slow" cx="1082" cy="153" r="3" fill="none" stroke="#E0785A" stroke-width="1" style="animation-delay: 5.02s"></circle>
     </g>
-    <g stroke="#4B4858" stroke-width="1">
-      <line x1="312" y1="257" x2="312" y2="267"></line>
-      <line x1="312" y1="281" x2="312" y2="291"></line>
-      <line x1="312" y1="305" x2="312" y2="315"></line>
-      <line x1="312" y1="329" x2="312" y2="339"></line>
-      <line x1="312" y1="353" x2="312" y2="363"></line>
-      <line x1="312" y1="377" x2="312" y2="387"></line>
+    <g class="pg-row">
+      <rect x="320" y="171" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="174" width="574" height="30" fill="#1E1C26" style="animation-delay: 1.15s"></rect>
+      <rect class="pg-cell" x="668" y="174" width="52" height="30" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 2.78s"></rect>
+      <rect class="pg-cell" x="726" y="174" width="52" height="30" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 2.98s"></rect>
+      <rect class="pg-cell" x="784" y="174" width="52" height="30" fill="#E0785A" fill-opacity="0.50" style="animation-delay: 3.18s"></rect>
+      <rect class="pg-cell" x="842" y="174" width="52" height="30" fill="#E0785A" fill-opacity="0.74" style="animation-delay: 3.38s"></rect>
+      <rect class="pg-cell" x="610" y="174" width="52" height="30" fill="#9B7ED8" fill-opacity="0.55" style="animation-delay: 2.58s"></rect>
+      <rect class="pg-arrive" x="842" y="174" width="52" height="30" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 11.02s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="193" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.30s">MEANING</text>
+      <line class="pg-normline" x1="1004" y1="189" x2="1100" y2="189" stroke="#35323F" stroke-width="1" style="animation-delay: 3.27s"></line>
+      <line class="pg-fade" x1="1052" y1="184" x2="1052" y2="194" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.27s"></line>
+      <circle class="pg-norm" cx="1052" cy="189" r="3" fill="#E0785A" style="transform: translateX(-30px); animation-delay: 3.65s"></circle>
     </g>
-    <g>
-      <circle cx="299.2" cy="262" r="3" fill="#E0785A"></circle>
-      <circle cx="321.3" cy="286" r="3" fill="#E0785A"></circle>
-      <circle cx="307.3" cy="310" r="3" fill="#E0785A"></circle>
-      <circle cx="329.5" cy="334" r="3" fill="#E0785A"></circle>
-      <circle cx="294.5" cy="358" r="3" fill="#E0785A"></circle>
-      <circle cx="316.7" cy="382" r="3" fill="#9B7ED8"></circle>
-      <circle class="pulse" cx="329.5" cy="334" r="3" fill="#E0785A" style="animation-delay: 0.8s;"></circle>
+    <g class="pg-row">
+      <rect x="320" y="207" width="780" height="36" fill="transparent"></rect>
+      <rect class="pg-unroll" x="320" y="210" width="574" height="30" fill="#1E1C26" style="animation-delay: 1.20s"></rect>
+      <rect class="pg-cell" x="784" y="210" width="52" height="30" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 3.21s"></rect>
+      <rect class="pg-cell" x="726" y="210" width="52" height="30" fill="#9B7ED8" fill-opacity="0.50" style="animation-delay: 3.01s"></rect>
+      <rect class="pg-cell" x="842" y="210" width="52" height="30" fill="#9B7ED8" fill-opacity="0.58" style="animation-delay: 3.41s"></rect>
+      <rect class="pg-arrive" x="842" y="210" width="52" height="30" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 9.42s"></rect>
+      <text class="pg-fade pg-dim" x="906" y="229" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.35s">REGULATION</text>
+      <line class="pg-normline" x1="1004" y1="225" x2="1100" y2="225" stroke="#35323F" stroke-width="1" style="animation-delay: 3.32s"></line>
+      <line class="pg-fade" x1="1052" y1="220" x2="1052" y2="230" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.32s"></line>
+      <circle class="pg-norm" cx="1052" cy="225" r="3" fill="#9B7ED8" style="transform: translateX(8px); animation-delay: 3.72s"></circle>
     </g>
-    <line x1="20" y1="398" x2="207" y2="398" stroke="#35323F" stroke-width="1"></line>
-    <g stroke="#35323F" stroke-width="1">
-      <line x1="28" y1="398" x2="28" y2="402"></line>
-      <line x1="47" y1="398" x2="47" y2="402"></line>
-      <line x1="66" y1="398" x2="66" y2="402"></line>
-      <line x1="85" y1="398" x2="85" y2="402"></line>
-      <line x1="104" y1="398" x2="104" y2="402"></line>
-      <line x1="123" y1="398" x2="123" y2="402"></line>
-      <line x1="142" y1="398" x2="142" y2="402"></line>
-      <line x1="161" y1="398" x2="161" y2="402"></line>
-      <line x1="180" y1="398" x2="180" y2="402"></line>
-      <line x1="199" y1="398" x2="199" y2="402"></line>
+  </g>
+  <g stroke="#292734" stroke-width="1">
+    <line class="pg-fade" x1="375" y1="30" x2="375" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="433" y1="30" x2="433" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="491" y1="30" x2="491" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="549" y1="30" x2="549" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="607" y1="30" x2="607" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="665" y1="30" x2="665" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="723" y1="30" x2="723" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="781" y1="30" x2="781" y2="240" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="839" y1="30" x2="839" y2="240" style="animation-delay: 1.30s"></line>
+  </g>
+  <g clip-path="url(#pgd-grid)">
+    <g class="pg-band" style="animation-delay: 1.35s">
+      <rect x="256" y="24" width="64" height="222" fill="url(#pgd-band)"></rect>
+      <line x1="320" y1="24" x2="320" y2="246" stroke="#E0785A" stroke-width="1" stroke-opacity="0.7"></line>
     </g>
-    <g font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="0.6" fill="#8B8798" text-anchor="middle">
-      <text x="28" y="412">0</text>
-      <text x="47" y="412">2</text>
-      <text x="66" y="412">4</text>
-      <text x="85" y="412">6</text>
-      <text x="104" y="412">8</text>
-      <text x="123" y="412">12</text>
-      <text x="142" y="412">16</text>
-      <text x="161" y="412">20</text>
-      <text x="180" y="412">26</text>
-      <text x="199" y="412">52</text>
-    </g>
-    <text x="20" y="430" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798">WEEKS SINCE FIRST ASSESSMENT</text>
-    <line class="flow" x1="20" y1="446" x2="196" y2="446" stroke="#E0785A" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.8"></line>
-    <path d="M204 446 l-9 -4 M204 446 l-9 4" stroke="#E0785A" stroke-width="1.2" fill="none" opacity="0.8"></path>
-    <text x="340" y="464" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="end">SCHEMATIC</text>
+  </g>
+  <g class="pg-comets">
+      <g>
+        <path class="pg-halo" d="M250 39 L258 39 C278 39 282 60 296 60 L296 45 L318 45 L868 45" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 4.62s"></path>
+        <path class="pg-tail" d="M250 39 L258 39 C278 39 282 60 296 60 L296 45 L318 45 L868 45" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 4.62s"></path>
+        <path class="pg-head" d="M250 39 L258 39 C278 39 282 60 296 60 L296 45 L318 45 L868 45" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 4.62s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M250 83 L258 83 C278 83 282 100 296 100 L296 81 L318 81 L868 81" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 6.22s"></path>
+        <path class="pg-tail" d="M250 83 L258 83 C278 83 282 100 296 100 L296 81 L318 81 L868 81" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 6.22s"></path>
+        <path class="pg-head" d="M250 83 L258 83 C278 83 282 100 296 100 L296 81 L318 81 L868 81" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 6.22s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M250 127 L258 127 C278 127 282 135 296 135 L296 117 L318 117 L868 117" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 7.82s"></path>
+        <path class="pg-tail" d="M250 127 L258 127 C278 127 282 135 296 135 L296 117 L318 117 L868 117" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 7.82s"></path>
+        <path class="pg-head" d="M250 127 L258 127 C278 127 282 135 296 135 L296 117 L318 117 L868 117" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 7.82s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M250 171 L258 171 C278 171 282 170 296 170 L296 225 L318 225 L868 225" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 9.42s"></path>
+        <path class="pg-tail" d="M250 171 L258 171 C278 171 282 170 296 170 L296 225 L318 225 L868 225" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 9.42s"></path>
+        <path class="pg-head" d="M250 171 L258 171 C278 171 282 170 296 170 L296 225 L318 225 L868 225" pathLength="100" fill="none" stroke="#DDD2FF" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 9.42s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M250 215 L258 215 C278 215 282 190 296 190 L296 189 L318 189 L868 189" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 11.02s"></path>
+        <path class="pg-tail" d="M250 215 L258 215 C278 215 282 190 296 190 L296 189 L318 189 L868 189" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 11.02s"></path>
+        <path class="pg-head" d="M250 215 L258 215 C278 215 282 190 296 190 L296 189 L318 189 L868 189" pathLength="100" fill="none" stroke="#DDD2FF" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 11.02s"></path>
+      </g>
+  </g>
+  <line class="pg-unroll" x1="320" y1="252" x2="894" y2="252" stroke="#35323F" stroke-width="1" style="animation-delay: 1.15s"></line>
+  <g stroke="#35323F" stroke-width="1">
+    <line class="pg-fade" x1="346" y1="252" x2="346" y2="256" style="animation-delay: 1.44s"></line>
+    <line class="pg-fade" x1="404" y1="252" x2="404" y2="256" style="animation-delay: 1.64s"></line>
+    <line class="pg-fade" x1="462" y1="252" x2="462" y2="256" style="animation-delay: 1.84s"></line>
+    <line class="pg-fade" x1="520" y1="252" x2="520" y2="256" style="animation-delay: 2.04s"></line>
+    <line class="pg-fade" x1="578" y1="252" x2="578" y2="256" style="animation-delay: 2.24s"></line>
+    <line class="pg-fade" x1="636" y1="252" x2="636" y2="256" style="animation-delay: 2.44s"></line>
+    <line class="pg-fade" x1="694" y1="252" x2="694" y2="256" style="animation-delay: 2.64s"></line>
+    <line class="pg-fade" x1="752" y1="252" x2="752" y2="256" style="animation-delay: 2.84s"></line>
+    <line class="pg-fade" x1="810" y1="252" x2="810" y2="256" style="animation-delay: 3.04s"></line>
+    <line class="pg-fade" x1="868" y1="252" x2="868" y2="256" style="animation-delay: 3.24s"></line>
+  </g>
+  <g font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="0.6" fill="#8B8798" text-anchor="middle">
+    <text class="pg-fade" x="346" y="266" style="animation-delay: 1.44s">0</text>
+    <text class="pg-fade" x="404" y="266" style="animation-delay: 1.64s">2</text>
+    <text class="pg-fade" x="462" y="266" style="animation-delay: 1.84s">4</text>
+    <text class="pg-fade" x="520" y="266" style="animation-delay: 2.04s">6</text>
+    <text class="pg-fade" x="578" y="266" style="animation-delay: 2.24s">8</text>
+    <text class="pg-fade" x="636" y="266" style="animation-delay: 2.44s">12</text>
+    <text class="pg-fade" x="694" y="266" style="animation-delay: 2.64s">16</text>
+    <text class="pg-fade" x="752" y="266" style="animation-delay: 2.84s">20</text>
+    <text class="pg-fade" x="810" y="266" style="animation-delay: 3.04s">26</text>
+    <text class="pg-fade" x="868" y="266" style="animation-delay: 3.24s">52</text>
+  </g>
+  <text class="pg-fade" x="320" y="284" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" style="animation-delay: 3.27s">WEEKS SINCE FIRST ASSESSMENT</text>
+  <line x1="320" y1="302" x2="876" y2="302" stroke="#E0785A" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.8" mask="url(#pgd-arrow)"></line>
+  <path class="pg-fade" d="M884 302 l-9 -4 M884 302 l-9 4" stroke="#E0785A" stroke-width="1.2" fill="none" opacity="0.8" style="animation-delay: 4.02s"></path>
+  <text class="pg-fade" x="1100" y="322" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="end" style="animation-delay: 4.12s">SCHEMATIC</text>
   </svg>
+  <svg class="graph-v pg" data-reveal="0.35" width="340" height="472" viewBox="0 0 340 472" role="img" aria-label="Five data sources — validated assessments, automated re-tests, practitioner sessions, journaling and in-app behaviour, and intervention outcomes — feeding one longitudinal record: a grid of psychometric and behavioural measurements that densifies week by week, each dimension placed against its norm">
+  <defs>
+    <linearGradient id="pgp-band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE9E1" stop-opacity="0"></stop>
+      <stop offset="0.72" stop-color="#FFE9E1" stop-opacity="0.07"></stop>
+      <stop offset="0.96" stop-color="#FFE9E1" stop-opacity="0.26"></stop>
+      <stop offset="1" stop-color="#FFE9E1" stop-opacity="0"></stop>
+    </linearGradient>
+    <clipPath id="pgp-grid"><rect x="20" y="246" width="187" height="152"></rect></clipPath>
+    <mask id="pgp-spine" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--slow" d="M4 80.5 L4 382" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 0.45s"></path></mask>
+    <mask id="pgp-t0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 262 L18 262" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.05s"></path></mask>
+    <mask id="pgp-t1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 286 L18 286" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.10s"></path></mask>
+    <mask id="pgp-t2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 310 L18 310" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.15s"></path></mask>
+    <mask id="pgp-t3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 334 L18 334" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.20s"></path></mask>
+    <mask id="pgp-t4" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 358 L18 358" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.25s"></path></mask>
+    <mask id="pgp-t5" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--fast" d="M8 382 L18 382" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 1.30s"></path></mask>
+    <mask id="pgp-arrow" maskUnits="userSpaceOnUse" x="-20" y="-20" width="2000" height="2000"><path class="pg-draw pg-draw--slow" d="M20 446 L196 446" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="5" style="animation-delay: 3.00s"></path></mask>
+  </defs>
+  <rect class="pg-fade" x="0" y="4" width="9" height="9" fill="#E0785A" fill-opacity="0.75" style="animation-delay: 0.00s"></rect>
+  <rect class="pg-fade" x="0" y="22" width="9" height="9" fill="#9B7ED8" fill-opacity="0.9" style="animation-delay: 0.06s"></rect>
+  <g font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#A9A5B5">
+    <text class="pg-fade" x="16" y="12" style="animation-delay: 0.00s">PSYCHOMETRIC INSTRUMENT</text>
+    <text class="pg-fade" x="16" y="30" style="animation-delay: 0.06s">BEHAVIOURAL &amp; SESSION SIGNAL</text>
+  </g>
+  <text class="pg-fade" x="0" y="60" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" style="animation-delay: 0.10s">SOURCES</text>
+  <text class="pg-fade" x="312" y="242" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="middle" style="animation-delay: 1.10s">VS NORM</text>
+  <line x1="4" y1="80.5" x2="4" y2="382" stroke="#E0785A" stroke-width="1.1" stroke-dasharray="3 5" opacity="0.8" mask="url(#pgp-spine)"></line>
+  <g class="pg-srcs" font-family="'IBM Plex Mono', monospace" letter-spacing="0.7">
+    <g class="pg-src">
+      <text class="pg-slide" x="16" y="84" font-size="9.5" fill="#ECEAF2" style="animation-delay: 0.08s">VALIDATED ASSESSMENTS</text>
+      <text class="pg-slide" x="16" y="96" font-size="8" fill="#8B8798" style="animation-delay: 0.12s">PHQ-9 · GAD-7 · UCLA-3 · MLQ</text>
+      <circle class="pg-pop" cx="4" cy="80.5" r="3" fill="#E0785A" style="animation-delay: 0.30s"></circle>
+    </g>
+    <g class="pg-src">
+      <text class="pg-slide" x="16" y="116" font-size="9.5" fill="#ECEAF2" style="animation-delay: 0.16s">AUTOMATED RE-TESTS</text>
+      <text class="pg-slide" x="16" y="128" font-size="8" fill="#8B8798" style="animation-delay: 0.20s">WEEK 6 · WEEK 12 · ONWARD</text>
+      <circle class="pg-pop" cx="4" cy="112.5" r="3" fill="#E0785A" style="animation-delay: 0.38s"></circle>
+    </g>
+    <g class="pg-src">
+      <text class="pg-slide" x="16" y="148" font-size="9.5" fill="#ECEAF2" style="animation-delay: 0.24s">PRACTITIONER SESSIONS</text>
+      <text class="pg-slide" x="16" y="160" font-size="8" fill="#8B8798" style="animation-delay: 0.28s">CONSENTED TRANSCRIPTION</text>
+      <circle class="pg-pop" cx="4" cy="144.5" r="3" fill="#E0785A" style="animation-delay: 0.46s"></circle>
+    </g>
+    <g class="pg-src">
+      <text class="pg-slide" x="16" y="180" font-size="9.5" fill="#ECEAF2" style="animation-delay: 0.32s">JOURNALING &amp; GOALS</text>
+      <text class="pg-slide" x="16" y="192" font-size="8" fill="#8B8798" style="animation-delay: 0.36s">IN-APP BEHAVIOUR</text>
+      <circle class="pg-pop" cx="4" cy="176.5" r="3" fill="#9B7ED8" style="animation-delay: 0.54s"></circle>
+    </g>
+    <g class="pg-src">
+      <text class="pg-slide" x="16" y="212" font-size="9.5" fill="#ECEAF2" style="animation-delay: 0.40s">INTERVENTION OUTCOMES</text>
+      <text class="pg-slide" x="16" y="224" font-size="8" fill="#8B8798" style="animation-delay: 0.44s">MARKETPLACE &amp; AFFILIATE</text>
+      <circle class="pg-pop" cx="4" cy="208.5" r="3" fill="#9B7ED8" style="animation-delay: 0.62s"></circle>
+    </g>
+  </g>
+  <circle class="pg-ripple" cx="4" cy="236" r="4" fill="none" stroke="#E0785A" stroke-width="1" style="animation-delay: 3.70s"></circle>
+  <circle class="pg-pop" cx="4" cy="236" r="4" fill="#E0785A" style="animation-delay: 1.00s"></circle>
+  <g stroke="#3C3947" stroke-width="1" stroke-dasharray="3 5">
+    <line x1="8" y1="262" x2="18" y2="262" mask="url(#pgp-t0)"></line>
+    <line x1="8" y1="286" x2="18" y2="286" mask="url(#pgp-t1)"></line>
+    <line x1="8" y1="310" x2="18" y2="310" mask="url(#pgp-t2)"></line>
+    <line x1="8" y1="334" x2="18" y2="334" mask="url(#pgp-t3)"></line>
+    <line x1="8" y1="358" x2="18" y2="358" mask="url(#pgp-t4)"></line>
+    <line x1="8" y1="382" x2="18" y2="382" mask="url(#pgp-t5)"></line>
+  </g>
+  <g class="pg-rows">
+    <g class="pg-row">
+      <rect x="20" y="250" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="252" width="187" height="20" fill="#1E1C26" style="animation-delay: 0.95s"></rect>
+      <rect class="pg-cell" x="20" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.55" style="animation-delay: 1.41s"></rect>
+      <rect class="pg-cell" x="39" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.70" style="animation-delay: 1.56s"></rect>
+      <rect class="pg-cell" x="58" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.48" style="animation-delay: 1.71s"></rect>
+      <rect class="pg-cell" x="77" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 1.87s"></rect>
+      <rect class="pg-cell" x="96" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 2.02s"></rect>
+      <rect class="pg-cell" x="115" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.62" style="animation-delay: 2.17s"></rect>
+      <rect class="pg-cell" x="134" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.50" style="animation-delay: 2.32s"></rect>
+      <rect class="pg-cell" x="153" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.74" style="animation-delay: 2.47s"></rect>
+      <rect class="pg-cell" x="172" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.56" style="animation-delay: 2.62s"></rect>
+      <rect class="pg-cell" x="191" y="252" width="16" height="20" fill="#E0785A" fill-opacity="0.82" style="animation-delay: 2.77s"></rect>
+      <rect class="pg-arrive" x="191" y="252" width="16" height="20" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 4.30s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="265" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.10s">AFFECT</text>
+      <line class="pg-normline" x1="284" y1="262" x2="340" y2="262" stroke="#35323F" stroke-width="1" style="animation-delay: 2.75s"></line>
+      <line class="pg-fade" x1="312" y1="257" x2="312" y2="267" stroke="#4B4858" stroke-width="1" style="animation-delay: 2.75s"></line>
+      <circle class="pg-norm" cx="312" cy="262" r="3" fill="#E0785A" style="transform: translateX(-12.8px); animation-delay: 3.05s"></circle>
+    </g>
+    <g class="pg-row">
+      <rect x="20" y="274" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="276" width="187" height="20" fill="#1E1C26" style="animation-delay: 1.00s"></rect>
+      <rect class="pg-cell" x="20" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.30" style="animation-delay: 1.45s"></rect>
+      <rect class="pg-cell" x="39" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.42" style="animation-delay: 1.60s"></rect>
+      <rect class="pg-cell" x="58" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.62" style="animation-delay: 1.75s"></rect>
+      <rect class="pg-cell" x="77" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.38" style="animation-delay: 1.90s"></rect>
+      <rect class="pg-cell" x="96" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.72" style="animation-delay: 2.05s"></rect>
+      <rect class="pg-cell" x="115" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 2.20s"></rect>
+      <rect class="pg-cell" x="134" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.60" style="animation-delay: 2.35s"></rect>
+      <rect class="pg-cell" x="153" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.44" style="animation-delay: 2.50s"></rect>
+      <rect class="pg-cell" x="172" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.68" style="animation-delay: 2.65s"></rect>
+      <rect class="pg-cell" x="191" y="276" width="16" height="20" fill="#E0785A" fill-opacity="0.54" style="animation-delay: 2.80s"></rect>
+      <rect class="pg-arrive" x="191" y="276" width="16" height="20" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 5.90s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="289" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.15s">ANXIETY</text>
+      <line class="pg-normline" x1="284" y1="286" x2="340" y2="286" stroke="#35323F" stroke-width="1" style="animation-delay: 2.80s"></line>
+      <line class="pg-fade" x1="312" y1="281" x2="312" y2="291" stroke="#4B4858" stroke-width="1" style="animation-delay: 2.80s"></line>
+      <circle class="pg-norm" cx="312" cy="286" r="3" fill="#E0785A" style="transform: translateX(9.3px); animation-delay: 3.12s"></circle>
+    </g>
+    <g class="pg-row">
+      <rect x="20" y="298" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="300" width="187" height="20" fill="#1E1C26" style="animation-delay: 1.05s"></rect>
+      <rect class="pg-cell" x="39" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.22" style="animation-delay: 1.63s"></rect>
+      <rect class="pg-cell" x="58" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 1.78s"></rect>
+      <rect class="pg-cell" x="77" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.52" style="animation-delay: 1.94s"></rect>
+      <rect class="pg-cell" x="96" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.30" style="animation-delay: 2.09s"></rect>
+      <rect class="pg-cell" x="115" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.68" style="animation-delay: 2.24s"></rect>
+      <rect class="pg-cell" x="153" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.58" style="animation-delay: 2.54s"></rect>
+      <rect class="pg-cell" x="172" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 2.69s"></rect>
+      <rect class="pg-cell" x="191" y="300" width="16" height="20" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 2.84s"></rect>
+      <rect class="pg-cell" x="134" y="300" width="16" height="20" fill="#9B7ED8" fill-opacity="0.45" style="animation-delay: 2.39s"></rect>
+      <rect class="pg-arrive" x="191" y="300" width="16" height="20" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 7.50s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="313" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.20s">ATTACHMENT</text>
+      <line class="pg-normline" x1="284" y1="310" x2="340" y2="310" stroke="#35323F" stroke-width="1" style="animation-delay: 2.85s"></line>
+      <line class="pg-fade" x1="312" y1="305" x2="312" y2="315" stroke="#4B4858" stroke-width="1" style="animation-delay: 2.85s"></line>
+      <circle class="pg-norm" cx="312" cy="310" r="3" fill="#E0785A" style="transform: translateX(-4.7px); animation-delay: 3.19s"></circle>
+    </g>
+    <g class="pg-row">
+      <rect x="20" y="322" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="324" width="187" height="20" fill="#1E1C26" style="animation-delay: 1.10s"></rect>
+      <rect class="pg-cell" x="77" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.26" style="animation-delay: 1.97s"></rect>
+      <rect class="pg-cell" x="96" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.58" style="animation-delay: 2.12s"></rect>
+      <rect class="pg-cell" x="115" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.44" style="animation-delay: 2.27s"></rect>
+      <rect class="pg-cell" x="134" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.72" style="animation-delay: 2.42s"></rect>
+      <rect class="pg-cell" x="153" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.32" style="animation-delay: 2.57s"></rect>
+      <rect class="pg-cell" x="191" y="324" width="16" height="20" fill="#E0785A" fill-opacity="0.46" style="animation-delay: 2.87s"></rect>
+      <rect class="pg-cell" x="172" y="324" width="16" height="20" fill="#9B7ED8" fill-opacity="0.60" style="animation-delay: 2.72s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="337" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.25s">DESIRE</text>
+      <line class="pg-normline" x1="284" y1="334" x2="340" y2="334" stroke="#35323F" stroke-width="1" style="animation-delay: 2.90s"></line>
+      <line class="pg-fade" x1="312" y1="329" x2="312" y2="339" stroke="#4B4858" stroke-width="1" style="animation-delay: 2.90s"></line>
+      <circle class="pg-norm" cx="312" cy="334" r="3" fill="#E0785A" style="transform: translateX(17.5px); animation-delay: 3.26s"></circle>
+      <circle class="pg-ripple pg-ripple--slow" cx="329.5" cy="334" r="3" fill="none" stroke="#E0785A" stroke-width="1" style="animation-delay: 4.70s"></circle>
+    </g>
+    <g class="pg-row">
+      <rect x="20" y="346" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="348" width="187" height="20" fill="#1E1C26" style="animation-delay: 1.15s"></rect>
+      <rect class="pg-cell" x="134" y="348" width="16" height="20" fill="#E0785A" fill-opacity="0.40" style="animation-delay: 2.46s"></rect>
+      <rect class="pg-cell" x="153" y="348" width="16" height="20" fill="#E0785A" fill-opacity="0.66" style="animation-delay: 2.61s"></rect>
+      <rect class="pg-cell" x="172" y="348" width="16" height="20" fill="#E0785A" fill-opacity="0.50" style="animation-delay: 2.76s"></rect>
+      <rect class="pg-cell" x="191" y="348" width="16" height="20" fill="#E0785A" fill-opacity="0.74" style="animation-delay: 2.91s"></rect>
+      <rect class="pg-cell" x="115" y="348" width="16" height="20" fill="#9B7ED8" fill-opacity="0.55" style="animation-delay: 2.31s"></rect>
+      <rect class="pg-arrive" x="191" y="348" width="16" height="20" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 10.70s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="361" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.30s">MEANING</text>
+      <line class="pg-normline" x1="284" y1="358" x2="340" y2="358" stroke="#35323F" stroke-width="1" style="animation-delay: 2.95s"></line>
+      <line class="pg-fade" x1="312" y1="353" x2="312" y2="363" stroke="#4B4858" stroke-width="1" style="animation-delay: 2.95s"></line>
+      <circle class="pg-norm" cx="312" cy="358" r="3" fill="#E0785A" style="transform: translateX(-17.5px); animation-delay: 3.33s"></circle>
+    </g>
+    <g class="pg-row">
+      <rect x="20" y="370" width="320" height="24" fill="transparent"></rect>
+      <rect class="pg-unroll" x="20" y="372" width="187" height="20" fill="#1E1C26" style="animation-delay: 1.20s"></rect>
+      <rect class="pg-cell" x="172" y="372" width="16" height="20" fill="#E0785A" fill-opacity="0.34" style="animation-delay: 2.79s"></rect>
+      <rect class="pg-cell" x="153" y="372" width="16" height="20" fill="#9B7ED8" fill-opacity="0.50" style="animation-delay: 2.64s"></rect>
+      <rect class="pg-cell" x="191" y="372" width="16" height="20" fill="#9B7ED8" fill-opacity="0.58" style="animation-delay: 2.94s"></rect>
+      <rect class="pg-arrive" x="191" y="372" width="16" height="20" fill="#FFFFFF" fill-opacity="0.2" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1" style="animation-delay: 9.10s"></rect>
+      <text class="pg-fade pg-dim" x="214" y="385" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="0.9" fill="#A9A5B5" style="animation-delay: 1.35s">REGULATION</text>
+      <line class="pg-normline" x1="284" y1="382" x2="340" y2="382" stroke="#35323F" stroke-width="1" style="animation-delay: 3.00s"></line>
+      <line class="pg-fade" x1="312" y1="377" x2="312" y2="387" stroke="#4B4858" stroke-width="1" style="animation-delay: 3.00s"></line>
+      <circle class="pg-norm" cx="312" cy="382" r="3" fill="#9B7ED8" style="transform: translateX(4.7px); animation-delay: 3.40s"></circle>
+    </g>
+  </g>
+  <g stroke="#292734" stroke-width="1">
+    <line class="pg-fade" x1="37.5" y1="252" x2="37.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="56.5" y1="252" x2="56.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="75.5" y1="252" x2="75.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="94.5" y1="252" x2="94.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="113.5" y1="252" x2="113.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="132.5" y1="252" x2="132.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="151.5" y1="252" x2="151.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="170.5" y1="252" x2="170.5" y2="392" style="animation-delay: 1.30s"></line>
+    <line class="pg-fade" x1="189.5" y1="252" x2="189.5" y2="392" style="animation-delay: 1.30s"></line>
+  </g>
+  <g clip-path="url(#pgp-grid)">
+    <g class="pg-band" style="animation-delay: 1.35s">
+      <rect x="-20" y="246" width="40" height="152" fill="url(#pgp-band)"></rect>
+      <line x1="20" y1="246" x2="20" y2="398" stroke="#E0785A" stroke-width="1" stroke-opacity="0.7"></line>
+    </g>
+  </g>
+  <g class="pg-comets">
+      <g>
+        <path class="pg-halo" d="M4 80.5 L4 262 L18 262 L199 262" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 4.30s"></path>
+        <path class="pg-tail" d="M4 80.5 L4 262 L18 262 L199 262" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 4.30s"></path>
+        <path class="pg-head" d="M4 80.5 L4 262 L18 262 L199 262" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 4.30s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M4 112.5 L4 286 L18 286 L199 286" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 5.90s"></path>
+        <path class="pg-tail" d="M4 112.5 L4 286 L18 286 L199 286" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 5.90s"></path>
+        <path class="pg-head" d="M4 112.5 L4 286 L18 286 L199 286" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 5.90s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M4 144.5 L4 310 L18 310 L199 310" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 7.50s"></path>
+        <path class="pg-tail" d="M4 144.5 L4 310 L18 310 L199 310" pathLength="100" fill="none" stroke="#FFC6B4" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 7.50s"></path>
+        <path class="pg-head" d="M4 144.5 L4 310 L18 310 L199 310" pathLength="100" fill="none" stroke="#FFC6B4" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 7.50s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M4 176.5 L4 382 L18 382 L199 382" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 9.10s"></path>
+        <path class="pg-tail" d="M4 176.5 L4 382 L18 382 L199 382" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 9.10s"></path>
+        <path class="pg-head" d="M4 176.5 L4 382 L18 382 L199 382" pathLength="100" fill="none" stroke="#DDD2FF" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 9.10s"></path>
+      </g>
+      <g>
+        <path class="pg-halo" d="M4 208.5 L4 358 L18 358 L199 358" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round" style="animation-delay: 10.70s"></path>
+        <path class="pg-tail" d="M4 208.5 L4 358 L18 358 L199 358" pathLength="100" fill="none" stroke="#DDD2FF" stroke-opacity="0.5" stroke-width="1.6" stroke-linecap="round" style="animation-delay: 10.70s"></path>
+        <path class="pg-head" d="M4 208.5 L4 358 L18 358 L199 358" pathLength="100" fill="none" stroke="#DDD2FF" stroke-width="2.6" stroke-linecap="round" style="animation-delay: 10.70s"></path>
+      </g>
+  </g>
+  <line class="pg-unroll" x1="20" y1="398" x2="207" y2="398" stroke="#35323F" stroke-width="1" style="animation-delay: 1.15s"></line>
+  <g stroke="#35323F" stroke-width="1">
+    <line class="pg-fade" x1="28" y1="398" x2="28" y2="402" style="animation-delay: 1.41s"></line>
+    <line class="pg-fade" x1="47" y1="398" x2="47" y2="402" style="animation-delay: 1.56s"></line>
+    <line class="pg-fade" x1="66" y1="398" x2="66" y2="402" style="animation-delay: 1.71s"></line>
+    <line class="pg-fade" x1="85" y1="398" x2="85" y2="402" style="animation-delay: 1.87s"></line>
+    <line class="pg-fade" x1="104" y1="398" x2="104" y2="402" style="animation-delay: 2.02s"></line>
+    <line class="pg-fade" x1="123" y1="398" x2="123" y2="402" style="animation-delay: 2.17s"></line>
+    <line class="pg-fade" x1="142" y1="398" x2="142" y2="402" style="animation-delay: 2.32s"></line>
+    <line class="pg-fade" x1="161" y1="398" x2="161" y2="402" style="animation-delay: 2.47s"></line>
+    <line class="pg-fade" x1="180" y1="398" x2="180" y2="402" style="animation-delay: 2.62s"></line>
+    <line class="pg-fade" x1="199" y1="398" x2="199" y2="402" style="animation-delay: 2.77s"></line>
+  </g>
+  <g font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="0.6" fill="#8B8798" text-anchor="middle">
+    <text class="pg-fade" x="28" y="412" style="animation-delay: 1.41s">0</text>
+    <text class="pg-fade" x="47" y="412" style="animation-delay: 1.56s">2</text>
+    <text class="pg-fade" x="66" y="412" style="animation-delay: 1.71s">4</text>
+    <text class="pg-fade" x="85" y="412" style="animation-delay: 1.87s">6</text>
+    <text class="pg-fade" x="104" y="412" style="animation-delay: 2.02s">8</text>
+    <text class="pg-fade" x="123" y="412" style="animation-delay: 2.17s">12</text>
+    <text class="pg-fade" x="142" y="412" style="animation-delay: 2.32s">16</text>
+    <text class="pg-fade" x="161" y="412" style="animation-delay: 2.47s">20</text>
+    <text class="pg-fade" x="180" y="412" style="animation-delay: 2.62s">26</text>
+    <text class="pg-fade" x="199" y="412" style="animation-delay: 2.77s">52</text>
+  </g>
+  <text class="pg-fade" x="20" y="430" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" style="animation-delay: 2.95s">WEEKS SINCE FIRST ASSESSMENT</text>
+  <line x1="20" y1="446" x2="196" y2="446" stroke="#E0785A" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.8" mask="url(#pgp-arrow)"></line>
+  <path class="pg-fade" d="M204 446 l-9 -4 M204 446 l-9 4" stroke="#E0785A" stroke-width="1.2" fill="none" opacity="0.8" style="animation-delay: 3.70s"></path>
+  <text class="pg-fade" x="340" y="464" font-family="'IBM Plex Mono', monospace" font-size="8.5" letter-spacing="1.1" fill="#8B8798" text-anchor="end" style="animation-delay: 3.80s">SCHEMATIC</text>
+  </svg>
+  <!-- /psychograph -->
   <p class="graph-note">A growing, normalised data lake of the human psyche: screening, intervention and outcome, held longitudinally. Automated re-tests at six and twelve weeks turn a report sale into a relationship — and every closed loop sharpens the norms, the recommendations and the published evidence.</p>
 </section>
 

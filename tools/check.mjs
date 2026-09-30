@@ -119,7 +119,7 @@ for (const name of browsers) {
         hero: getComputedStyle(document.querySelector('.hero h1')).animationPlayState,
         bar: getComputedStyle(bar).animationPlayState,
         barWidth: bar.getBoundingClientRect().width,
-        cell: getComputedStyle(document.querySelector('.graph-h .cell')).animationPlayState,
+        cell: getComputedStyle(document.querySelector('.graph-h .pg-cell')).animationPlayState,
       };
     });
     check(s.js && s.hero === 'running', `${name} motion: hero animates on load`);
@@ -131,6 +131,25 @@ for (const name of browsers) {
       return bar.getBoundingClientRect().width / bar.parentElement.getBoundingClientRect().width;
     });
     check(Math.abs(grown - 0.46) < 0.01, `${name} motion: score bar grows to its value once visible (${(grown * 100).toFixed(1)}%)`);
+    await page.locator('.graph-h').scrollIntoViewIfNeeded();
+    let band = 0;
+    for (let t = 0; t < 40 && band < 0.5; t++) {
+      await page.waitForTimeout(100);
+      band = Math.max(band, Number(await page.evaluate(() => getComputedStyle(document.querySelector('.graph-h .pg-band')).opacity)));
+    }
+    await page.waitForTimeout(5000);
+    const built = await page.evaluate(() => {
+      const cells = [...document.querySelectorAll('.graph-h .pg-cell')];
+      const dot = document.querySelector('.graph-h .pg-norm').getBoundingClientRect();
+      const svg = document.querySelector('.graph-h').getBoundingClientRect();
+      return {
+        cells: cells.every((c) => getComputedStyle(c).opacity === '1'),
+        dotX: ((dot.left + dot.width / 2 - svg.left) * 1120) / svg.width,
+        band: getComputedStyle(document.querySelector('.graph-h .pg-band')).opacity,
+      };
+    });
+    check(band > 0.5, `${name} psychograph: the light band sweeps once revealed (peak opacity ${band})`);
+    check(built.cells && Math.abs(built.dotX - 1030) < 1 && built.band === '0', `${name} psychograph: build ends on the canvas composition (${JSON.stringify(built)})`);
     const card = page.locator('.card').first();
     await page.mouse.move(2, 2);
     await page.waitForTimeout(400);
@@ -150,9 +169,11 @@ for (const name of browsers) {
       running: document.getAnimations().length,
       edge: getComputedStyle(document.querySelector('.eg')).strokeDashoffset,
       scan: getComputedStyle(document.querySelector('.scan')).display,
+      comet: getComputedStyle(document.querySelector('.pg-head')).opacity,
+      cell: getComputedStyle(document.querySelector('.graph-h .pg-cell')).opacity,
       bar: document.querySelector('.cards .bar').getBoundingClientRect().width / document.querySelector('.cards .track').getBoundingClientRect().width,
     }));
-    check(r.running === 0 && ['0', '0px'].includes(r.edge) && r.scan === 'none' && Math.abs(r.bar - 0.46) < 0.01,
+    check(r.running === 0 && ['0', '0px'].includes(r.edge) && r.scan === 'none' && Math.abs(r.bar - 0.46) < 0.01 && r.comet === '0' && r.cell === '1',
       `${name} reduced motion: nothing moves and every final state shows (${JSON.stringify(r)})`);
     await ctx.close();
   }

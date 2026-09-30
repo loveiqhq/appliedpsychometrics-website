@@ -28,6 +28,14 @@ and run the check below.
 - Hover effects the canvas declared but its inline styles blocked now work (button borders,
   card tint, chip colour). The footer underline covers the word, not the whole column.
 - Animations lower on the page start when they scroll into view instead of at page load.
+- The psychograph's motion is new. On the canvas it looped every 9 seconds, with every cell
+  blinking off and on and the dashed lines marching. Now it builds once, when scrolled into view:
+  the sources, then the connectors, then a band of light sweeping across the weeks, then each
+  dimension's marker gliding to its value. After that it stays calm, with an occasional point of
+  data travelling from a source into its row. Hovering a row or a source isolates it. The
+  resting picture is still the canvas's, pixel for pixel. Both versions of the diagram are
+  generated: to change them or their timing, edit `tools/psychograph.py` and run
+  `python3 tools/psychograph.py`.
 - With "reduce motion" on, the network lines now show (on the canvas they stayed invisible).
 - The hero and the instrument library no longer have fixed heights, so larger text (browser
   settings, accessibility tools) makes them grow instead of being clipped or overlapping.
