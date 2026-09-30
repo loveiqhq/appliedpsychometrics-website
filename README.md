@@ -82,6 +82,10 @@ GitHub runs both on every push to `main` and on every pull request (`.github/wor
 Every morning it also checks the live site: https, the certificate, the www and http redirects
 and the full check in Chromium (`.github/workflows/live.yml`). A failure emails the workflow's owner.
 
+Each push to `main` also posts its commits, with their "For Marcus" line, to #commits-prod-staging in
+Slack (`.github/workflows/slack-commits.yml`, the same file LoveIQ uses). It needs the channel's
+webhook as the repository secret `SLACK_COMMITS_WEBHOOK_URL`, and skips quietly without it.
+
 ## Domain
 
 The domain is registered at united-domains (Marcus's account), and its DNS is managed there:

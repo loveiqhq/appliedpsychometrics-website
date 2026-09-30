@@ -1,0 +1,210 @@
+name: Slack Commit Notifications
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    name: Post commits to Slack
+    runs-on: ubuntu-latest
+    if: ${{ github.event.commits != null && github.event.commits[0] != null }}
+    steps:
+      - name: Send Slack message
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_COMMITS_WEBHOOK_URL }}
+          PAYLOAD: ${{ toJson(github.event) }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          PUSHER: ${{ github.event.pusher.name }}
+          COMPARE_URL: ${{ github.event.compare }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
+            echo "SLACK_COMMITS_WEBHOOK_URL not set; skipping."
+            exit 0
+          fi
+
+          BODY=$(python3 <<'PY'
+          import json, os, re, sys
+
+          event = json.loads(os.environ["PAYLOAD"])
+          repo = os.environ["REPO"]
+          branch = os.environ["BRANCH"]
+          pusher = os.environ.get("PUSHER") or "unknown"
+          compare_url = os.environ.get("COMPARE_URL") or ""
+
+          commits = event.get("commits") or []
+          if not commits:
+              print(json.dumps({"text": ""}))
+              raise SystemExit(0)
+
+          STRIP_PATTERNS = [
+              re.compile(r"^\s*Co-[Aa]uthored-[Bb]y:.*$"),
+              re.compile(r"^\s*Signed-off-by:.*$"),
+              re.compile(r"^\s*Generated\s+with\s+\[?Claude", re.IGNORECASE),
+              re.compile(r"^\s*\U0001f916\s*Generated", re.IGNORECASE),
+              re.compile(r"^\s*\U0001f916.*Claude\s*Code", re.IGNORECASE),
+          ]
+
+          def clean(message: str) -> tuple[str, str]:
+              lines = message.splitlines()
+              subject = lines[0].strip() if lines else ""
+              body_lines = lines[1:]
+              kept = []
+              for line in body_lines:
+                  if any(p.match(line) for p in STRIP_PATTERNS):
+                      continue
+                  kept.append(line.rstrip())
+              while kept and kept[0].strip() == "":
+                  kept.pop(0)
+              while kept and kept[-1].strip() == "":
+                  kept.pop()
+              return subject, "\n".join(kept).strip()
+
+          header = f"*<https://github.com/{repo}|{repo}>* — `{branch}` pushed by *{pusher}* ({len(commits)} commit{'s' if len(commits) != 1 else ''})"
+          if compare_url:
+              header = f"{header} • <{compare_url}|view diff>"
+
+          blocks = [{"type": "section", "text": {"type": "mrkdwn", "text": header}}]
+
+          marcus_re = re.compile(r"(?i)^\s*for\s+marcus:\s*(.*)$")
+
+          for c in commits:
+              sha = (c.get("id") or "")[:7]
+              url = c.get("url") or ""
+              author = ((c.get("author") or {}).get("name")) or "unknown"
+              subject, body = clean(c.get("message") or "")
+
+              # Pull the "For Marcus:" summary out of the body so it can render
+              # BOLD and labeled on its own line. Slack code blocks (used for the
+              # technical body below) render monospace and ignore bold, so the
+              # Marcus line has to live outside the ``` block.
+              # The "For Marcus:" summary is the LAST paragraph by convention, but
+              # it may wrap across several physical lines (git/editors hard-wrap at
+              # ~72 chars). Capture the remainder of the matched line PLUS every
+              # following line, joined into one, so a multi-line summary isn't cut
+              # off at the first wrap. Everything before the marker stays in the body.
+              marcus = None
+              body_kept = []
+              lines = body.splitlines()
+              for i, line in enumerate(lines):
+                  m = marcus_re.match(line)
+                  if m:
+                      rest = [m.group(1).strip()] + [l.strip() for l in lines[i + 1 :]]
+                      marcus = " ".join(s for s in rest if s).strip()
+                      break
+                  body_kept.append(line)
+              body = "\n".join(body_kept).strip()
+
+              link = f"<{url}|`{sha}`>" if url else f"`{sha}`"
+              head_line = f"{link} *{subject}* — _{author}_"
+
+              # Slack rejects the WHOLE payload with a 400 if any section's text
+              # exceeds 3000 characters. Trimming the body and the Marcus line to 2500
+              # EACH could still produce ~5000 in one section, which is what turned this
+              # job red on 2026-08-21: a verbose commit body plus its summary.
+              #
+              # The budget is spent in priority order instead. The Marcus line is the
+              # whole point of this notification, so it is kept in full (capped at a
+              # generous 900 — these are one to three sentences by convention) and the
+              # technical body takes whatever is left.
+              SECTION_LIMIT = 2900
+
+              marcus_part = ""
+              if marcus:
+                  safe = marcus.replace("*", "").strip()
+                  if len(safe) > 900:
+                      safe = safe[:900].rstrip() + "…"
+                  marcus_part = f"\n*📣 For Marcus: {safe}*"
+
+              text = head_line + marcus_part
+              if body:
+                  budget = SECTION_LIMIT - len(text) - len("\n```\n\n```")
+                  if budget > 200:
+                      body_trim = body if len(body) <= budget else body[:budget].rstrip() + "…"
+                      # the body goes BEFORE the Marcus line, as it always has
+                      text = head_line + f"\n```\n{body_trim}\n```" + marcus_part
+
+              # Belt and braces: whatever the arithmetic above, never hand Slack an
+              # over-long section.
+              if len(text) > 3000:
+                  text = text[:2997] + "…"
+              blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": text}})
+
+          # Slack has a SECOND limit the per-section cap above cannot catch: the whole
+          # message must stay under 40,000 characters, and a push carrying twenty verbose
+          # commits sailed past it at 48KB (2026-08-23 — a 400, same as the over-long
+          # section on 2026-08-21). Shed detail in priority order until it fits: the
+          # technical bodies go first, the "For Marcus" summaries last, because those are
+          # the reason this notification exists.
+          MESSAGE_BUDGET = 38000
+
+          def serialized(bs):
+              return len(json.dumps({"text": "x", "blocks": bs}))
+
+          if serialized(blocks) > MESSAGE_BUDGET:
+              for block in blocks:
+                  text = block["text"]["text"]
+                  if "```" in text:
+                      head, _, rest = text.partition("\n```")
+                      marcus_tail = ""
+                      if "*📣 For Marcus:" in rest:
+                          marcus_tail = "\n" + rest[rest.index("*📣 For Marcus:") :]
+                      block["text"]["text"] = head + marcus_tail
+
+          if serialized(blocks) > MESSAGE_BUDGET or len(blocks) > 50:
+              kept = [blocks[0]]
+              for block in blocks[1:]:
+                  if len(kept) >= 49 or serialized(kept + [block]) > MESSAGE_BUDGET:
+                      break
+                  kept.append(block)
+              hidden = len(blocks) - len(kept)
+              if hidden > 0:
+                  kept.append(
+                      {
+                          "type": "section",
+                          "text": {
+                              "type": "mrkdwn",
+                              "text": f"_…and {hidden} more commit(s) — see the diff link above._",
+                          },
+                      }
+                  )
+              blocks = kept
+
+          fallback = f"{repo} {branch}: {len(commits)} commit(s)"
+          payload = json.dumps({"text": fallback, "blocks": blocks})
+          print(
+              f"payload: {len(payload)} chars, {len(blocks)} blocks, "
+              f"largest section {max(len(b['text']['text']) for b in blocks)} chars",
+              file=sys.stderr,
+          )
+          print(payload)
+          PY
+          )
+
+          if [ -z "$BODY" ] || [ "$BODY" = '{"text": ""}' ]; then
+            echo "No commits to send."
+            exit 0
+          fi
+
+          # `--fail` alone reports only "error: 400" and throws away Slack's reason,
+          # which is what made the 2026-08-21 failure take a replay to diagnose. Capture
+          # the body and print it (the URL is a secret and is never echoed).
+          HTTP_CODE=$(curl --silent --show-error --output /tmp/slack-response.txt --write-out '%{http_code}' \
+            -X POST \
+            -H "Content-Type: application/json" \
+            --data "$BODY" \
+            "$SLACK_WEBHOOK_URL")
+          echo "slack responded ${HTTP_CODE}: $(cat /tmp/slack-response.txt)"
+          if [ "$HTTP_CODE" != "200" ]; then
+            exit 1
+          fi
