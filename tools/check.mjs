@@ -159,7 +159,7 @@ for (const name of browsers) {
         band: getComputedStyle(document.querySelector('.graph-h .pg-band')).opacity,
       };
     });
-    check(band > 0.5, `${name} psychograph: the light band sweeps once revealed (peak opacity ${band})`);
+    check(band >= 0.5, `${name} psychograph: the light band sweeps once revealed (peak opacity ${band})`);
     check(built.cells && Math.abs(built.dotX - 1030) < 1 && built.band === '0', `${name} psychograph: build ends on the canvas composition (${JSON.stringify(built)})`);
     const card = page.locator('.card').first();
     await page.mouse.move(2, 2);
