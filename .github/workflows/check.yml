@@ -1,0 +1,32 @@
+# Every change: the full check (3 engines, 20 widths, motion, accessibility, links) and the
+# device sweep (211 phone, tablet and desktop profiles), against a local copy of public/.
+name: Check
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+      - name: Cache browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('tools/package-lock.json') }}
+      - run: npx playwright install --with-deps chromium webkit firefox
+      - run: node check.mjs
+      - run: node devices.mjs

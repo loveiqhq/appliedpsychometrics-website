@@ -78,11 +78,16 @@ Playwright has, in portrait and landscape, plus ten desktop sizes and a 280px fo
 emulated, and the run fails on horizontal scrolling, content escaping the screen, text wider
 than its box, overlapping text, or crowded tap targets under 24px.
 
+GitHub runs both on every push to `main` and on every pull request (`.github/workflows/check.yml`).
+Every morning it also checks the live site: https, the certificate, the www and http redirects
+and the full check in Chromium (`.github/workflows/live.yml`). A failure emails the workflow's owner.
+
 ## Domain
 
-The domain is registered at united-domains, and its DNS is managed there. The web records point
-at Vercel. The mail (MX) and SPF records belong to united-domains' mail service; leave them
-alone.
+The domain is registered at united-domains (Marcus's account), and its DNS is managed there:
+an A record for the domain itself points at `216.150.1.1`, and a CNAME from `www` to
+`cname.vercel-dns.com`. Both point at Vercel, which issues and renews the certificate. The domain
+is not used for email.
 
 ## Fonts
 

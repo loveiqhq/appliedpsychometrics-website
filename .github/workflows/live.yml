@@ -1,0 +1,35 @@
+# Daily health check of the live site: it answers over https, its certificate is not about to
+# expire, www and http redirect, and the full check passes in Chromium. A failure emails whoever
+# owns this workflow on GitHub.
+name: Live
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Site, redirects and certificate
+        run: |
+          set -euo pipefail
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://appliedpsychometrics.org/)" = 200
+          test "$(curl -s -o /dev/null -w '%{redirect_url}' https://www.appliedpsychometrics.org/)" = https://appliedpsychometrics.org/
+          test "$(curl -s -o /dev/null -w '%{redirect_url}' http://appliedpsychometrics.org/)" = https://appliedpsychometrics.org/
+          echo | openssl s_client -servername appliedpsychometrics.org -connect appliedpsychometrics.org:443 2>/dev/null \
+            | openssl x509 -noout -checkend 1209600   # fails if the certificate expires within 14 days
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+        working-directory: tools
+      - run: npx playwright install --with-deps chromium
+        working-directory: tools
+      - run: node check.mjs https://appliedpsychometrics.org --browsers=chromium
+        working-directory: tools
