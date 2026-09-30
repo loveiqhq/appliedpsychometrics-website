@@ -25,8 +25,8 @@ const browsers = (args.find((a) => a.startsWith('--browsers='))?.split('=')[1] ?
 let base = args.find((a) => !a.startsWith('--'));
 let server;
 if (!base) {
-  server = await serve(4817);
-  base = 'http://localhost:4817';
+  server = await serve(0); // any free port
+  base = `http://localhost:${server.address().port}`;
 }
 base = base.replace(/\/$/, '');
 

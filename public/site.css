@@ -875,6 +875,7 @@ a:hover {
   height: auto;
 }
 .loop-v,
+.loop-t,
 .loop-cap {
   display: none;
 }
@@ -1059,8 +1060,16 @@ a:hover {
 }
 .hub-head {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
   align-items: center;
   justify-content: space-between;
+}
+.hub-head > .m {
+  margin-left: auto;
+}
+.hub h3 {
+  white-space: nowrap;
 }
 .hub-title {
   display: flex;
@@ -1262,6 +1271,21 @@ a:hover {
 /* ---------- Narrower than the canvas ---------- */
 
 @media (max-width: 1199px) {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+  .vision p {
+    text-wrap: balance;
+  }
+  .nb {
+    white-space: nowrap;
+  }
   .hero h1 {
     font-size: clamp(72px, 8.6vw, 104px);
   }
@@ -1369,7 +1393,7 @@ a:hover {
   .loop-v {
     display: block;
     width: 100%;
-    max-width: 400px;
+    max-width: 236px;
     height: auto;
   }
   .loop-cap {
@@ -1413,6 +1437,31 @@ a:hover {
     padding: 6px 0;
     background-origin: content-box;
     background-clip: content-box;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .loop-v,
+  .loop-cap {
+    display: none;
+  }
+  .loop-t {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .site-footer {
+    flex-direction: row;
+  }
+  .foot-right,
+  .foot-links {
+    align-items: flex-end;
+  }
+  .foot-links {
+    width: auto;
+  }
+  .foot-notes {
+    text-align: right;
   }
 }
 
@@ -1460,6 +1509,24 @@ a:hover {
   }
   .doc h1 {
     font-size: 42px;
+  }
+}
+
+@media (max-width: 479px) {
+  .chips-label {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 359px) {
+  .btn {
+    padding-left: 14px;
+    padding-right: 14px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .eyebrow {
+    letter-spacing: 0.16em;
   }
 }
 

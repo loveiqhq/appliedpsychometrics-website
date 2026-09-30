@@ -37,6 +37,10 @@ and run the check below.
   generated: to change them or their timing, edit `tools/psychograph.py` and run
   `python3 tools/psychograph.py`.
 - With "reduce motion" on, the network lines now show (on the canvas they stayed invisible).
+- Below 1200px (the canvas has no smaller layouts): headings wrap into balanced lines,
+  paragraphs avoid a single word on their last line, and hyphenated words such as "re-test"
+  and "sign-off" never split across lines. Tablets (768-1023px) get a horizontal loop diagram
+  spaced for their width; phones get a vertical one.
 - The hero and the instrument library no longer have fixed heights, so larger text (browser
   settings, accessibility tools) makes them grow instead of being clipped or overlapping.
 - Fonts are served from this domain instead of Google Fonts, so no visitor data goes to Google.
@@ -67,6 +71,12 @@ node check.mjs https://appliedpsychometrics.org  # the live site
 It checks the layout at 20 widths from 320px to 2560px in Chromium, WebKit (Safari) and
 Firefox, the animations (including reduced motion and no JavaScript), accessibility with axe
 (WCAG 2.2 AA), the 404 page, and that every local link and asset exists.
+
+`node devices.mjs [url]` loads all four pages on every phone, tablet and foldable profile
+Playwright has, in portrait and landscape, plus ten desktop sizes and a 280px folded phone
+(211 profiles, 844 page loads). Each runs in its own engine with touch and pixel density
+emulated, and the run fails on horizontal scrolling, content escaping the screen, text wider
+than its box, overlapping text, or crowded tap targets under 24px.
 
 ## Domain
 
