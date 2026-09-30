@@ -1186,6 +1186,19 @@ a:hover {
 .foot-links a:hover {
   color: var(--text);
 }
+/* Same look as the canvas (11px links, 10px apart), but each link's tap area is a full 24px:
+   the gap moves into padding and the underline stays on the text. */
+@media (min-width: 1024px) {
+  .foot-links {
+    gap: 0;
+    margin-top: -5px;
+  }
+  .foot-links a {
+    padding: 5px 0;
+    background-origin: content-box;
+    background-clip: content-box;
+  }
+}
 .foot-notes {
   display: flex;
   flex-direction: column;
