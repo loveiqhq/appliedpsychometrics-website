@@ -191,6 +191,7 @@ for (const name of browsers) {
       const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: 'reduce' });
       const page = await ctx.newPage();
       const res = await page.goto(base + p, { waitUntil: 'load' });
+      await page.evaluate(() => document.fonts.ready);
       if (p === '/missing-page') check(res.status() === 404, `${name} ${p} answers 404`);
       const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice']).analyze();
       check(!r.violations.length, `${name} ${p} @${w}px accessibility${r.violations.map((v) => ` [${v.impact}] ${v.id}`).join('')}`);

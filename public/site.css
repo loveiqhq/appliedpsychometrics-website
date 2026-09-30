@@ -1194,6 +1194,8 @@ a:hover {
     margin-top: -5px;
   }
   .foot-links a {
+    box-sizing: border-box;
+    min-height: 24px;
     padding: 5px 0;
     background-origin: content-box;
     background-clip: content-box;

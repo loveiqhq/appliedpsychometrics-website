@@ -41,7 +41,8 @@ async function worker() {
     const ctx = await browser.newContext({ ...options, reducedMotion: 'reduce' });
     const page = await ctx.newPage();
     const errors = [];
-    page.on('console', (m) => m.type() === 'error' && !/404 \(Not Found\)/.test(m.text()) && errors.push(m.text()));
+    // the missing page is meant to answer 404; its console note about that is expected
+    page.on('console', (m) => m.type() === 'error' && !(p === '/missing-page' && /status of 404/.test(m.text())) && errors.push(m.text()));
     page.on('pageerror', (e) => errors.push(e.message));
     await page.goto(base + p, { waitUntil: 'load' });
     await page.evaluate(() => document.fonts.ready);
