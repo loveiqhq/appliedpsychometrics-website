@@ -1257,6 +1257,23 @@ a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* Cookie names on the privacy page; the PostHog one has no natural break point. */
+.doc code {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+/* The privacy page's "change your cookie choice" control: a button that reads as a link. */
+.doc .link {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 .doc .btn-row {
   margin-top: 36px;
 }
@@ -1566,4 +1583,81 @@ a:hover {
   .vision .btn-row {
     align-self: stretch;
   }
+}
+
+/* ---------- Cookie banner (CookieYes) ----------
+   CookieYes renders its own markup and sets its colours as inline styles, so these rules need
+   !important to reach them. Only colour, type and corners change; its layout is left alone.
+   Accept and Reject stay equally prominent on purpose. */
+
+.cky-consent-bar,
+.cky-preference-center {
+  border-color: var(--line) !important;
+}
+.cky-consent-bar {
+  box-shadow: 0 -10px 34px rgba(20, 19, 26, 0.08) !important;
+}
+.cky-title,
+.cky-preference-title {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif !important;
+  font-weight: 400 !important;
+  font-size: 26px !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.005em;
+  color: var(--ink) !important;
+}
+.cky-notice-des,
+.cky-notice-des *,
+.cky-preference-content-wrapper,
+.cky-preference-content-wrapper *,
+.cky-accordion-header-des,
+.cky-accordion-header-des *,
+.cky-audit-table,
+.cky-empty-cookies-text {
+  color: var(--text) !important;
+}
+.cky-accordion-btn {
+  color: var(--ink) !important;
+}
+.cky-btn {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  border-radius: 10px !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.cky-btn-accept,
+.cky-btn-reject,
+.cky-btn-preferences {
+  color: #ffffff !important;
+  background-color: var(--ink) !important;
+  border: 1.5px solid var(--ink) !important;
+}
+.cky-btn-accept:hover,
+.cky-btn-reject:hover,
+.cky-btn-preferences:hover {
+  background-color: #2c2a35 !important;
+  border-color: #2c2a35 !important;
+}
+.cky-btn-customize {
+  color: var(--ink) !important;
+  background-color: transparent !important;
+  border: 1px solid #d9d7e0 !important;
+}
+.cky-btn-customize:hover {
+  border-color: var(--ink) !important;
+}
+.cky-show-desc-btn {
+  color: var(--accent) !important;
+}
+.cky-always-active {
+  color: var(--violet) !important;
+}
+.cky-switch input:checked {
+  background-color: var(--ink) !important;
+}
+.cky-btn-revisit-wrapper {
+  background-color: var(--ink) !important;
 }

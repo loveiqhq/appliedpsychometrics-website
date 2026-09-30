@@ -58,6 +58,27 @@ and run the check below.
   prints the right value. A stale hash does not break the page: the animations just all play at
   load.
 
+## Analytics and consent
+
+Google Analytics 4 (`G-9WSTCKKBYQ`, a property in LoveIQ's GA account) and PostHog (its own
+project in LoveIQ's EU organisation) run only after a visitor accepts analytics cookies in the
+CookieYes banner (a site in LoveIQ's CookieYes account). Before that the site loads neither and
+stores only the `cookieyes-consent` cookie. Microsoft Clarity is planned but not added yet.
+
+- `public/analytics.js` loads on every page and waits for CookieYes's `cookieyes_banner_load` and
+  `cookieyes_consent_update` events. It starts both tools once `getCkyConsent()` reports analytics
+  as accepted, and reloads the page if that consent is withdrawn. CookieYes's own script blocking
+  (`type="text/plain"` with `data-cookieyes`) is not used: it only handles tags added after
+  CookieYes has loaded, so on a static page consent given on an earlier visit never switched them
+  on.
+- PostHog talks to `eu.i.posthog.com` directly. LoveIQ sends it through its own domain, but here
+  Vercel's trailing-slash redirect would bounce every capture request, which ends in a slash.
+- Their hosts are in the Content-Security-Policy in `vercel.json`. That includes `www.google.com`,
+  which GA4 calls even with Google signals and ad storage off.
+- The banner's colours and type are overridden at the end of `site.css`. Its wording is edited
+  in the CookieYes dashboard.
+- The privacy page describes all of this, including the cookie names, so keep it in step.
+
 ## Checking
 
 ```bash
@@ -70,7 +91,15 @@ node check.mjs https://appliedpsychometrics.org  # the live site
 
 It checks the layout at 20 widths from 320px to 2560px in Chromium, WebKit (Safari) and
 Firefox, the animations (including reduced motion and no JavaScript), accessibility with axe
-(WCAG 2.2 AA), the 404 page, and that every local link and asset exists.
+(WCAG 2.2 AA), the 404 page, and that every local link and asset exists. Those checks, and
+`devices.mjs`, replace the cookie banner with an empty script so that it does not cover the page.
+
+The consent checks use the real banner on the real domain; a local run serves `public/` under
+`https://appliedpsychometrics.org`. They check the banner with axe and at phone width, that
+nothing loads before a choice, and that GA4 and PostHog send after "Accept all" and on the next
+page. They also check that withdrawing consent stops both, and that nothing loads after "Reject
+all". Data requests are aborted, so a check never records a visit. PostHog ignores automated
+browsers, so the check tells the page it is not one.
 
 `node devices.mjs [url]` loads all four pages on every phone, tablet and foldable profile
 Playwright has, in portrait and landscape, plus ten desktop sizes and a 280px folded phone
@@ -91,7 +120,11 @@ webhook as the repository secret `SLACK_COMMITS_WEBHOOK_URL`, and skips quietly 
 The domain is registered at united-domains (Marcus's account), and its DNS is managed there:
 an A record for the domain itself points at `216.150.1.1`, and a CNAME from `www` to
 `cname.vercel-dns.com`. Both point at Vercel, which issues and renews the certificate. The domain
-is not used for email.
+is not used for email, and says so: its TXT record `v=spf1 -all` and a `_dmarc` TXT record
+`v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s` tell mail servers to refuse anything sent in
+its name. A `google-site-verification` TXT record proves ownership to Google Search Console, which
+has the sitemap. On united-domains a TXT record's host goes in the "Subdomain / Hostname" box: a
+`_dmarc` record left with that box empty lands on the domain itself, where nothing reads it.
 
 ## Fonts
 

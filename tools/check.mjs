@@ -11,6 +11,8 @@
 // 3. motion: one-shot animations wait until scrolled into view, reduced motion shows every final
 //    state, the page still animates without JavaScript, hover states apply
 // 4. accessibility: axe-core, WCAG 2.2 AA plus best practices
+// 5. consent: the real cookie banner shows and passes axe, nothing loads before a choice, GA4 and
+//    PostHog send after "Accept all" and on the next page, and nothing loads after "Reject all"
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,6 +38,13 @@ const check = (ok, msg) => {
   if (!ok) failures.push(msg);
 };
 const PAGES = ['/', '/imprint', '/privacy'];
+// CookieYes draws its banner only on the registered domain, and a banner over the page would hide
+// what sections 2-4 look at, so they get an empty stand-in. Section 5 uses the real banner.
+const noBanner = (target) => target.route('https://cdn-cookieyes.com/**', (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
+const SITE = 'https://appliedpsychometrics.org';
+const TRACKERS = /googletagmanager\.com|google-analytics\.com|analytics\.google\.com|www\.google\.[a-z.]+\/g\/|posthog\.com/;
+const SENDS = /\/g\/collect|posthog\.com\/(i\/v0\/e|e|batch|s)\//;
+const CHROME_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36';
 const WIDTHS = [320, 360, 375, 390, 412, 430, 600, 768, 820, 834, 900, 1024, 1100, 1180, 1280, 1366, 1440, 1536, 1920, 2560];
 
 // ---------- 1. static ----------
@@ -62,6 +71,7 @@ for (const name of browsers) {
 
   for (const w of WIDTHS) {
     const page = await browser.newPage({ viewport: { width: w, height: 900 } });
+    await noBanner(page);
     const errors = [];
     page.on('console', (m) => ['error', 'warning'].includes(m.type()) && errors.push(m.text()));
     page.on('pageerror', (e) => errors.push(e.message));
@@ -110,6 +120,7 @@ for (const name of browsers) {
 
   {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await noBanner(page);
     await page.goto(base + '/', { waitUntil: 'load' });
     await page.waitForTimeout(300);
     const s = await page.evaluate(() => {
@@ -162,6 +173,7 @@ for (const name of browsers) {
   }
   {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+    await noBanner(ctx);
     const page = await ctx.newPage();
     await page.goto(base + '/', { waitUntil: 'load' });
     await page.waitForTimeout(300);
@@ -189,6 +201,7 @@ for (const name of browsers) {
   for (const p of [...PAGES, '/missing-page']) {
     for (const w of [1440, 390]) {
       const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: 'reduce' });
+      await noBanner(ctx);
       const page = await ctx.newPage();
       const res = await page.goto(base + p, { waitUntil: 'load' });
       await page.evaluate(() => document.fonts.ready);
@@ -197,6 +210,73 @@ for (const name of browsers) {
       check(!r.violations.length, `${name} ${p} @${w}px accessibility${r.violations.map((v) => ` [${v.impact}] ${v.id}`).join('')}`);
       await ctx.close();
     }
+  }
+
+  // ---------- 5. consent ----------
+  // The real CookieYes banner, on the real domain: a local check serves ../public under it. GA4
+  // and PostHog data requests are aborted, so a check never records a visit. PostHog ignores
+  // automated browsers, so the page is told it is not one.
+  for (const [choice, width] of [['accept', 1440], ['reject', 390]]) {
+    const ctx = await browser.newContext({ viewport: { width, height: 900 }, ...(name === 'chromium' && { userAgent: CHROME_UA }) });
+    await ctx.addInitScript(() => {
+      Object.defineProperty(navigator, 'webdriver', { get: () => false });
+      if (navigator.userAgentData) Object.defineProperty(navigator, 'userAgentData', { get: () => ({ brands: [{ brand: 'Google Chrome', version: '149' }], mobile: false, platform: 'macOS' }) });
+    });
+    if (base !== SITE) await ctx.route(`${SITE}/**`, async (route) => route.fulfill({ response: await route.fetch({ url: route.request().url().replace(SITE, base) }) }));
+    const tracked = [];
+    await ctx.route(TRACKERS, (route) => {
+      tracked.push(route.request().url());
+      return SENDS.test(route.request().url()) ? route.abort() : route.fallback();
+    });
+    const page = await ctx.newPage();
+    const errors = [];
+    page.on('console', (m) => m.type() === 'error' && !/net::ERR_FAILED/.test(m.text()) && errors.push(m.text()));
+    page.on('pageerror', (e) => errors.push(e.message));
+    const until = async (test) => {
+      for (let t = 0; t < 48 && !test(); t++) await page.waitForTimeout(250);
+      return test();
+    };
+    await page.goto(SITE + '/', { waitUntil: 'load' });
+    const button = page.locator(choice === 'accept' ? '.cky-btn-accept' : '.cky-btn-reject').first();
+    const shown = await button.waitFor({ state: 'visible', timeout: 15000 }).then(() => true, () => false);
+    check(shown, `${name} consent @${width}px: the cookie banner shows`);
+    if (!shown) {
+      await ctx.close();
+      continue;
+    }
+    const a11y = await new AxeBuilder({ page }).include('.cky-consent-container').withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice']).analyze();
+    check(!a11y.violations.length, `${name} consent @${width}px: the banner's accessibility${a11y.violations.map((v) => ` [${v.impact}] ${v.id}`).join('')}`);
+    const wide = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    check(wide <= 0, `${name} consent @${width}px: the banner fits the screen (${wide}px over)`);
+    const cookies = (await ctx.cookies()).map((c) => c.name);
+    check(!tracked.length && cookies.every((c) => c === 'cookieyes-consent'), `${name} consent: nothing loads before a choice (${tracked.length} requests; cookies: ${cookies.join(', ') || 'none'})`);
+    await button.click();
+    if (choice === 'accept') {
+      const both = () => tracked.some((u) => /google-analytics\.com\/g\/collect/.test(u)) && tracked.some((u) => /posthog\.com\/(i\/v0\/e|e|batch)\//.test(u));
+      check(await until(both), `${name} consent: GA4 and PostHog send after "Accept all"`);
+      // Judged by the new page's own state: the old page's last beacon, sent as it unloads, would
+      // otherwise pass this on its own.
+      const running = () => page.evaluate(() => !!(window.posthog && window.posthog.__loaded) && typeof window.gtag === 'function').catch(() => false);
+      await page.reload({ waitUntil: 'load' });
+      let held = false;
+      for (let t = 0; t < 48 && !held; t++) held = (await running()) || (await page.waitForTimeout(250), false);
+      check(held, `${name} consent: the choice holds on the next page`);
+      // Withdrawing: the round button CookieYes leaves on the page reopens the choice, and
+      // "Reject all" there reloads the page without analytics.
+      await page.locator('.cky-btn-revisit').click();
+      const reloaded = page.waitForEvent('load', { timeout: 15000 }).then(() => true, () => false);
+      await page.locator('.cky-modal .cky-btn-reject').click();
+      await reloaded;
+      await page.waitForTimeout(3000);
+      check(!(await running()) && !(await page.evaluate(() => 'posthog' in window || 'gtag' in window)), `${name} consent: withdrawing it stops analytics`);
+    } else {
+      await page.waitForTimeout(4000);
+      await page.reload({ waitUntil: 'load' });
+      await page.waitForTimeout(3000);
+      check(!tracked.length, `${name} consent: nothing loads after "Reject all", on that page or the next (${tracked.length} requests)`);
+    }
+    check(!errors.length, `${name} consent (${choice}): no console errors${errors.length ? ': ' + [...new Set(errors)].map((e) => e.slice(0, 160)).join('; ') : ''}`);
+    await ctx.close();
   }
   await browser.close();
 }

@@ -39,6 +39,8 @@ async function worker() {
     const { name, defaultBrowserType, ...options } = d;
     if (type === 'firefox') delete options.isMobile;
     const ctx = await browser.newContext({ ...options, reducedMotion: 'reduce' });
+    // the page itself, without the consent banner on top (check.mjs checks the banner)
+    await ctx.route('https://cdn-cookieyes.com/**', (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
     const page = await ctx.newPage();
     const errors = [];
     // the missing page is meant to answer 404; its console note about that is expected
