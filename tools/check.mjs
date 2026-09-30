@@ -166,8 +166,13 @@ for (const name of browsers) {
     await page.waitForTimeout(400);
     const rest = await card.evaluate((e) => getComputedStyle(e).borderTopColor);
     await card.hover();
-    await page.waitForTimeout(500);
-    const hover = await card.evaluate((e) => ({ c: getComputedStyle(e).borderTopColor, t: getComputedStyle(e).transform }));
+    // Polled, not a fixed wait: on a busy CI machine the 0.3s lift can still be at -2.9px at 500ms.
+    let hover;
+    for (let t = 0; t < 30; t++) {
+      await page.waitForTimeout(100);
+      hover = await card.evaluate((e) => ({ c: getComputedStyle(e).borderTopColor, t: getComputedStyle(e).transform }));
+      if (hover.c !== rest && hover.t.includes('-3')) break;
+    }
     check(hover.c !== rest && hover.t.includes('-3'), `${name} motion: cards lift and tint on hover`);
     await page.close();
   }
