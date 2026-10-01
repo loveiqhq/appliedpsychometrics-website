@@ -23,6 +23,11 @@ and run the check below.
   "Mental screening & assessment" and the psychograph text says "screening, intervention and
   outcome".
 - The stray orange "I" in "INSTRUMENT LIBRARY" is grey like the other section labels.
+- The library cards' descriptions state each test's size, at Marcus's request (2026-10-01): the
+  canvas called the 29-item depression test a "nine-item screen". Each now reads "29 items built on
+  the PHQ-9 …", and likewise for the other three. The PHQ-9 (9 items), GAD-7 (7), UCLA-3 (3) and
+  SDI-2 (14) are the instruments inside the tests; the item counts and minutes are Marcus's.
+- A CookieYes consent banner, styled in the site's type and colours (see "Analytics and consent").
 - The footer names the company in full, "UG (haftungsbeschränkt)", and links to real Imprint,
   Privacy and Contact pages instead of placeholders.
 - Hover effects the canvas declared but its inline styles blocked now work (button borders,
