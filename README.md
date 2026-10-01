@@ -112,8 +112,10 @@ Every morning it also checks the live site: https, the certificate, the www and 
 and the full check in Chromium (`.github/workflows/live.yml`). A failure emails the workflow's owner.
 
 Each push to `main` also posts its commits, with their "For Marcus" line, to #commits-prod-staging in
-Slack (`.github/workflows/slack-commits.yml`, the same file LoveIQ uses). It needs the channel's
-webhook as the repository secret `SLACK_COMMITS_WEBHOOK_URL`, and skips quietly without it.
+Slack (`.github/workflows/slack-commits.yml`, LoveIQ's file with one addition). GitHub cannot copy
+LoveIQ's webhook secret, so this repo posts as LoveIQ's `loveiq_journey` bot instead. The bot's
+token is the repository secret `SLACK_BOT_TOKEN`, and it can only post messages. A
+`SLACK_COMMITS_WEBHOOK_URL` secret, if one is ever added, takes over from the bot.
 
 ## Domain
 

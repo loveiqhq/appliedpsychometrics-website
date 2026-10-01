@@ -20,6 +20,10 @@ jobs:
       - name: Send Slack message
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_COMMITS_WEBHOOK_URL }}
+          # This repo has no webhook of its own, so it posts as LoveIQ's loveiq_journey bot
+          # (chat:write and chat:write.public only) into the same channel, #commits-prod-staging.
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL: C0B1T8J5LS3
           PAYLOAD: ${{ toJson(github.event) }}
           REPO: ${{ github.repository }}
           BRANCH: ${{ github.ref_name }}
@@ -28,8 +32,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
-            echo "SLACK_COMMITS_WEBHOOK_URL not set; skipping."
+          if [ -z "${SLACK_WEBHOOK_URL:-}" ] && [ -z "${SLACK_BOT_TOKEN:-}" ]; then
+            echo "Neither SLACK_COMMITS_WEBHOOK_URL nor SLACK_BOT_TOKEN is set; skipping."
             exit 0
           fi
 
@@ -199,12 +203,29 @@ jobs:
           # `--fail` alone reports only "error: 400" and throws away Slack's reason,
           # which is what made the 2026-08-21 failure take a replay to diagnose. Capture
           # the body and print it (the URL is a secret and is never echoed).
-          HTTP_CODE=$(curl --silent --show-error --output /tmp/slack-response.txt --write-out '%{http_code}' \
-            -X POST \
-            -H "Content-Type: application/json" \
-            --data "$BODY" \
-            "$SLACK_WEBHOOK_URL")
-          echo "slack responded ${HTTP_CODE}: $(cat /tmp/slack-response.txt)"
-          if [ "$HTTP_CODE" != "200" ]; then
-            exit 1
+          if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+            HTTP_CODE=$(curl --silent --show-error --output /tmp/slack-response.txt --write-out '%{http_code}' \
+              -X POST \
+              -H "Content-Type: application/json" \
+              --data "$BODY" \
+              "$SLACK_WEBHOOK_URL")
+            echo "slack responded ${HTTP_CODE}: $(cat /tmp/slack-response.txt)"
+            if [ "$HTTP_CODE" != "200" ]; then
+              exit 1
+            fi
+          else
+            # chat.postMessage takes the same blocks plus a channel. It answers 200 even
+            # when it refuses, so success is its own "ok" field, not the status code.
+            BODY=$(printf '%s' "$BODY" | python3 -c 'import json, os, sys; d = json.load(sys.stdin); d["channel"] = os.environ["SLACK_CHANNEL"]; print(json.dumps(d))')
+            HTTP_CODE=$(curl --silent --show-error --output /tmp/slack-response.txt --write-out '%{http_code}' \
+              -X POST \
+              -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              --data "$BODY" \
+              https://slack.com/api/chat.postMessage)
+            OK=$(python3 -c 'import json; d = json.load(open("/tmp/slack-response.txt")); print("yes" if d.get("ok") else "no: " + str(d.get("error")))')
+            echo "slack responded ${HTTP_CODE}, ok ${OK}"
+            if [ "$OK" != "yes" ]; then
+              exit 1
+            fi
           fi
