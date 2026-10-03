@@ -28,6 +28,9 @@ and run the check below.
   the PHQ-9 …", and likewise for the other three. The PHQ-9 (9 items), GAD-7 (7), UCLA-3 (3) and
   SDI-2 (14) are the instruments inside the tests; the item counts and minutes are Marcus's.
 - A CookieYes consent banner, styled in the site's type and colours (see "Analytics and consent").
+- The loop diagram's labels, at Marcus's request (2026-10-03): "Named problem" is now "Challenge named",
+  and the report and subscription show what they give, "Understanding" and "Education", instead of
+  their prices (€20–60, €9–49 / mo).
 - The footer names the company in full, "UG (haftungsbeschränkt)", and links to real Imprint,
   Privacy and Contact pages instead of placeholders.
 - Hover effects the canvas declared but its inline styles blocked now work (button borders,
