@@ -1661,3 +1661,11 @@ a:hover {
 .cky-btn-revisit-wrapper {
   background-color: var(--ink) !important;
 }
+/* The preferences window's close button is a flex item beside the title, and on screens of
+   ~320px and narrower the long serif title squeezed it to 19-22px wide, under the 24px
+   minimum tap size (WCAG 2.5.8). */
+.cky-btn-close {
+  flex-shrink: 0;
+  min-width: 24px;
+  min-height: 24px;
+}

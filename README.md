@@ -102,6 +102,11 @@ Firefox, the animations (including reduced motion and no JavaScript), accessibil
 (WCAG 2.2 AA), the 404 page, and that every local link and asset exists. Those checks, and
 `devices.mjs`, replace the cookie banner with an empty script so that it does not cover the page.
 
+`node banner.mjs [url]` opens the real cookie banner and its preferences window on the same 211
+device profiles, after each has slid in. Every button is scrolled into view and must then be on
+screen, at least 24px and clear of its neighbours. On screens 375px wide and narrower it also taps
+"Reject all" inside the window and checks the choice was saved. CI runs it on every push.
+
 The consent checks use the real banner on the real domain; a local run serves `public/` under
 `https://appliedpsychometrics.org`. They check the banner with axe and at phone width, that
 nothing loads before a choice, and that GA4 and PostHog send after "Accept all" and on the next
