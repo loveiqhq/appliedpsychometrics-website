@@ -41,6 +41,9 @@ const PAGES = ['/', '/imprint', '/privacy'];
 // CookieYes draws its banner only on the registered domain, and a banner over the page would hide
 // what sections 2-4 look at, so they get an empty stand-in. Section 5 uses the real banner.
 const noBanner = (target) => target.route('https://cdn-cookieyes.com/**', (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
+// The real banner reports every load to CookieYes as a pageview (5,000 a month on our plan) and
+// every choice as a consent record. Answered here, so checks use neither.
+const noCookieYesLog = (target) => target.route('https://log.cookieyes.com/**', (r) => r.fulfill({ status: 204 }));
 const SITE = 'https://appliedpsychometrics.org';
 const TRACKERS = /googletagmanager\.com|google-analytics\.com|analytics\.google\.com|www\.google\.[a-z.]+\/g\/|posthog\.com/;
 const SENDS = /\/g\/collect|posthog\.com\/(i\/v0\/e|e|batch|s)\//;
@@ -228,6 +231,7 @@ for (const name of browsers) {
       if (navigator.userAgentData) Object.defineProperty(navigator, 'userAgentData', { get: () => ({ brands: [{ brand: 'Google Chrome', version: '149' }], mobile: false, platform: 'macOS' }) });
     });
     if (base !== SITE) await ctx.route(`${SITE}/**`, async (route) => route.fulfill({ response: await route.fetch({ url: route.request().url().replace(SITE, base) }) }));
+    await noCookieYesLog(ctx);
     const tracked = [];
     await ctx.route(TRACKERS, (route) => {
       tracked.push(route.request().url());

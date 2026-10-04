@@ -83,8 +83,12 @@ stores only the `cookieyes-consent` cookie. Microsoft Clarity is planned but not
   Vercel's trailing-slash redirect would bounce every capture request, which ends in a slash.
 - Their hosts are in the Content-Security-Policy in `vercel.json`. That includes `www.google.com`,
   which GA4 calls even with Google signals and ad storage off.
-- The banner's colours and type are overridden at the end of `site.css`. Its wording is edited
-  in the CookieYes dashboard.
+- The banner's colours and type are overridden at the end of `site.css`. Its wording and the
+  cookie list behind the "Customise" switches (`_ga`, `_ga_9WSTCKKBYQ` and PostHog's `ph_…`
+  cookie under Analytics, `cookieyes-consent` under Necessary, added by hand because the scanner
+  never consents) are edited in the CookieYes dashboard. A category without cookies shows no switch.
+- The CookieYes site is on the Free plan: 5,000 banner loads a month. Each load is reported to
+  `log.cookieyes.com/api/v1/log`, and each choice to `/api/v1/consent` (its consent log).
 - The privacy page describes all of this, including the cookie names, so keep it in step.
 
 ## Checking
@@ -112,7 +116,8 @@ The consent checks use the real banner on the real domain; a local run serves `p
 nothing loads before a choice, and that GA4 and PostHog send after "Accept all" and on the next
 page. They also check that withdrawing consent stops both, and that nothing loads after "Reject
 all". Data requests are aborted, so a check never records a visit. PostHog ignores automated
-browsers, so the check tells the page it is not one.
+browsers, so the check tells the page it is not one. Both scripts answer `log.cookieyes.com`
+themselves, so a run uses none of the monthly banner loads and adds nothing to the consent log.
 
 `node devices.mjs [url]` loads all four pages on every phone, tablet and foldable profile
 Playwright has, in portrait and landscape, plus ten desktop sizes and a 280px folded phone

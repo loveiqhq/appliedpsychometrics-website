@@ -74,6 +74,9 @@ async function worker() {
     const { name, defaultBrowserType, ...options } = d;
     const ctx = await browser.newContext(options);
     if (local) await ctx.route(`${SITE}/**`, async (route) => route.fulfill({ response: await route.fetch({ url: route.request().url().replace(SITE, local) }) }));
+    // CookieYes counts each banner load as a pageview (5,000 a month on our plan) and keeps each
+    // choice as a consent record; answered here so the sweep uses neither.
+    await ctx.route('https://log.cookieyes.com/**', (r) => r.fulfill({ status: 204 }));
     const page = await ctx.newPage();
     const errors = [];
     page.on('console', (m) => m.type() === 'error' && errors.push(m.text().slice(0, 140)));
