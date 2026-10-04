@@ -1597,6 +1597,17 @@ a:hover {
 .cky-consent-bar {
   box-shadow: 0 -10px 34px rgba(20, 19, 26, 0.08) !important;
 }
+/* On wide screens the banner's text sat at the far left and its buttons at the far right,
+   3,400px apart on an ultrawide monitor. From tablet width up it lines up with the page's own
+   column: the page's side padding (--pad-x) minus CookieYes's 24px and its 1px border. Phones
+   keep CookieYes's full-width sheet. */
+@media (min-width: 768px) {
+  .cky-consent-bar {
+    box-sizing: border-box !important;
+    padding-left: max(0px, calc(var(--pad-x) - 25px)) !important;
+    padding-right: max(0px, calc(var(--pad-x) - 25px)) !important;
+  }
+}
 .cky-title,
 .cky-preference-title {
   font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif !important;
