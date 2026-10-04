@@ -68,24 +68,29 @@ and run the check below.
 
 ## Analytics and consent
 
-Google Analytics 4 (`G-9WSTCKKBYQ`, a property in LoveIQ's GA account) and PostHog (its own
-project in LoveIQ's EU organisation) run only after a visitor accepts analytics cookies in the
-CookieYes banner (a site in LoveIQ's CookieYes account). Before that the site loads neither and
-stores only the `cookieyes-consent` cookie. Microsoft Clarity is planned but not added yet.
+Google Analytics 4 (`G-9WSTCKKBYQ`, a property in LoveIQ's GA account), PostHog (its own
+project in LoveIQ's EU organisation) and Microsoft Clarity (project `ysm6zkc9yr` in LoveIQ's
+Clarity account) run only after a visitor accepts analytics cookies in the CookieYes banner (a
+site in LoveIQ's CookieYes account). Before that the site loads none of them and stores only the
+`cookieyes-consent` cookie.
 
 - `public/analytics.js` loads on every page and waits for CookieYes's `cookieyes_banner_load` and
   `cookieyes_consent_update` events. It starts both tools once `getCkyConsent()` reports analytics
-  as accepted, and reloads the page if that consent is withdrawn. CookieYes's own script blocking
+  as accepted, and reloads the page if that consent is withdrawn. Clarity is told the choice with
+  `consentv2` (analytics granted, ads denied); without that signal it treats visitors from the
+  EU, UK and Switzerland as not consenting and keeps no cookie, so every page is a visit of its
+  own. The Clarity project's Settings → Setup → Cookies switch is OFF, so the signal also governs
+  visitors from everywhere else. CookieYes's own script blocking
   (`type="text/plain"` with `data-cookieyes`) is not used: it only handles tags added after
   CookieYes has loaded, so on a static page consent given on an earlier visit never switched them
   on.
 - PostHog talks to `eu.i.posthog.com` directly. LoveIQ sends it through its own domain, but here
   Vercel's trailing-slash redirect would bounce every capture request, which ends in a slash.
-- Their hosts are in the Content-Security-Policy in `vercel.json`. That includes `www.google.com`,
+- Their hosts are in the Content-Security-Policy in `vercel.json` (Clarity: `*.clarity.ms`). That includes `www.google.com`,
   which GA4 calls even with Google signals and ad storage off.
 - The banner's colours and type are overridden at the end of `site.css`. Its wording and the
-  cookie list behind the "Customise" switches (`_ga`, `_ga_9WSTCKKBYQ` and PostHog's `ph_…`
-  cookie under Analytics, `cookieyes-consent` under Necessary, added by hand because the scanner
+  cookie list behind the "Customise" switches (`_ga`, `_ga_9WSTCKKBYQ`, PostHog's `ph_…` cookie
+  and Clarity's `_clck` and `_clsk` under Analytics, `cookieyes-consent` under Necessary, added by hand because the scanner
   never consents) are edited in the CookieYes dashboard. A category without cookies shows no switch.
 - The CookieYes site is on the Free plan: 5,000 banner loads a month. Each load is reported to
   `log.cookieyes.com/api/v1/log`, and each choice to `/api/v1/consent` (its consent log).

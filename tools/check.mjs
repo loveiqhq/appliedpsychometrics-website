@@ -11,8 +11,9 @@
 // 3. motion: one-shot animations wait until scrolled into view, reduced motion shows every final
 //    state, the page still animates without JavaScript, hover states apply
 // 4. accessibility: axe-core, WCAG 2.2 AA plus best practices
-// 5. consent: the real cookie banner shows and passes axe, nothing loads before a choice, GA4 and
-//    PostHog send after "Accept all" and on the next page, and nothing loads after "Reject all"
+// 5. consent: the real cookie banner shows and passes axe, nothing loads before a choice, GA4,
+//    PostHog and Clarity send after "Accept all" and on the next page, Clarity sets no advertising
+//    cookies, withdrawing removes its cookies, and nothing loads after "Reject all"
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -45,8 +46,20 @@ const noBanner = (target) => target.route('https://cdn-cookieyes.com/**', (r) =>
 // every choice as a consent record. Answered here, so checks use neither.
 const noCookieYesLog = (target) => target.route('https://log.cookieyes.com/**', (r) => r.fulfill({ status: 204 }));
 const SITE = 'https://appliedpsychometrics.org';
-const TRACKERS = /googletagmanager\.com|google-analytics\.com|analytics\.google\.com|www\.google\.[a-z.]+\/g\/|posthog\.com/;
+const TRACKERS = /googletagmanager\.com|google-analytics\.com|analytics\.google\.com|www\.google\.[a-z.]+\/g\/|posthog\.com|clarity\.ms|c\.bing\.com/;
 const SENDS = /\/g\/collect|posthog\.com\/(i\/v0\/e|e|batch|s)\//;
+// Clarity's uploads are answered instead: aborted, its beacons log errors in WebKit and Firefox.
+const CLARITY_SENDS = /clarity\.ms\/collect/;
+const clarityOk = (route) =>
+  route.fulfill({
+    status: 204,
+    headers: {
+      'access-control-allow-origin': SITE,
+      'access-control-allow-credentials': 'true',
+      'access-control-allow-methods': 'POST, OPTIONS',
+      'access-control-allow-headers': route.request().headers()['access-control-request-headers'] ?? 'content-type',
+    },
+  });
 const CHROME_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36';
 const WIDTHS = [320, 360, 375, 390, 412, 430, 600, 768, 820, 834, 900, 1024, 1100, 1180, 1280, 1366, 1440, 1536, 1920, 2560];
 
@@ -225,8 +238,8 @@ for (const name of browsers) {
   }
 
   // ---------- 5. consent ----------
-  // The real CookieYes banner, on the real domain: a local check serves ../public under it. GA4
-  // and PostHog data requests are aborted, so a check never records a visit. PostHog ignores
+  // The real CookieYes banner, on the real domain: a local check serves ../public under it. GA4 and
+  // PostHog data requests are aborted and Clarity's answered here, so a check never records a visit. PostHog ignores
   // automated browsers, so the page is told it is not one.
   for (const [choice, width] of [['accept', 1440], ['reject', 390]]) {
     const ctx = await browser.newContext({ viewport: { width, height: 900 }, ...(name === 'chromium' && { userAgent: CHROME_UA }) });
@@ -239,6 +252,7 @@ for (const name of browsers) {
     const tracked = [];
     await ctx.route(TRACKERS, (route) => {
       tracked.push(route.request().url());
+      if (CLARITY_SENDS.test(route.request().url())) return clarityOk(route);
       return SENDS.test(route.request().url()) ? route.abort() : route.fallback();
     });
     const page = await ctx.newPage();
@@ -265,8 +279,11 @@ for (const name of browsers) {
     check(!tracked.length && cookies.every((c) => c === 'cookieyes-consent'), `${name} consent: nothing loads before a choice (${tracked.length} requests; cookies: ${cookies.join(', ') || 'none'})`);
     await button.click();
     if (choice === 'accept') {
-      const both = () => tracked.some((u) => /google-analytics\.com\/g\/collect/.test(u)) && tracked.some((u) => /posthog\.com\/(i\/v0\/e|e|batch)\//.test(u));
-      check(await until(both), `${name} consent: GA4 and PostHog send after "Accept all"`);
+      const all = () =>
+        tracked.some((u) => /google-analytics\.com\/g\/collect/.test(u)) &&
+        tracked.some((u) => /posthog\.com\/(i\/v0\/e|e|batch)\//.test(u)) &&
+        tracked.some((u) => /clarity\.ms\/collect/.test(u));
+      check(await until(all), `${name} consent: GA4, PostHog and Clarity send after "Accept all"`);
       // Judged by the new page's own state: the old page's last beacon, sent as it unloads, would
       // otherwise pass this on its own.
       const running = () => page.evaluate(() => !!(window.posthog && window.posthog.__loaded) && typeof window.gtag === 'function').catch(() => false);
@@ -274,6 +291,13 @@ for (const name of browsers) {
       let held = false;
       for (let t = 0; t < 48 && !held; t++) held = (await running()) || (await page.waitForTimeout(250), false);
       check(held, `${name} consent: the choice holds on the next page`);
+      const clarityCookies = async () => (await ctx.cookies()).map((c) => c.name).filter((c) => /^_cl(ck|sk)$/.test(c));
+      // _clsk is written only once an upload has succeeded, and the checks abort uploads.
+      check((await clarityCookies()).includes('_clck'), `${name} consent: Clarity keeps its identifier cookie (${(await clarityCookies()).join(', ') || 'none'})`);
+      // Told ads are allowed, Clarity syncs Microsoft's advertising ID (MUID) through an image from
+      // c.clarity.ms, which sets cookies on clarity.ms and bing.com. The CSP blocks it; this checks it.
+      const microsoft = (await ctx.cookies()).filter((c) => /clarity\.ms|bing\.com/.test(c.domain)).map((c) => c.name);
+      check(!microsoft.length, `${name} consent: Clarity sets no advertising cookies (${microsoft.join(', ') || 'none'})`);
       // Withdrawing: the round button CookieYes leaves on the page reopens the choice, and
       // "Reject all" there reloads the page without analytics.
       await page.locator('.cky-btn-revisit').click();
@@ -281,7 +305,8 @@ for (const name of browsers) {
       await page.locator('.cky-modal .cky-btn-reject').click();
       await reloaded;
       await page.waitForTimeout(3000);
-      check(!(await running()) && !(await page.evaluate(() => 'posthog' in window || 'gtag' in window)), `${name} consent: withdrawing it stops analytics`);
+      check(!(await running()) && !(await page.evaluate(() => 'posthog' in window || 'gtag' in window || 'clarity' in window)), `${name} consent: withdrawing it stops analytics`);
+      check(!(await clarityCookies()).length, `${name} consent: withdrawing it removes Clarity's cookies (${(await clarityCookies()).join(', ') || 'none'})`);
     } else {
       await page.waitForTimeout(4000);
       await page.reload({ waitUntil: 'load' });

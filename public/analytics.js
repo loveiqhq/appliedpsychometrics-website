@@ -1,5 +1,5 @@
-// Google Analytics 4 and PostHog, started only once the visitor has accepted analytics cookies
-// in the CookieYes banner, just now or on an earlier visit. CookieYes reports the choice through
+// Google Analytics 4, PostHog and Microsoft Clarity, started only once the visitor has accepted
+// analytics cookies in the CookieYes banner, just now or on an earlier visit. CookieYes reports the choice through
 // its documented events; its own script blocking only handles tags added after it has loaded,
 // which never includes a static page's tags. Withdrawing consent reloads the page without them.
 (function (w, d) {
@@ -30,6 +30,20 @@
         cross_subdomain_cookie: false,
       });
     });
+    // Microsoft Clarity, for recordings and heatmaps. Without a consent signal it keeps no cookie, so
+    // every page is a visit of its own; the site has no ads, so advertising stays denied and Clarity
+    // shares nothing with Microsoft Ads. Set up a moment later on purpose: right after the event this
+    // runs in, CookieYes passes its own choice to any Clarity already on the page, and "Accept all"
+    // includes its unused Advertisement category, which would tell Clarity ads are allowed.
+    setTimeout(function () {
+      w.clarity =
+        w.clarity ||
+        function () {
+          (w.clarity.q = w.clarity.q || []).push(arguments);
+        };
+      w.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+      load('https://www.clarity.ms/tag/ysm6zkc9yr');
+    }, 0);
   }
 
   function load(src, onload) {
