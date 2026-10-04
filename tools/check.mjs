@@ -257,7 +257,12 @@ for (const name of browsers) {
     });
     const page = await ctx.newPage();
     const errors = [];
-    page.on('console', (m) => m.type() === 'error' && !/net::ERR_FAILED/.test(m.text()) && errors.push(m.text()));
+    // A request the check cut short is not a site error. Chromium says "net::ERR_FAILED"; WebKit on
+    // Linux (CI only) says "... due to access control checks" and hits the 64Kb keepalive cap with
+    // Clarity's unload beacons. A real cross-origin refusal still fails: WebKit logs it first as
+    // "not allowed by Access-Control-Allow-Origin".
+    const cutShort = /net::ERR_FAILED|due to access control checks|queued data of 64Kb for keepalive/;
+    page.on('console', (m) => m.type() === 'error' && !cutShort.test(m.text()) && errors.push(m.text()));
     page.on('pageerror', (e) => errors.push(e.message));
     const until = async (test) => {
       for (let t = 0; t < 48 && !test(); t++) await page.waitForTimeout(250);
