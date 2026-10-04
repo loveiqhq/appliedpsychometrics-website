@@ -139,11 +139,15 @@ for (const name of browsers) {
     check(s.js && s.hero === 'running', `${name} motion: hero animates on load`);
     check(s.bar === 'paused' && s.barWidth < 1 && s.cell === 'paused', `${name} motion: lower sections wait until they are scrolled to`);
     await page.locator('.cards').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(3000);
-    const grown = await page.evaluate(() => {
-      const bar = document.querySelector('.cards .bar');
-      return bar.getBoundingClientRect().width / bar.parentElement.getBoundingClientRect().width;
-    });
+    // Polled, not one look after a fixed wait: on a busy CI machine WebKit was still at 44.9% after 3s.
+    let grown = 0;
+    for (let t = 0; t < 40 && Math.abs(grown - 0.46) >= 0.01; t++) {
+      await page.waitForTimeout(250);
+      grown = await page.evaluate(() => {
+        const bar = document.querySelector('.cards .bar');
+        return bar.getBoundingClientRect().width / bar.parentElement.getBoundingClientRect().width;
+      });
+    }
     check(Math.abs(grown - 0.46) < 0.01, `${name} motion: score bar grows to its value once visible (${(grown * 100).toFixed(1)}%)`);
     await page.locator('.graph-h').scrollIntoViewIfNeeded();
     let band = 0;

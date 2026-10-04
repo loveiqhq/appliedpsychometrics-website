@@ -62,6 +62,14 @@ const inspect = (rootSel) => {
   return [...new Set(out)];
 };
 
+// The banner and the preferences window slide in with CSS transitions (~1.2s). On a busy CI
+// machine that took longer than a fixed wait, and a few random profiles failed with every button
+// "off screen". So wait until no CookieYes transition is still running.
+const settle = async (page) => {
+  await page.waitForTimeout(300);
+  await page.waitForFunction(() => !document.getAnimations().some((a) => a.playState === 'running' && a.effect?.target?.closest?.('.cky-consent-container, .cky-modal')), null, { timeout: 15000 });
+};
+
 const browsers = {};
 const failures = [];
 let checked = 0;
@@ -85,12 +93,12 @@ async function worker() {
     try {
       await page.goto(SITE + '/', { waitUntil: 'load' });
       await page.locator('.cky-btn-accept').first().waitFor({ state: 'visible', timeout: 20000 });
-      await page.waitForTimeout(1500); // the banner slides in
+      await settle(page);
       problems.push(...(await page.evaluate(inspect, '.cky-consent-container')).map((p) => `banner: ${p}`));
       if (OUT && SHOTS.has(name)) await page.screenshot({ path: `${OUT}/b-${name.replace(/\W+/g, '_')}.png` });
       await page.locator('.cky-btn-customize').first().click();
       await page.locator('.cky-modal.cky-modal-open').waitFor({ state: 'visible', timeout: 10000 });
-      await page.waitForTimeout(2000); // the window slides in for ~1.2s
+      await settle(page);
       problems.push(...(await page.evaluate(inspect, '.cky-modal.cky-modal-open .cky-preference-center')).map((p) => `preferences: ${p}`));
       if (OUT && SHOTS.has(name)) await page.screenshot({ path: `${OUT}/p-${name.replace(/\W+/g, '_')}.png` });
       if (d.viewport.width <= 375) {
